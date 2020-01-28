@@ -35,8 +35,8 @@ public class Spk {
 //         }
 //            Register regis = new Register();
 //            regis.setVisible(true);
-//        MetodeAhp metod = new MetodeAhp();
-//        metod.proses();
+        MetodeAhp metod = new MetodeAhp();
+        metod.proses(1);
 //            MetodeMoora moora = new MetodeMoora();
 //            moora.proses();
 //           Varietas vari = new Varietas();

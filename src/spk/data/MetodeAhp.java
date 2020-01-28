@@ -5,6 +5,10 @@
  */
 package spk.data;
 import java.math.RoundingMode;
+import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
 import java.text.DecimalFormat;
 import java.util.ArrayList; 
 import java.util.*;
@@ -15,24 +19,27 @@ import java.util.*;
 public class MetodeAhp {
     
     DecimalFormat df = new DecimalFormat("#.####");
-    
-    public void proses(){
+    public void proses(int idUser){
         //dummy array bobot
         double[] bobots = {5,1,4,2,2,2,2,3,2,5,8,6,4,7,2,2,2,5,2,2,4,2,1,2,7,2,9,2};
         
         int jumlahKriteria = 8;
-        String[] kriteria = {"Rerata Jumlah Tandan","Rerata Berat Tandan","Potensi TBS","Rendemen","Potensi CPO","Tinggi","Panjang Pelepah","Kerapatan Tanam"};
+        Kriteria kriteria = new Kriteria();
+        ArrayList<Kriteria> kriteriaAll = kriteria.allKriteria();
+        kriteria.checkPerbandinganKriteriaUser(idUser);
         double[][] matriksKriteria = new double[8][8];
         int urut = 0;
         //buat matrik kriteria erpasangan dulu
-        for(int x=0;x<= (jumlahKriteria-2);x++){
-            for(int y=x+1;y<= (jumlahKriteria -1);y++){
+        for(int x=0;x<= (kriteriaAll.size()-2);x++){
+            for(int y=x+1;y<= (kriteriaAll.size() -1);y++){
                 double bobot = bobots[urut];
                 matriksKriteria[x][y] = bobot;
                 matriksKriteria[y][x] = 1/bobot;
                 urut++;
                 
                 //TODO : simpan ke db
+                kriteria.tambahPerbandinganAntarKriteria(kriteriaAll.get(x).getId(), kriteriaAll.get(y).getId(), matriksKriteria[x][y], idUser);
+                
             }
         }
         
@@ -56,6 +63,7 @@ public class MetodeAhp {
         //buat dulu variabel untuk matriks normalisasi
         double[][] matriksTernormalisasi = new double[8][8];
         double[] priorityVector = new double[8];
+        kriteria.checkpvectorKriteriaUser(idUser);
         for(int x=0;x<= (jumlahKriteria-1);x++){
             for(int y=0;y<= (jumlahKriteria -1);y++){
                 matriksTernormalisasi[x][y] = matriksKriteria[x][y]/jmlpk[y];
@@ -65,6 +73,7 @@ public class MetodeAhp {
             priorityVector[x] = jmlpb[x]/jumlahKriteria;
             
             //TODO : simpan ke db
+            kriteria.tambahpvectorKriteria(kriteriaAll.get(x).getId(), idUser, priorityVector[x]);
         }
         
         //hitung principal eigen value
