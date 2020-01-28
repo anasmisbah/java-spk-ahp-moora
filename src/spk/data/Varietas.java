@@ -263,4 +263,62 @@ public class Varietas {
         return varietasBaru;  
     
     }
+    
+    public double[][] getMatriksAlternatif(){
+        
+        ArrayList<Varietas> varietas = allVarietas();
+        ArrayList<Kriteria> kriteriaAll = new Kriteria().allKriteria();
+        double[][] matriksAlternatif = new double[varietas.size()][kriteriaAll.size()];
+        
+        for (int i = 0; i < varietas.size(); i++) {
+            matriksAlternatif[i] = new double[]{varietas.get(i).getRerataJumlahTandan(),varietas.get(i).getRerataBeratTandan(),varietas.get(i).getPotensiTBS(),varietas.get(i).getRendemen(),
+                                                varietas.get(i).getPotensiCPO(),varietas.get(i).getTinggi(),varietas.get(i).getPanjangPelepah(),varietas.get(i).getKerapatanTanam()};
+        }
+        return matriksAlternatif;
+    }
+    
+    public boolean checkPreferensiAlternatifUser(int penggunaId){
+        try{
+            stt = con.createStatement();
+            String sql="Select * from preferensialternatif WHERE pengguna_id=" + penggunaId + ";";
+            rss=stt.executeQuery(sql);
+            if(rss.next()){
+                stt = con.createStatement();
+                String sqlDelete="DELETE FROM preferensialternatif WHERE preferensialternatif.pengguna_id=" + penggunaId + ";";
+                stt.executeUpdate(sqlDelete);
+            }
+            return true;
+        }catch(SQLException e){
+            System.out.println(e.getMessage());
+        }
+        return false;
+    }
+    
+    public boolean tambahPreferensiAlternatifUser(int penggunaId,double hasilOptimasi,int varietasId){
+        try {
+            String sql = "INSERT INTO preferensialternatif VALUES (NULL," + penggunaId + "," + varietasId + "," + hasilOptimasi + ");";
+            stt = con.createStatement();
+            stt.executeUpdate(sql);
+            return true; 
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+            return false;
+        }
+    }
+    
+    public ArrayList<Double> getPreferensiAlternatifUser(int penggunaId){
+        ArrayList<Double> nilai =  new ArrayList<>();
+        try{
+            stt = con.createStatement();
+            String sql="Select * from preferensialternatif JOIN varietas ON varietas.id=preferensialternatif.varietas_id WHERE preferensialternatif.pengguna_id="+penggunaId+" order by preferensi desc;";
+            rss=stt.executeQuery(sql);
+            int i=0;
+            while(rss.next()){
+                nilai.add(rss.getDouble("preferensi"));
+            }
+        }catch(SQLException e){
+            System.out.println(e.getMessage());
+        }
+        return nilai;
+    }
 }

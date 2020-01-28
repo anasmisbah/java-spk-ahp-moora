@@ -156,4 +156,36 @@ public class Kriteria {
         return false;
     }
     
+    public ArrayList<Double> getPerbandinganKriteriaUser(int penggunaId){
+        ArrayList<Double> bobot = new ArrayList<>();
+        try{
+            stt = con.createStatement();
+            String sql="Select * from perbandingankriteria WHERE pengguna_id=" + penggunaId + ";";
+            rss=stt.executeQuery(sql);
+            while(rss.next()){
+                bobot.add(rss.getDouble("nilai"));
+            }
+        }catch(SQLException e){
+            System.out.println(e.getMessage());
+        }
+        
+        return bobot;
+    }
+    
+    public ArrayList<Double> getpvectorKriteriaUser(int penggunaId){
+        ArrayList<Double> nilai = new ArrayList<>();
+        try{
+            stt = con.createStatement();
+            String sql="Select * from pvector_kriteria WHERE pengguna_id=" + penggunaId + ";";
+            rss=stt.executeQuery(sql);
+            while(rss.next()){
+                nilai.add(rss.getDouble("nilai"));
+            }
+        }catch(SQLException e){
+            System.out.println(e.getMessage());
+        }
+        
+        return nilai;
+    }
+    
 }

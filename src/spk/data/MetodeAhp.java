@@ -5,10 +5,6 @@
  */
 package spk.data;
 import java.math.RoundingMode;
-import java.sql.Connection;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
 import java.text.DecimalFormat;
 import java.util.ArrayList; 
 import java.util.*;
@@ -22,6 +18,7 @@ public class MetodeAhp {
     public void proses(int idUser){
         //dummy array bobot
         double[] bobots = {5,1,4,2,2,2,2,3,2,5,8,6,4,7,2,2,2,5,2,2,4,2,1,2,7,2,9,2};
+        
         
         int jumlahKriteria = 8;
         Kriteria kriteria = new Kriteria();
