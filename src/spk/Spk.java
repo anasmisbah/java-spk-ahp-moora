@@ -6,6 +6,7 @@
 package spk;
 
 import java.sql.Connection;
+import spk.data.Auth;
 import spk.data.Koneksi;
 import spk.data.MetodeAhp;
 import spk.data.MetodeMoora;
@@ -28,6 +29,10 @@ public class Spk {
         // TODO code application logic here
 //        Login login = new Login();
 //        login.setVisible(true);
+//        Pengguna pengguna = Auth.penggunaLogin();
+//         if(pengguna != null){
+//            System.out.println(pengguna.getNama()); 
+//         }
 //            Register regis = new Register();
 //            regis.setVisible(true);
 //        MetodeAhp metod = new MetodeAhp();
@@ -44,7 +49,7 @@ public class Spk {
 //vari.hapusKriteriaVarietas(14);
 //vari.hapus(14);
 
-           Pengguna pengguna = new Pengguna();
+//           Pengguna pengguna = new Pengguna();
 //           boolean hasil = pengguna.tambah("ocan", "123123", "olli chandra", "wahau", "pengguna");
 //           boolean hasil = pengguna.ubah(7,"ocan", "123123", "olli chandra", "wahau", "pengguna");
 //            pengguna.detail(7).getNama()
@@ -53,8 +58,8 @@ public class Spk {
 //            });
 //            boolean hasil = pengguna.hapus(7);
 //            System.out.println(hasil);
-            boolean hasil =pengguna.ubahPassword(2, "123321");
-           System.out.println(hasil);
+//            boolean hasil =pengguna.ubahPassword(2, "123321");
+//           System.out.println(hasil);
             
     }
 }

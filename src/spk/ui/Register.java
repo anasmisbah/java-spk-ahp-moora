@@ -10,6 +10,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import javax.swing.JOptionPane;
+import spk.data.Auth;
 import spk.data.Koneksi;
 import spk.data.Pengguna;
 
@@ -28,42 +29,16 @@ public class Register extends javax.swing.JFrame {
     public Register() {
         initComponents();
         con = Koneksi.getkoneksi();
-        if(register("pengguna","pengguna","123123","samarinda")){
-            getPenggunaRegistered();
+        if(Auth.register("baru","baru","123123","samarinda")){
+            Pengguna pengguna = Auth.getPenggunaRegistered();
+            System.out.println(pengguna.getNama());
         }else{
             JOptionPane.showMessageDialog(rootPane,"Register Gagal username telah digunakan","Perhatian",JOptionPane.WARNING_MESSAGE);
         }
     }
     
     
-    private Boolean register(String username,String nama,String password,String asalDaerah){
-        try {
-            String sql = "INSERT INTO pengguna VALUES (NULL,'" + nama + "','" + username + "','" + password +"','" + asalDaerah + "','pengguna',1);";
-            stt = con.createStatement();
-            stt.executeUpdate(sql);
-            return true; 
-        } catch (SQLException e) {
-            System.out.println(e.getMessage());
-            return false;
-        }
-    }
     
-    private Pengguna getPenggunaRegistered(){
-        Pengguna penggunaRegistered = null;
-        try{
-            String selectPenggunaRegistered = "select * from pengguna order by id desc limit 1";
-            stt = con.createStatement();
-            rss=stt.executeQuery(selectPenggunaRegistered);
-            if(rss.next()){
-                this.dispose();
-                penggunaRegistered = new Pengguna(rss.getInt("id"),rss.getString("username"),rss.getString("password"),rss.getString("nama"),rss.getString("asal_daerah"),rss.getString("role"));
-            }
-        }catch(SQLException e){
-            System.out.println(e.getMessage());
-            return null;
-        }
-        return penggunaRegistered;  
-    }
 
     /**
      * This method is called from within the constructor to initialize the form.

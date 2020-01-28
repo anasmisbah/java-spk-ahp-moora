@@ -10,6 +10,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import javax.swing.JOptionPane;
+import spk.data.Auth;
 import spk.data.Koneksi;
 import spk.data.Pengguna;
 
@@ -22,9 +23,7 @@ public class Login extends javax.swing.JFrame {
     /**
      * Creates new form Login
      */
-    private Connection con;
-    private Statement stt;
-    private ResultSet rss;
+    private final Connection con;
     public Login() {
         
         con = Koneksi.getkoneksi();
@@ -37,31 +36,21 @@ public class Login extends javax.swing.JFrame {
            login("admin","123123");
     }
     
-    private Pengguna login(String username,String password){
-        Pengguna penggunaLogin = null;
-        try{
-            stt = con.createStatement();
-            String sql="Select * from pengguna where username = '" + username+"' and password = '" + password+"'";
-            rss=stt.executeQuery(sql);
-            if(rss.next()){
-                this.dispose();
-                penggunaLogin = new Pengguna(rss.getInt("id"),rss.getString("username"),rss.getString("password"),rss.getString("nama"),rss.getString("asal_daerah"),rss.getString("role"));
-                if(ubahStatusLogin(penggunaLogin.getId())){
+    private void login(String username,String password){
+        Pengguna penggunaLogin =Auth.login(username, password);
+        if(penggunaLogin != null){
+           if(Auth.ubahStatusLogin(penggunaLogin.getId())){
                     Home home = new Home();
                     home.setPenggunaLogin(penggunaLogin);
                     home.setVisible(true);
-                }
-            }
-            else{
-                JOptionPane.showMessageDialog(rootPane,"Login Gagal Periksa Username, Password dan Status Anda","Perhatian",JOptionPane.WARNING_MESSAGE);
-            }
-            rss.close();
-            stt.close();
-            }catch(SQLException e){
-                JOptionPane.showMessageDialog(rootPane,e,"Perhatian",JOptionPane.WARNING_MESSAGE);
-            }
-        return penggunaLogin;
+            } 
+        }
+        else{
+            JOptionPane.showMessageDialog(rootPane,"Login Gagal Periksa Username, Password dan Status Anda","Perhatian",JOptionPane.WARNING_MESSAGE);
+        }
     }
+    
+    
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -169,15 +158,5 @@ public class Login extends javax.swing.JFrame {
     private javax.swing.JLabel title_masuk;
     // End of variables declaration//GEN-END:variables
 
-    private Boolean ubahStatusLogin(int id) {
-        try {
-            String sql = "UPDATE pengguna SET status_login=1 WHERE id=" + id + ";";
-            stt = con.createStatement();
-            stt.executeUpdate(sql);
-            return true; 
-        } catch (SQLException e) {
-            System.out.println(e.getMessage());
-            return false;
-        }
-    }
+    
 }
