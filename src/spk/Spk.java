@@ -9,6 +9,7 @@ import java.sql.Connection;
 import spk.data.Koneksi;
 import spk.data.MetodeAhp;
 import spk.data.MetodeMoora;
+import spk.data.Pengguna;
 import spk.data.Varietas;
 import spk.ui.Home;
 import spk.ui.Login;
@@ -33,7 +34,7 @@ public class Spk {
 //        metod.proses();
 //            MetodeMoora moora = new MetodeMoora();
 //            moora.proses();
-           Varietas vari = new Varietas();
+//           Varietas vari = new Varietas();
 //           vari.ubah(14,"ubah", 1);
 //            vari.ubahNilaiKriteriaVarietas(14,new float[]{1,2,3,4,5,6,7,8});
 //            System.out.println(vari.detail(14));
@@ -42,6 +43,18 @@ public class Spk {
 //            });
 //vari.hapusKriteriaVarietas(14);
 //vari.hapus(14);
+
+           Pengguna pengguna = new Pengguna();
+//           boolean hasil = pengguna.tambah("ocan", "123123", "olli chandra", "wahau", "pengguna");
+//           boolean hasil = pengguna.ubah(7,"ocan", "123123", "olli chandra", "wahau", "pengguna");
+//            pengguna.detail(7).getNama()
+//            pengguna.allPengguna().forEach(penggunai->{
+//                System.out.println(penggunai.getNama());
+//            });
+//            boolean hasil = pengguna.hapus(7);
+//            System.out.println(hasil);
+            boolean hasil =pengguna.ubahPassword(2, "123321");
+           System.out.println(hasil);
             
     }
 }
