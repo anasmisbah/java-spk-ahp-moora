@@ -9,6 +9,7 @@ import java.sql.Connection;
 import spk.data.Koneksi;
 import spk.data.MetodeAhp;
 import spk.data.MetodeMoora;
+import spk.data.Varietas;
 import spk.ui.Home;
 import spk.ui.Login;
 import spk.ui.Register;
@@ -30,7 +31,17 @@ public class Spk {
 //            regis.setVisible(true);
 //        MetodeAhp metod = new MetodeAhp();
 //        metod.proses();
-            MetodeMoora moora = new MetodeMoora();
-            moora.proses();
+//            MetodeMoora moora = new MetodeMoora();
+//            moora.proses();
+           Varietas vari = new Varietas();
+//           vari.ubah(14,"ubah", 1);
+//            vari.ubahNilaiKriteriaVarietas(14,new float[]{1,2,3,4,5,6,7,8});
+//            System.out.println(vari.detail(14));
+//            vari.allVarietas().forEach(varietas->{
+//                System.out.println(varietas.getNama()+"|"+varietas.getRerataJumlahTandan());
+//            });
+//vari.hapusKriteriaVarietas(14);
+//vari.hapus(14);
+            
     }
 }
