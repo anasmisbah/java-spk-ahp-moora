@@ -9,6 +9,7 @@ import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import spk.data.Auth;
 import spk.data.Koneksi;
@@ -27,19 +28,19 @@ public class Login extends javax.swing.JFrame {
     public Login() {
         
         con = Koneksi.getkoneksi();
-//        if (con != null) {
-//            initComponents();
-//        }else{
-//            System.exit(0);
-//        }
-//        initComponents();
-           login("admin","123123");
+        if (con != null) {
+            initComponents();
+        }else{
+            System.exit(0);
+        }
+//           
     }
     
     private void login(String username,String password){
         Pengguna penggunaLogin =Auth.login(username, password);
         if(penggunaLogin != null){
            if(Auth.ubahStatusLogin(penggunaLogin.getId())){
+                this.dispose();
                     Home home = new Home();
                     home.setPenggunaLogin(penggunaLogin);
                     home.setVisible(true);
@@ -62,56 +63,150 @@ public class Login extends javax.swing.JFrame {
     private void initComponents() {
 
         jPanel1 = new javax.swing.JPanel();
-        title_daftar = new javax.swing.JLabel();
-        title_masuk = new javax.swing.JLabel();
+        jPanel3 = new javax.swing.JPanel();
+        jLabel4 = new javax.swing.JLabel();
+        jLabel5 = new javax.swing.JLabel();
+        jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
-        bg_daftar = new javax.swing.JLabel();
-        bg_masuk = new javax.swing.JLabel();
-        pohon_sawit = new javax.swing.JLabel();
+        jSeparator1 = new javax.swing.JSeparator();
+        jSeparator2 = new javax.swing.JSeparator();
+        btn_masuk = new keeptoo.KButton();
+        jLabel6 = new javax.swing.JLabel();
+        btn_daftar = new javax.swing.JLabel();
+        jSeparator3 = new javax.swing.JSeparator();
+        et_username = new javax.swing.JTextField();
+        et_password = new javax.swing.JPasswordField();
+        laber_error_username = new javax.swing.JLabel();
+        label_error_password = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setUndecorated(true);
+        setResizable(false);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
+        jPanel1.setBackground(new java.awt.Color(36, 47, 65));
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        title_daftar.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        title_daftar.setForeground(new java.awt.Color(71, 120, 197));
-        title_daftar.setText("Daftar");
-        jPanel1.add(title_daftar, new org.netbeans.lib.awtextra.AbsoluteConstraints(720, 37, -1, -1));
+        jPanel3.setBackground(new java.awt.Color(97, 212, 195));
+        jPanel3.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        title_masuk.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        title_masuk.setForeground(new java.awt.Color(255, 255, 255));
-        title_masuk.setText("Masuk");
-        jPanel1.add(title_masuk, new org.netbeans.lib.awtextra.AbsoluteConstraints(640, 37, -1, -1));
+        jLabel4.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
+        jLabel4.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel4.setText("Sistem Pendukung Keputusan");
+        jPanel3.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 90, -1, -1));
 
-        jLabel2.setFont(new java.awt.Font("Segoe UI", 0, 12)); // NOI18N
+        jLabel5.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
+        jLabel5.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel5.setText("Bibit Kelapa Sawit");
+        jPanel3.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 140, -1, -1));
+
+        jPanel1.add(jPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, -5, 500, 660));
+
+        jLabel1.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        jLabel1.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel1.setText("Password");
+        jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(590, 300, -1, -1));
+
+        jLabel2.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         jLabel2.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel2.setText("Username");
-        jPanel1.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(420, 180, -1, -1));
+        jLabel2.setText("Masuk");
+        jPanel1.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(590, 130, -1, -1));
 
-        jLabel3.setFont(new java.awt.Font("Segoe UI", 0, 12)); // NOI18N
+        jLabel3.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         jLabel3.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel3.setText("Password");
-        jPanel1.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(420, 240, -1, -1));
+        jLabel3.setText("Username");
+        jPanel1.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(590, 210, -1, -1));
+        jPanel1.add(jSeparator1, new org.netbeans.lib.awtextra.AbsoluteConstraints(740, 620, 54, 10));
+        jPanel1.add(jSeparator2, new org.netbeans.lib.awtextra.AbsoluteConstraints(590, 270, 350, 10));
 
-        bg_daftar.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        bg_daftar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/bg_btn_daftar.png"))); // NOI18N
-        jPanel1.add(bg_daftar, new org.netbeans.lib.awtextra.AbsoluteConstraints(670, 21, 120, 50));
+        btn_masuk.setBorder(null);
+        btn_masuk.setText("Masuk");
+        btn_masuk.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        btn_masuk.setkHoverEndColor(new java.awt.Color(102, 0, 255));
+        btn_masuk.setkHoverForeGround(new java.awt.Color(255, 255, 255));
+        btn_masuk.setkHoverStartColor(new java.awt.Color(153, 153, 255));
+        btn_masuk.setkPressedColor(new java.awt.Color(102, 255, 255));
+        btn_masuk.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                btn_masukMousePressed(evt);
+            }
+        });
+        jPanel1.add(btn_masuk, new org.netbeans.lib.awtextra.AbsoluteConstraints(680, 430, 150, 40));
 
-        bg_masuk.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        bg_masuk.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/bg_btn_masuk.png"))); // NOI18N
-        jPanel1.add(bg_masuk, new org.netbeans.lib.awtextra.AbsoluteConstraints(620, 30, -1, -1));
+        jLabel6.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        jLabel6.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel6.setText("Belum Punya Akun ?");
+        jPanel1.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(710, 570, -1, -1));
 
-        pohon_sawit.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/pohon.png"))); // NOI18N
-        jPanel1.add(pohon_sawit, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 90, 360, 340));
+        btn_daftar.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        btn_daftar.setForeground(new java.awt.Color(255, 255, 255));
+        btn_daftar.setText("DAFTAR");
+        btn_daftar.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                btn_daftarMousePressed(evt);
+            }
+        });
+        jPanel1.add(btn_daftar, new org.netbeans.lib.awtextra.AbsoluteConstraints(740, 600, -1, -1));
+        jPanel1.add(jSeparator3, new org.netbeans.lib.awtextra.AbsoluteConstraints(590, 360, 350, 10));
 
-        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 840, -1));
+        et_username.setBackground(new java.awt.Color(36, 47, 65));
+        et_username.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
+        et_username.setForeground(new java.awt.Color(255, 255, 255));
+        et_username.setBorder(null);
+        et_username.setCaretColor(new java.awt.Color(255, 255, 255));
+        et_username.setSelectionColor(new java.awt.Color(255, 255, 255));
+        jPanel1.add(et_username, new org.netbeans.lib.awtextra.AbsoluteConstraints(590, 239, 350, 30));
+
+        et_password.setBackground(new java.awt.Color(36, 47, 65));
+        et_password.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
+        et_password.setForeground(new java.awt.Color(255, 255, 255));
+        et_password.setBorder(null);
+        et_password.setCaretColor(new java.awt.Color(255, 255, 255));
+        jPanel1.add(et_password, new org.netbeans.lib.awtextra.AbsoluteConstraints(590, 330, 350, 30));
+
+        laber_error_username.setFont(new java.awt.Font("Segoe UI", 0, 10)); // NOI18N
+        laber_error_username.setForeground(new java.awt.Color(255, 102, 102));
+        jPanel1.add(laber_error_username, new org.netbeans.lib.awtextra.AbsoluteConstraints(590, 270, -1, -1));
+
+        label_error_password.setFont(new java.awt.Font("Segoe UI", 0, 10)); // NOI18N
+        label_error_password.setForeground(new java.awt.Color(255, 102, 102));
+        jPanel1.add(label_error_password, new org.netbeans.lib.awtextra.AbsoluteConstraints(590, 360, -1, -1));
+
+        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1000, 650));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void btn_masukMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_masukMousePressed
+        String username = this.et_username.getText();
+        String password = new String(this.et_password.getPassword());
+        removeErrorEmpty(new JLabel[]{this.laber_error_username,this.label_error_password});
+        if(username.equals("")){
+            setErrorEmpty(this.laber_error_username,"username tidak boleh kosong");
+        }else if(password.equals("")){
+            setErrorEmpty(this.label_error_password,"password tidak boleh kosong");
+        }else{
+            login(username,password);
+        }
+    }//GEN-LAST:event_btn_masukMousePressed
+
+    private void btn_daftarMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_daftarMousePressed
+        // TODO add your handling code here:
+        this.dispose();
+        Register regis = new Register();
+        regis.setVisible(true);
+    }//GEN-LAST:event_btn_daftarMousePressed
+
+    private void setErrorEmpty(JLabel label,String pesanError){
+        label.setText(pesanError);
+    }
+    
+    private void removeErrorEmpty(JLabel[] jlabel){
+        for (int i = 0; i < jlabel.length; i++) {
+            jlabel[i].setText("");
+        }
+    }
+    
     /**
      * @param args the command line arguments
      */
@@ -148,14 +243,23 @@ public class Login extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JLabel bg_daftar;
-    private javax.swing.JLabel bg_masuk;
+    private javax.swing.JLabel btn_daftar;
+    private keeptoo.KButton btn_masuk;
+    private javax.swing.JPasswordField et_password;
+    private javax.swing.JTextField et_username;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JLabel pohon_sawit;
-    private javax.swing.JLabel title_daftar;
-    private javax.swing.JLabel title_masuk;
+    private javax.swing.JPanel jPanel3;
+    private javax.swing.JSeparator jSeparator1;
+    private javax.swing.JSeparator jSeparator2;
+    private javax.swing.JSeparator jSeparator3;
+    private javax.swing.JLabel label_error_password;
+    private javax.swing.JLabel laber_error_username;
     // End of variables declaration//GEN-END:variables
 
     

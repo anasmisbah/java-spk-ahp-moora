@@ -37,11 +37,11 @@ public class Spk {
 //            regis.setVisible(true);
 //        MetodeAhp metod = new MetodeAhp();
 //        metod.proses(1);
-            MetodeMoora moora = new MetodeMoora();
-            moora.proses(1);
-            moora.getPreferensiAlternatifUser(1).forEach(item->{
-                System.out.println(item);
-            });
+//            MetodeMoora moora = new MetodeMoora();
+//            moora.proses(1);
+//            moora.getPreferensiAlternatifUser(1).forEach(item->{
+//                System.out.println(item);
+//            });
 //           Varietas vari = new Varietas();
 //           vari.ubah(14,"ubah", 1);
 //            vari.ubahNilaiKriteriaVarietas(14,new float[]{1,2,3,4,5,6,7,8});
