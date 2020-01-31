@@ -26,14 +26,12 @@ public class Login extends javax.swing.JFrame {
      */
     private final Connection con;
     public Login() {
-        
         con = Koneksi.getkoneksi();
         if (con != null) {
             initComponents();
         }else{
             System.exit(0);
-        }
-//           
+        }    
     }
     
     private void login(String username,String password){
@@ -42,7 +40,6 @@ public class Login extends javax.swing.JFrame {
            if(Auth.ubahStatusLogin(penggunaLogin.getId())){
                 this.dispose();
                     Home home = new Home();
-                    home.setPenggunaLogin(penggunaLogin);
                     home.setVisible(true);
             } 
         }

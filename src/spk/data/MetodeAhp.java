@@ -15,9 +15,9 @@ import java.util.*;
 public class MetodeAhp {
     
     DecimalFormat df = new DecimalFormat("#.####");
-    public void proses(int idUser){
+    public void proses(int idUser,double[] bobots){
         //dummy array bobot
-        double[] bobots = {5,1,4,2,2,2,2,3,2,5,8,6,4,7,2,2,2,5,2,2,4,2,1,2,7,2,9,2};
+//        double[] bobots = {5,1,4,2,2,2,2,3,2,5,8,6,4,7,2,2,2,5,2,2,4,2,1,2,7,2,9,2}; contoh bobots isi yg dibawa lewat parameter dari hasil form
         
         
         int jumlahKriteria = 8;
@@ -61,6 +61,8 @@ public class MetodeAhp {
         double[][] matriksTernormalisasi = new double[8][8];
         double[] priorityVector = new double[8];
         kriteria.checkpvectorKriteriaUser(idUser);
+        
+        //menghitung nilai pvector
         for(int x=0;x<= (jumlahKriteria-1);x++){
             for(int y=0;y<= (jumlahKriteria -1);y++){
                 matriksTernormalisasi[x][y] = matriksKriteria[x][y]/jmlpk[y];
@@ -82,6 +84,7 @@ public class MetodeAhp {
         double consistencyIndex = (eigenValue - jumlahKriteria)/(jumlahKriteria - 1);
         double consistencyRatio = consistencyIndex / 1.41; //hitung cr
         
+        System.out.println(Arrays.deepToString(matriksKriteria));
         System.out.println(Arrays.toString(priorityVector));
         System.out.println(eigenValue);
         System.out.println(consistencyIndex);

@@ -205,13 +205,7 @@ public class Varietas {
         return false;
     }
     
-    
-    
-    
-    
-    
-    
-    
+ 
     
     public Boolean insertNilaiKriteriaVarietas(float[] nilai){
 //        INSERT INTO `kriteria_varietas`(`id`, `varietas_id`, `kriteria_id`, `nilai`) VALUES (null,1,1,8)
