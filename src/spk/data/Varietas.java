@@ -207,7 +207,7 @@ public class Varietas {
     
  
     
-    public Boolean insertNilaiKriteriaVarietas(float[] nilai){
+    public Boolean tambahNilaiKriteriaVarietas(float[] nilai){
 //        INSERT INTO `kriteria_varietas`(`id`, `varietas_id`, `kriteria_id`, `nilai`) VALUES (null,1,1,8)
         ArrayList<Kriteria> kriteriaAll = new Kriteria().allKriteria();
         Varietas varietasBaru = getVarietasTerbaru();
