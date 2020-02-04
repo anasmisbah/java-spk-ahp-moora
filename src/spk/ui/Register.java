@@ -219,6 +219,7 @@ public class Register extends javax.swing.JFrame {
         getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1006, 730));
 
         pack();
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
     private void btn_daftarMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_daftarMousePressed
