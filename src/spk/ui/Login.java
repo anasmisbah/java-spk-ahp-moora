@@ -128,6 +128,11 @@ public class Login extends javax.swing.JFrame {
                 btn_masukMousePressed(evt);
             }
         });
+        btn_masuk.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_masukActionPerformed(evt);
+            }
+        });
         jPanel1.add(btn_masuk, new org.netbeans.lib.awtextra.AbsoluteConstraints(680, 430, 150, 40));
 
         jLabel6.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
@@ -194,6 +199,10 @@ public class Login extends javax.swing.JFrame {
         Register regis = new Register();
         regis.setVisible(true);
     }//GEN-LAST:event_btn_daftarMousePressed
+
+    private void btn_masukActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_masukActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btn_masukActionPerformed
 
     private void setErrorEmpty(JLabel label,String pesanError){
         label.setText(pesanError);

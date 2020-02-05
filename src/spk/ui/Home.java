@@ -9,9 +9,16 @@ import java.awt.Color;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.Enumeration;
+import javax.swing.AbstractButton;
+import javax.swing.ButtonGroup;
+import javax.swing.ButtonModel;
 import javax.swing.JPanel;
 import spk.data.Koneksi;
 import spk.data.Pengguna;
+import spk.data.Auth;
+import spk.data.Kriteria;
 
 /**
  *
@@ -25,19 +32,74 @@ public class Home extends javax.swing.JFrame {
     private Connection con;
     private Statement stt;
     private ResultSet rss;
-    private Pengguna penggunaLogin; 
+    private Pengguna penggunaLogin;
+    Pengguna pengguna = Auth.penggunaLogin();
+    Kriteria kriteria = new Kriteria();
     public Home() {
         con = Koneksi.getkoneksi();
         initComponents();
+        
+        
+        
+        
+        ArrayList<Double> bobot = kriteria.getPerbandinganKriteriaUser(pengguna.getId());
+        
+        if (bobot.isEmpty()) {
+            
+        } else {
+            this.radioKriteria(bobot);
+        }
+        
         setColor(menu_kriteria);
         kriteria_aktif.setOpaque(true);
         resetColor(new JPanel[]{menu_matriks},new JPanel[]{matriks_aktif});
         panel_kriteria.setVisible(true);
         panel_hasil.setVisible(false);
         panel_matriks.setVisible(false);
+        
+        
     }
     
+    public void radioKriteria(ArrayList<Double> bobot) {
+        
+        setButtonGroup(bobot.get(0).intValue(), groupAB.getElements());
+        setButtonGroup(bobot.get(1).intValue(), groupAC.getElements());
+        setButtonGroup(bobot.get(2).intValue(), groupAD.getElements());
+        setButtonGroup(bobot.get(3).intValue(), groupAE.getElements());
+        setButtonGroup(bobot.get(4).intValue(), groupAF.getElements());
+        setButtonGroup(bobot.get(5).intValue(), groupAG.getElements());
+        setButtonGroup(bobot.get(6).intValue(), groupAH.getElements());
+        setButtonGroup(bobot.get(7).intValue(), groupBC.getElements());
+        setButtonGroup(bobot.get(8).intValue(), groupBD.getElements());
+        setButtonGroup(bobot.get(9).intValue(), groupBE.getElements());
+        setButtonGroup(bobot.get(10).intValue(), groupBF.getElements());
+        setButtonGroup(bobot.get(11).intValue(), groupBG.getElements());
+        setButtonGroup(bobot.get(12).intValue(), groupBH.getElements());
+        setButtonGroup(bobot.get(13).intValue(), groupCD.getElements());
+        setButtonGroup(bobot.get(14).intValue(), groupCE.getElements());
+        setButtonGroup(bobot.get(15).intValue(), groupCF.getElements());
+        setButtonGroup(bobot.get(16).intValue(), groupCG.getElements());
+        setButtonGroup(bobot.get(17).intValue(), groupCH.getElements());
+        setButtonGroup(bobot.get(18).intValue(), groupDE.getElements());
+        setButtonGroup(bobot.get(19).intValue(), groupDF.getElements());
+        setButtonGroup(bobot.get(20).intValue(), groupDG.getElements());
+        setButtonGroup(bobot.get(21).intValue(), groupDH.getElements());
+        setButtonGroup(bobot.get(22).intValue(), groupEF.getElements());
+        setButtonGroup(bobot.get(23).intValue(), groupEG.getElements());
+        setButtonGroup(bobot.get(24).intValue(), groupEH.getElements());
+        setButtonGroup(bobot.get(25).intValue(), groupFG.getElements());
+        setButtonGroup(bobot.get(26).intValue(), groupFH.getElements());
+        setButtonGroup(bobot.get(27).intValue(), groupGH.getElements());
+    }
     
+    public void setButtonGroup(int rdValue, Enumeration elements ){
+        while (elements.hasMoreElements()){
+            AbstractButton button = (AbstractButton)elements.nextElement();
+            if(rdValue == Integer.parseInt(button.getText())){
+                button.setSelected(true);
+            }
+        }
+    }
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -460,7 +522,7 @@ public class Home extends javax.swing.JFrame {
         jSeparator28 = new javax.swing.JSeparator();
         jLabel8 = new javax.swing.JLabel();
         helpButton = new javax.swing.JButton();
-        jButton1 = new javax.swing.JButton();
+        simpan = new javax.swing.JButton();
         panel_matriks = new javax.swing.JPanel();
         jLabel6 = new javax.swing.JLabel();
         panel_hasil = new javax.swing.JPanel();
@@ -469,6 +531,11 @@ public class Home extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setBackground(new java.awt.Color(255, 255, 255));
         setResizable(false);
+        addPropertyChangeListener(new java.beans.PropertyChangeListener() {
+            public void propertyChange(java.beans.PropertyChangeEvent evt) {
+                formPropertyChange(evt);
+            }
+        });
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         side_bar.setBackground(new java.awt.Color(23, 35, 51));
@@ -573,6 +640,11 @@ public class Home extends javax.swing.JFrame {
         kButton1.setkHoverForeGround(new java.awt.Color(255, 255, 255));
         kButton1.setkHoverStartColor(new java.awt.Color(255, 102, 102));
         kButton1.setkStartColor(new java.awt.Color(0, 51, 255));
+        kButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                kButton1ActionPerformed(evt);
+            }
+        });
         side_bar.add(kButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 610, 150, 40));
 
         menu_hasil.setBackground(new java.awt.Color(23, 35, 51));
@@ -4385,17 +4457,22 @@ public class Home extends javax.swing.JFrame {
             }
         });
 
-        jButton1.setBackground(new java.awt.Color(51, 255, 0));
-        jButton1.setText("Simpan");
-        jButton1.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED, java.awt.Color.black, java.awt.Color.green, null, null));
+        simpan.setBackground(new java.awt.Color(51, 255, 0));
+        simpan.setText("Simpan");
+        simpan.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED, java.awt.Color.black, java.awt.Color.green, null, null));
+        simpan.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                simpanActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout panel_kriteriaLayout = new javax.swing.GroupLayout(panel_kriteria);
         panel_kriteria.setLayout(panel_kriteriaLayout);
         panel_kriteriaLayout.setHorizontalGroup(
             panel_kriteriaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane1)
+            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 900, Short.MAX_VALUE)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panel_kriteriaLayout.createSequentialGroup()
-                .addGap(0, 0, Short.MAX_VALUE)
+                .addGap(0, 841, Short.MAX_VALUE)
                 .addComponent(helpButton))
             .addGroup(panel_kriteriaLayout.createSequentialGroup()
                 .addGroup(panel_kriteriaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -4407,10 +4484,10 @@ public class Home extends javax.swing.JFrame {
                             .addGroup(panel_kriteriaLayout.createSequentialGroup()
                                 .addGap(386, 386, 386)
                                 .addComponent(jLabel8)))
-                        .addGap(0, 413, Short.MAX_VALUE))
+                        .addGap(0, 0, Short.MAX_VALUE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panel_kriteriaLayout.createSequentialGroup()
                         .addGap(0, 0, Short.MAX_VALUE)
-                        .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 82, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(simpan, javax.swing.GroupLayout.PREFERRED_SIZE, 82, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
         );
         panel_kriteriaLayout.setVerticalGroup(
@@ -4425,7 +4502,7 @@ public class Home extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 391, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(simpan, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(25, 25, 25))
         );
 
@@ -4492,6 +4569,10 @@ public class Home extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void menu_kriteriaMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_menu_kriteriaMousePressed
+        ArrayList<Double> bobot = kriteria.getPerbandinganKriteriaUser(pengguna.getId());
+        if (bobot != null) {
+            this.radioKriteria(bobot);
+        }
         setColor(menu_kriteria);
         kriteria_aktif.setOpaque(true);
         resetColor(new JPanel[]{menu_matriks},new JPanel[]{matriks_aktif});
@@ -4499,6 +4580,7 @@ public class Home extends javax.swing.JFrame {
         panel_kriteria.setVisible(true);
         panel_hasil.setVisible(false);
         panel_matriks.setVisible(false);
+        
     }//GEN-LAST:event_menu_kriteriaMousePressed
 
     private void menu_matriksMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_menu_matriksMousePressed
@@ -5535,6 +5617,21 @@ public class Home extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_FH3ActionPerformed
 
+    private void formPropertyChange(java.beans.PropertyChangeEvent evt) {//GEN-FIRST:event_formPropertyChange
+        // TODO add your handling code here:
+    }//GEN-LAST:event_formPropertyChange
+
+    private void simpanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_simpanActionPerformed
+        
+    }//GEN-LAST:event_simpanActionPerformed
+
+    private void kButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_kButton1ActionPerformed
+        Auth.logout(pengguna.getId());
+        this.dispose();
+        Login login = new Login();
+        login.setVisible(true);
+    }//GEN-LAST:event_kButton1ActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -5574,6 +5671,18 @@ public class Home extends javax.swing.JFrame {
     private void setColor(JPanel panel){
         panel.setBackground(new Color(41,57,60));
     }
+    
+    String getSelectedButtonText(ButtonGroup buttonGroup) {
+    for (Enumeration buttons = buttonGroup.getElements(); buttons.hasMoreElements();) {
+        AbstractButton button = (AbstractButton) buttons.nextElement();
+
+        if (button.isSelected()) {
+            return button.getText();
+        }
+    }
+
+    return null;
+}
     
     private void resetColor(JPanel [] panel, JPanel [] indicators){
         for(int i=0;i<panel.length;i++){
@@ -5870,7 +5979,6 @@ public class Home extends javax.swing.JFrame {
     private javax.swing.ButtonGroup groupGH;
     private javax.swing.JPanel hasil_aktif;
     private javax.swing.JButton helpButton;
-    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
@@ -6003,5 +6111,6 @@ public class Home extends javax.swing.JFrame {
     private javax.swing.JPanel panel_kriteria;
     private javax.swing.JPanel panel_matriks;
     private javax.swing.JPanel side_bar;
+    private javax.swing.JButton simpan;
     // End of variables declaration//GEN-END:variables
 }
