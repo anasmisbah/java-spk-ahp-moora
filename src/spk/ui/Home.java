@@ -14,11 +14,13 @@ import java.util.Enumeration;
 import javax.swing.AbstractButton;
 import javax.swing.ButtonGroup;
 import javax.swing.ButtonModel;
+import javax.swing.JDialog;
 import javax.swing.JPanel;
 import spk.data.Koneksi;
 import spk.data.Pengguna;
 import spk.data.Auth;
 import spk.data.Kriteria;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -35,33 +37,32 @@ public class Home extends javax.swing.JFrame {
     private Pengguna penggunaLogin;
     Pengguna pengguna = Auth.penggunaLogin();
     Kriteria kriteria = new Kriteria();
+
     public Home() {
         con = Koneksi.getkoneksi();
         initComponents();
-        
-        
-        
-        
+
+        String nama = pengguna.getNama();
+        welcomeText.setText("Hai, " + nama);
         ArrayList<Double> bobot = kriteria.getPerbandinganKriteriaUser(pengguna.getId());
-        
+
         if (bobot.isEmpty()) {
-            
+
         } else {
             this.radioKriteria(bobot);
         }
-        
+
         setColor(menu_kriteria);
         kriteria_aktif.setOpaque(true);
-        resetColor(new JPanel[]{menu_matriks},new JPanel[]{matriks_aktif});
+        resetColor(new JPanel[]{menu_matriks}, new JPanel[]{matriks_aktif});
         panel_kriteria.setVisible(true);
         panel_hasil.setVisible(false);
         panel_matriks.setVisible(false);
-        
-        
+
     }
-    
+
     public void radioKriteria(ArrayList<Double> bobot) {
-        
+
         setButtonGroup(bobot.get(0).intValue(), groupAB.getElements());
         setButtonGroup(bobot.get(1).intValue(), groupAC.getElements());
         setButtonGroup(bobot.get(2).intValue(), groupAD.getElements());
@@ -91,14 +92,24 @@ public class Home extends javax.swing.JFrame {
         setButtonGroup(bobot.get(26).intValue(), groupFH.getElements());
         setButtonGroup(bobot.get(27).intValue(), groupGH.getElements());
     }
-    
-    public void setButtonGroup(int rdValue, Enumeration elements ){
-        while (elements.hasMoreElements()){
-            AbstractButton button = (AbstractButton)elements.nextElement();
-            if(rdValue == Integer.parseInt(button.getText())){
+
+    public void setButtonGroup(int rdValue, Enumeration elements) {
+        while (elements.hasMoreElements()) {
+            AbstractButton button = (AbstractButton) elements.nextElement();
+            if (rdValue == Integer.parseInt(button.getText())) {
                 button.setSelected(true);
             }
         }
+    }
+
+    public double getButtonGroup(Enumeration elements) {
+        while (elements.hasMoreElements()) {
+            AbstractButton button = (AbstractButton) elements.nextElement();
+            if (button.isSelected()) {
+                return Double.parseDouble(button.getText());
+            }
+        }
+        return 0;
     }
 
     /**
@@ -149,6 +160,7 @@ public class Home extends javax.swing.JFrame {
         menu_hasil = new javax.swing.JPanel();
         hasil_aktif = new javax.swing.JPanel();
         jLabel4 = new javax.swing.JLabel();
+        welcomeText = new javax.swing.JLabel();
         jPanel2 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         ContainerPanel = new javax.swing.JPanel();
@@ -692,6 +704,11 @@ public class Home extends javax.swing.JFrame {
         );
 
         side_bar.add(menu_hasil, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 170, 210, -1));
+
+        welcomeText.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        welcomeText.setForeground(new java.awt.Color(255, 255, 255));
+        welcomeText.setText("Hai, ");
+        side_bar.add(welcomeText, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 10, -1, -1));
 
         getContentPane().add(side_bar, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 210, 670));
 
@@ -4570,25 +4587,27 @@ public class Home extends javax.swing.JFrame {
 
     private void menu_kriteriaMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_menu_kriteriaMousePressed
         ArrayList<Double> bobot = kriteria.getPerbandinganKriteriaUser(pengguna.getId());
-        if (bobot != null) {
+        if (bobot.isEmpty()) {
+            
+        } else {
             this.radioKriteria(bobot);
         }
         setColor(menu_kriteria);
         kriteria_aktif.setOpaque(true);
-        resetColor(new JPanel[]{menu_matriks},new JPanel[]{matriks_aktif});
-        resetColor(new JPanel[]{menu_hasil},new JPanel[]{hasil_aktif});
+        resetColor(new JPanel[]{menu_matriks}, new JPanel[]{matriks_aktif});
+        resetColor(new JPanel[]{menu_hasil}, new JPanel[]{hasil_aktif});
         panel_kriteria.setVisible(true);
         panel_hasil.setVisible(false);
         panel_matriks.setVisible(false);
-        
+
     }//GEN-LAST:event_menu_kriteriaMousePressed
 
     private void menu_matriksMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_menu_matriksMousePressed
         // TODO add your handling code here:
         setColor(menu_matriks);
         matriks_aktif.setOpaque(true);
-        resetColor(new JPanel[]{menu_kriteria},new JPanel[]{kriteria_aktif});
-        resetColor(new JPanel[]{menu_hasil},new JPanel[]{hasil_aktif});
+        resetColor(new JPanel[]{menu_kriteria}, new JPanel[]{kriteria_aktif});
+        resetColor(new JPanel[]{menu_hasil}, new JPanel[]{hasil_aktif});
         panel_kriteria.setVisible(false);
         panel_hasil.setVisible(false);
         panel_matriks.setVisible(true);
@@ -4597,8 +4616,8 @@ public class Home extends javax.swing.JFrame {
     private void menu_hasilMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_menu_hasilMousePressed
         setColor(menu_hasil);
         hasil_aktif.setOpaque(true);
-        resetColor(new JPanel[]{menu_kriteria},new JPanel[]{kriteria_aktif});        
-        resetColor(new JPanel[]{menu_matriks},new JPanel[]{matriks_aktif});
+        resetColor(new JPanel[]{menu_kriteria}, new JPanel[]{kriteria_aktif});
+        resetColor(new JPanel[]{menu_matriks}, new JPanel[]{matriks_aktif});
         panel_kriteria.setVisible(false);
         panel_hasil.setVisible(true);
         panel_matriks.setVisible(false);
@@ -5622,7 +5641,63 @@ public class Home extends javax.swing.JFrame {
     }//GEN-LAST:event_formPropertyChange
 
     private void simpanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_simpanActionPerformed
-        
+        JDialog.setDefaultLookAndFeelDecorated(true);
+        int response = JOptionPane.showConfirmDialog(null, "Anda yakin ingin menyimpan Bobot Kriteria ?", "Simpan Bobot Kriteria",
+                JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
+        if (response == JOptionPane.NO_OPTION) {
+            JOptionPane.showMessageDialog(null, "Batal Menyimpan Bobot Kriteria");
+        } else if (response == JOptionPane.YES_OPTION) {
+
+            ArrayList<Double> nilai = new ArrayList<>();
+            nilai.add(getButtonGroup(groupAB.getElements()));
+            nilai.add(getButtonGroup(groupAC.getElements()));
+            nilai.add(getButtonGroup(groupAD.getElements()));
+            nilai.add(getButtonGroup(groupAE.getElements()));
+            nilai.add(getButtonGroup(groupAF.getElements()));
+            nilai.add(getButtonGroup(groupAG.getElements()));
+            nilai.add(getButtonGroup(groupAH.getElements()));
+            nilai.add(getButtonGroup(groupBC.getElements()));
+            nilai.add(getButtonGroup(groupBD.getElements()));
+            nilai.add(getButtonGroup(groupBE.getElements()));
+            nilai.add(getButtonGroup(groupBF.getElements()));
+            nilai.add(getButtonGroup(groupBG.getElements()));
+            nilai.add(getButtonGroup(groupBH.getElements()));
+            nilai.add(getButtonGroup(groupCD.getElements()));
+            nilai.add(getButtonGroup(groupCE.getElements()));
+            nilai.add(getButtonGroup(groupCF.getElements()));
+            nilai.add(getButtonGroup(groupCG.getElements()));
+            nilai.add(getButtonGroup(groupCH.getElements()));
+            nilai.add(getButtonGroup(groupDE.getElements()));
+            nilai.add(getButtonGroup(groupDF.getElements()));
+            nilai.add(getButtonGroup(groupDG.getElements()));
+            nilai.add(getButtonGroup(groupDH.getElements()));
+            nilai.add(getButtonGroup(groupEF.getElements()));
+            nilai.add(getButtonGroup(groupEG.getElements()));
+            nilai.add(getButtonGroup(groupEH.getElements()));
+            nilai.add(getButtonGroup(groupFG.getElements()));
+            nilai.add(getButtonGroup(groupFH.getElements()));
+            nilai.add(getButtonGroup(groupGH.getElements()));
+
+            if (cekNilai(nilai)) {
+                int indexNilai = 0;
+                if (kriteria.checkPerbandinganKriteriaUser(pengguna.getId())) {
+                    for (int i = 1; i < 8; i++) {
+                        for (int j = 1; j < 9; j++) {
+                            if (j <= i) {
+                                continue;
+                            } else {
+                                kriteria.tambahPerbandinganAntarKriteria(i, j, nilai.get(indexNilai), pengguna.getId());
+                                indexNilai++;
+                            }
+                        }
+                    }
+                    indexNilai = 0;
+                }
+                JOptionPane.showMessageDialog(null, "Berhasil Menyimpan Bobot");
+            } else {
+                JOptionPane.showMessageDialog(null, "Silahkan Isi Bobot Yang Masih Kosong");
+            }
+        }
     }//GEN-LAST:event_simpanActionPerformed
 
     private void kButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_kButton1ActionPerformed
@@ -5663,35 +5738,44 @@ public class Home extends javax.swing.JFrame {
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
                 new Home().setVisible(true);
-                
+
             }
         });
     }
-    
-    private void setColor(JPanel panel){
-        panel.setBackground(new Color(41,57,60));
+
+    private void setColor(JPanel panel) {
+        panel.setBackground(new Color(41, 57, 60));
     }
-    
+
+    boolean cekNilai(ArrayList<Double> nilai) {
+        for (int i = 0; i < nilai.size(); i++) {
+            if (nilai.get(i) == 0) {
+                return false;
+            }
+        }
+        return true;
+    }
+
     String getSelectedButtonText(ButtonGroup buttonGroup) {
-    for (Enumeration buttons = buttonGroup.getElements(); buttons.hasMoreElements();) {
-        AbstractButton button = (AbstractButton) buttons.nextElement();
+        for (Enumeration buttons = buttonGroup.getElements(); buttons.hasMoreElements();) {
+            AbstractButton button = (AbstractButton) buttons.nextElement();
 
-        if (button.isSelected()) {
-            return button.getText();
+            if (button.isSelected()) {
+                return button.getText();
+            }
         }
+
+        return null;
     }
 
-    return null;
-}
-    
-    private void resetColor(JPanel [] panel, JPanel [] indicators){
-        for(int i=0;i<panel.length;i++){
-           panel[i].setBackground(new Color(23,35,51)); 
+    private void resetColor(JPanel[] panel, JPanel[] indicators) {
+        for (int i = 0; i < panel.length; i++) {
+            panel[i].setBackground(new Color(23, 35, 51));
         }
-        for(int i=0;i<indicators.length;i++){
-           indicators[i].setOpaque(false);           
+        for (int i = 0; i < indicators.length; i++) {
+            indicators[i].setOpaque(false);
         }
-        
+
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -6112,5 +6196,6 @@ public class Home extends javax.swing.JFrame {
     private javax.swing.JPanel panel_matriks;
     private javax.swing.JPanel side_bar;
     private javax.swing.JButton simpan;
+    private javax.swing.JLabel welcomeText;
     // End of variables declaration//GEN-END:variables
 }

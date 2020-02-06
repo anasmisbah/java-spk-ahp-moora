@@ -30,8 +30,17 @@ public class Spk {
     public static void main(String[] args) {
 // TODO code application logic here
 //            LOGIC LOGIN
-            Login login = new Login();
-            login.setVisible(true);
+            Pengguna pengguna = Auth.penggunaLogin();
+            
+            if (pengguna != null) {
+                Home home = new Home();
+                home.setVisible(true);
+            } else {
+                
+                Login login = new Login();
+                login.setVisible(true);
+            }
+            
 //            Pengguna pengguna = Auth.penggunaLogin();
 //            if(pengguna != null){
 //              System.out.println(pengguna.getNama()); 
