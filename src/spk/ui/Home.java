@@ -54,7 +54,8 @@ public class Home extends javax.swing.JFrame {
 
         setColor(menu_kriteria);
         kriteria_aktif.setOpaque(true);
-        resetColor(new JPanel[]{menu_matriks}, new JPanel[]{matriks_aktif});
+        resetColor(new JPanel[]{menu_matriks}, new JPanel[]{matriks_aktif});        
+        resetColor(new JPanel[]{menu_hasil}, new JPanel[]{hasil_aktif});
         panel_kriteria.setVisible(true);
         panel_hasil.setVisible(false);
         panel_matriks.setVisible(false);

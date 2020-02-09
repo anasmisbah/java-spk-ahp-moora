@@ -38,9 +38,18 @@ public class Login extends javax.swing.JFrame {
         Pengguna penggunaLogin =Auth.login(username, password);
         if(penggunaLogin != null){
            if(Auth.ubahStatusLogin(penggunaLogin.getId())){
-                this.dispose();
+               Pengguna pengguna = Auth.penggunaLogin();
+               if (pengguna.getRole().equals("admin")) {     
+                    this.dispose(); 
+                    Admin admin = new Admin();
+                    admin.setVisible(true);
+                }
+               else {
+                   this.dispose();
                     Home home = new Home();
                     home.setVisible(true);
+               }
+                    
             } 
         }
         else{

@@ -17,6 +17,7 @@ import spk.data.Varietas;
 import spk.ui.Home;
 import spk.ui.Login;
 import spk.ui.Register;
+import spk.ui.Admin;
 
 /**
  *
@@ -33,8 +34,15 @@ public class Spk {
             Pengguna pengguna = Auth.penggunaLogin();
             
             if (pengguna != null) {
-                Home home = new Home();
-                home.setVisible(true);
+                if (pengguna.getRole().equals("admin")) {
+                    Admin admin = new Admin();
+                    admin.setVisible(true);
+                }
+                else {
+                    Home home = new Home();
+                    home.setVisible(true);
+                }
+                
             } else {
                 
                 Login login = new Login();
