@@ -34,7 +34,7 @@ public class Spk {
             Pengguna pengguna = Auth.penggunaLogin();
             
             if (pengguna != null) {
-                if (pengguna.getRole().equals("admin")) {
+                if (pengguna.getRole().equalsIgnoreCase("Admin")) {
                     Admin admin = new Admin();
                     admin.setVisible(true);
                 }

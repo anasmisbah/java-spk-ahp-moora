@@ -20,6 +20,7 @@ import javax.swing.JDialog;
 import javax.swing.JOptionPane;
 import spk.data.Kriteria;
 import javax.swing.table.DefaultTableModel;
+import spk.data.Grup;
 /**
  *
  * @author MOTHAFUCKAS
@@ -29,6 +30,7 @@ public class Admin extends javax.swing.JFrame {
     private Statement stt;
     private ResultSet rss;
     private Pengguna User =  new Pengguna();
+    private Grup grup = new Grup();
     private DefaultTableModel model;
     Pengguna pengguna = Auth.penggunaLogin();
     Kriteria kriteria = new Kriteria();
@@ -64,6 +66,7 @@ public class Admin extends javax.swing.JFrame {
         TablePengguna.removeColumn(TablePengguna.getColumnModel().getColumn(0));
     }
     
+    
     private void TampilDataPengguna() {
         ArrayList<Pengguna> user = User.allPengguna();
         try {
@@ -76,6 +79,28 @@ public class Admin extends javax.swing.JFrame {
                 record[4]=user.get(i).getPassword();
                 record[5]=user.get(i).getRole();
                 
+                model.addRow(record);
+            }
+        } catch(Exception e) {
+            System.out.println(e.getMessage());
+        }        
+    }
+    
+    private void InitTableGrup() {
+        model = new DefaultTableModel();
+        model.addColumn("ID");
+        model.addColumn("Nama");
+        TableGrup.setModel(model);
+        TableGrup.removeColumn(TableGrup.getColumnModel().getColumn(0));
+    }
+    
+    private void TampilDataGrup() {
+        ArrayList<Grup> group = grup.allGrup();
+        try {
+            for (int i = 0; i < group.size(); i++) {
+                Object[] record = new Object[6];
+                record[0]=group.get(i).getId();                
+                record[1]=group.get(i).getNama();
                 model.addRow(record);
             }
         } catch(Exception e) {
@@ -120,8 +145,6 @@ public class Admin extends javax.swing.JFrame {
         jPanel2 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         ContainerPanel = new javax.swing.JPanel();
-        panel_grup = new javax.swing.JPanel();
-        jLabel6 = new javax.swing.JLabel();
         panel_varietas = new javax.swing.JPanel();
         jLabel7 = new javax.swing.JLabel();
         panel_pengguna = new javax.swing.JPanel();
@@ -143,6 +166,17 @@ public class Admin extends javax.swing.JFrame {
         UpdatePengguna = new javax.swing.JButton();
         HapusPengguna = new javax.swing.JButton();
         ResetPengguna = new javax.swing.JButton();
+        panel_grup = new javax.swing.JPanel();
+        jLabel6 = new javax.swing.JLabel();
+        jLabel14 = new javax.swing.JLabel();
+        NamaGrup = new javax.swing.JTextField();
+        jLabel15 = new javax.swing.JLabel();
+        SimpanGrup = new javax.swing.JButton();
+        UpdateGrup = new javax.swing.JButton();
+        HapusGrup = new javax.swing.JButton();
+        ResetGrup = new javax.swing.JButton();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        TableGrup = new javax.swing.JTable();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setResizable(false);
@@ -336,32 +370,6 @@ public class Admin extends javax.swing.JFrame {
         ContainerPanel.setBackground(new java.awt.Color(255, 255, 255));
         ContainerPanel.setLayout(new java.awt.CardLayout());
 
-        panel_grup.setBackground(new java.awt.Color(204, 204, 204));
-
-        jLabel6.setFont(new java.awt.Font("Times New Roman", 1, 24)); // NOI18N
-        jLabel6.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel6.setText("Grup");
-        jLabel6.setFocusable(false);
-
-        javax.swing.GroupLayout panel_grupLayout = new javax.swing.GroupLayout(panel_grup);
-        panel_grup.setLayout(panel_grupLayout);
-        panel_grupLayout.setHorizontalGroup(
-            panel_grupLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panel_grupLayout.createSequentialGroup()
-                .addContainerGap(431, Short.MAX_VALUE)
-                .addComponent(jLabel6)
-                .addGap(414, 414, 414))
-        );
-        panel_grupLayout.setVerticalGroup(
-            panel_grupLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(panel_grupLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jLabel6)
-                .addContainerGap(581, Short.MAX_VALUE))
-        );
-
-        ContainerPanel.add(panel_grup, "card2");
-
         panel_varietas.setBackground(new java.awt.Color(204, 204, 204));
 
         jLabel7.setFont(new java.awt.Font("Times New Roman", 1, 24)); // NOI18N
@@ -440,11 +448,6 @@ public class Admin extends javax.swing.JFrame {
         TablePengguna.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 TablePenggunaMouseClicked(evt);
-            }
-        });
-        TablePengguna.addComponentListener(new java.awt.event.ComponentAdapter() {
-            public void componentShown(java.awt.event.ComponentEvent evt) {
-                TablePenggunaComponentShown(evt);
             }
         });
         jScrollPane1.setViewportView(TablePengguna);
@@ -559,6 +562,127 @@ public class Admin extends javax.swing.JFrame {
 
         ContainerPanel.add(panel_pengguna, "card2");
 
+        panel_grup.setBackground(new java.awt.Color(204, 204, 204));
+        panel_grup.addComponentListener(new java.awt.event.ComponentAdapter() {
+            public void componentShown(java.awt.event.ComponentEvent evt) {
+                panel_grupComponentShown(evt);
+            }
+        });
+
+        jLabel6.setFont(new java.awt.Font("Times New Roman", 1, 24)); // NOI18N
+        jLabel6.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel6.setText("Grup");
+        jLabel6.setFocusable(false);
+
+        jLabel14.setText("Nama");
+
+        jLabel15.setText("Deskripsi");
+
+        SimpanGrup.setText("Simpan");
+        SimpanGrup.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                SimpanGrupActionPerformed(evt);
+            }
+        });
+
+        UpdateGrup.setText("Update");
+        UpdateGrup.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                UpdateGrupActionPerformed(evt);
+            }
+        });
+
+        HapusGrup.setText("Hapus");
+        HapusGrup.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                HapusGrupActionPerformed(evt);
+            }
+        });
+
+        ResetGrup.setText("Reset");
+        ResetGrup.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ResetGrupActionPerformed(evt);
+            }
+        });
+
+        TableGrup.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
+            },
+            new String [] {
+                "Title 1", "Title 2", "Title 3", "Title 4"
+            }
+        ));
+        TableGrup.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        TableGrup.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                TableGrupMouseClicked(evt);
+            }
+        });
+        jScrollPane2.setViewportView(TableGrup);
+
+        javax.swing.GroupLayout panel_grupLayout = new javax.swing.GroupLayout(panel_grup);
+        panel_grup.setLayout(panel_grupLayout);
+        panel_grupLayout.setHorizontalGroup(
+            panel_grupLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panel_grupLayout.createSequentialGroup()
+                .addContainerGap(431, Short.MAX_VALUE)
+                .addComponent(jLabel6)
+                .addGap(414, 414, 414))
+            .addGroup(panel_grupLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(panel_grupLayout.createSequentialGroup()
+                    .addGap(67, 67, 67)
+                    .addGroup(panel_grupLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(panel_grupLayout.createSequentialGroup()
+                            .addGap(327, 327, 327)
+                            .addComponent(jLabel15))
+                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 766, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGroup(panel_grupLayout.createSequentialGroup()
+                            .addGroup(panel_grupLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(SimpanGrup)
+                                .addComponent(jLabel14))
+                            .addGap(40, 40, 40)
+                            .addGroup(panel_grupLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(NamaGrup, javax.swing.GroupLayout.PREFERRED_SIZE, 245, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGroup(panel_grupLayout.createSequentialGroup()
+                                    .addComponent(UpdateGrup)
+                                    .addGap(65, 65, 65)
+                                    .addComponent(HapusGrup)
+                                    .addGap(31, 31, 31)
+                                    .addComponent(ResetGrup)))))
+                    .addContainerGap(67, Short.MAX_VALUE)))
+        );
+        panel_grupLayout.setVerticalGroup(
+            panel_grupLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panel_grupLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel6)
+                .addContainerGap(581, Short.MAX_VALUE))
+            .addGroup(panel_grupLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(panel_grupLayout.createSequentialGroup()
+                    .addGap(44, 44, 44)
+                    .addComponent(jLabel15)
+                    .addGap(45, 45, 45)
+                    .addGroup(panel_grupLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(jLabel14)
+                        .addComponent(NamaGrup, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGap(150, 150, 150)
+                    .addGroup(panel_grupLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(SimpanGrup)
+                        .addComponent(UpdateGrup)
+                        .addComponent(HapusGrup)
+                        .addComponent(ResetGrup))
+                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 269, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addContainerGap(44, Short.MAX_VALUE)))
+        );
+
+        ContainerPanel.add(panel_grup, "card2");
+
         getContentPane().add(ContainerPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 50, 900, 620));
 
         pack();
@@ -606,10 +730,6 @@ public class Admin extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_usernamePenggunaActionPerformed
 
-    private void TablePenggunaComponentShown(java.awt.event.ComponentEvent evt) {//GEN-FIRST:event_TablePenggunaComponentShown
-        
-    }//GEN-LAST:event_TablePenggunaComponentShown
-
     private void panel_penggunaComponentShown(java.awt.event.ComponentEvent evt) {//GEN-FIRST:event_panel_penggunaComponentShown
      InitTablePengguna();
      TampilDataPengguna();
@@ -647,7 +767,7 @@ public class Admin extends javax.swing.JFrame {
        asalDaerahPengguna.setText(TablePengguna.getValueAt(row,1).toString());
        usernamePengguna.setText(TablePengguna.getValueAt(row,2).toString());
        passwordPengguna.setText(TablePengguna.getValueAt(row,3).toString());
-       rolePengguna.setSelectedItem(TablePengguna.getValueAt(row,4).toString());
+       rolePengguna.getModel().setSelectedItem(TablePengguna.getValueAt(row,4).toString());
     }//GEN-LAST:event_TablePenggunaMouseClicked
 
     private void UpdatePenggunaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_UpdatePenggunaActionPerformed
@@ -703,6 +823,80 @@ public class Admin extends javax.swing.JFrame {
        rolePengguna.setSelectedItem("");
     }//GEN-LAST:event_ResetPenggunaActionPerformed
 
+    private void UpdateGrupActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_UpdateGrupActionPerformed
+        String nama = NamaGrup.getText();
+        
+        
+        int row = TableGrup.getSelectedRow();
+        int id = Integer.parseInt(TableGrup.getModel().getValueAt(row,0).toString());
+        
+        int response = JOptionPane.showConfirmDialog(null, "Anda yakin ingin mengubah Grup ?", "Ubah Grup",
+                JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
+        if (response == JOptionPane.NO_OPTION) {
+            JOptionPane.showMessageDialog(null, "Batal Mengubah Grup");
+        } else if (response == JOptionPane.YES_OPTION) {
+            if (grup.ubah(id, nama)) {
+                JOptionPane.showMessageDialog(null, "Berhasil Mengubah Grup");
+                InitTableGrup();
+                TampilDataGrup();
+            } else {
+                JOptionPane.showMessageDialog(null, "Gagal");
+            }
+        }
+    }//GEN-LAST:event_UpdateGrupActionPerformed
+
+    private void HapusGrupActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_HapusGrupActionPerformed
+        int row = TableGrup.getSelectedRow();
+        int id = Integer.parseInt(TableGrup.getModel().getValueAt(row,0).toString());
+        
+        int response = JOptionPane.showConfirmDialog(null, "Anda yakin ingin menghapus Grup ?", "hapus Grup",
+                JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
+        if (response == JOptionPane.NO_OPTION) {
+            JOptionPane.showMessageDialog(null, "Batal Menghapus Grup");
+        } else if (response == JOptionPane.YES_OPTION) {
+            if (grup.hapus(id)) {
+                JOptionPane.showMessageDialog(null, "Berhasil Menghapus Grup");
+                InitTableGrup();
+                TampilDataGrup();
+            } else {
+                JOptionPane.showMessageDialog(null, "Gagal");
+            }
+        }
+    }//GEN-LAST:event_HapusGrupActionPerformed
+
+    private void ResetGrupActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ResetGrupActionPerformed
+        NamaGrup.setText("");
+    }//GEN-LAST:event_ResetGrupActionPerformed
+
+    private void TableGrupMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_TableGrupMouseClicked
+        int row = TableGrup.getSelectedRow();
+       NamaGrup.setText(TableGrup.getValueAt(row,0).toString());
+       
+    }//GEN-LAST:event_TableGrupMouseClicked
+
+    private void panel_grupComponentShown(java.awt.event.ComponentEvent evt) {//GEN-FIRST:event_panel_grupComponentShown
+        InitTableGrup();
+        TampilDataGrup();
+    }//GEN-LAST:event_panel_grupComponentShown
+
+    private void SimpanGrupActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SimpanGrupActionPerformed
+       String nama = NamaGrup.getText();
+        
+        int response = JOptionPane.showConfirmDialog(null, "Anda yakin ingin menyimpan Grup ?", "Simpan Grup",
+                JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
+        if (response == JOptionPane.NO_OPTION) {
+            JOptionPane.showMessageDialog(null, "Batal Menyimpan Grup");
+        } else if (response == JOptionPane.YES_OPTION) {
+            if (grup.tambah(nama)) {
+                JOptionPane.showMessageDialog(null, "Berhasil Menyimpan Grup");
+                InitTableGrup();
+                TampilDataGrup();
+            } else {
+                JOptionPane.showMessageDialog(null, "Gagal");
+            }
+        }
+    }//GEN-LAST:event_SimpanGrupActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -740,10 +934,16 @@ public class Admin extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel ContainerPanel;
+    private javax.swing.JButton HapusGrup;
     private javax.swing.JButton HapusPengguna;
+    private javax.swing.JTextField NamaGrup;
+    private javax.swing.JButton ResetGrup;
     private javax.swing.JButton ResetPengguna;
+    private javax.swing.JButton SimpanGrup;
     private javax.swing.JButton SimpanPengguna;
+    private javax.swing.JTable TableGrup;
     private javax.swing.JTable TablePengguna;
+    private javax.swing.JButton UpdateGrup;
     private javax.swing.JButton UpdatePengguna;
     private javax.swing.JTextField asalDaerahPengguna;
     private javax.swing.JPanel grup_aktif;
@@ -752,6 +952,8 @@ public class Admin extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel13;
+    private javax.swing.JLabel jLabel14;
+    private javax.swing.JLabel jLabel15;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
@@ -762,6 +964,7 @@ public class Admin extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane2;
     private keeptoo.KButton kButton1;
     private javax.swing.JPanel menu_grup;
     private javax.swing.JPanel menu_pengguna;

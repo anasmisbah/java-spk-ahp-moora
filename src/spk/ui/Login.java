@@ -39,7 +39,7 @@ public class Login extends javax.swing.JFrame {
         if(penggunaLogin != null){
            if(Auth.ubahStatusLogin(penggunaLogin.getId())){
                Pengguna pengguna = Auth.penggunaLogin();
-               if (pengguna.getRole().equals("admin")) {     
+               if (pengguna.getRole().equalsIgnoreCase("admin")) {     
                     this.dispose(); 
                     Admin admin = new Admin();
                     admin.setVisible(true);
