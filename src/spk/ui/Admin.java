@@ -6,6 +6,7 @@
 package spk.ui;
 
 import java.awt.Color;
+import java.awt.List;
 import java.sql.Connection;
 import javax.swing.JPanel;
 import spk.data.Auth;
@@ -13,7 +14,12 @@ import spk.data.Koneksi;
 import spk.data.Pengguna;
 import java.sql.ResultSet;
 import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.Iterator;
+import javax.swing.JDialog;
+import javax.swing.JOptionPane;
 import spk.data.Kriteria;
+import javax.swing.table.DefaultTableModel;
 /**
  *
  * @author MOTHAFUCKAS
@@ -22,9 +28,11 @@ public class Admin extends javax.swing.JFrame {
     private Connection con;
     private Statement stt;
     private ResultSet rss;
-    private Pengguna penggunaLogin;
+    private Pengguna User =  new Pengguna();
+    private DefaultTableModel model;
     Pengguna pengguna = Auth.penggunaLogin();
     Kriteria kriteria = new Kriteria();
+    
     /**
      * Creates new form Admin
      */
@@ -40,8 +48,41 @@ public class Admin extends javax.swing.JFrame {
         panel_pengguna.setVisible(true);
         panel_grup.setVisible(false);
         panel_varietas.setVisible(false);
+        JDialog.setDefaultLookAndFeelDecorated(true);
+        
     }
 
+    private void InitTablePengguna() {
+        model = new DefaultTableModel();
+        model.addColumn("ID");
+        model.addColumn("Nama");
+        model.addColumn("Asal Daerah");
+        model.addColumn("Username");
+        model.addColumn("Password");
+        model.addColumn("Role");
+        TablePengguna.setModel(model);
+        TablePengguna.removeColumn(TablePengguna.getColumnModel().getColumn(0));
+    }
+    
+    private void TampilDataPengguna() {
+        ArrayList<Pengguna> user = User.allPengguna();
+        try {
+            for (int i = 0; i < user.size(); i++) {
+                Object[] record = new Object[6];
+                record[0]=user.get(i).getId();                
+                record[1]=user.get(i).getNama();
+                record[2]=user.get(i).getAsalDaerah();
+                record[3]=user.get(i).getUsername();
+                record[4]=user.get(i).getPassword();
+                record[5]=user.get(i).getRole();
+                
+                model.addRow(record);
+            }
+        } catch(Exception e) {
+            System.out.println(e.getMessage());
+        }        
+    }
+    
     private void setColor(JPanel panel) {
         panel.setBackground(new Color(41, 57, 60));
     }
@@ -87,17 +128,21 @@ public class Admin extends javax.swing.JFrame {
         jLabel5 = new javax.swing.JLabel();
         jLabel8 = new javax.swing.JLabel();
         jLabel9 = new javax.swing.JLabel();
-        jTextField1 = new javax.swing.JTextField();
+        namaPengguna = new javax.swing.JTextField();
         jLabel10 = new javax.swing.JLabel();
-        jTextField2 = new javax.swing.JTextField();
+        asalDaerahPengguna = new javax.swing.JTextField();
         jLabel11 = new javax.swing.JLabel();
-        jTextField3 = new javax.swing.JTextField();
+        usernamePengguna = new javax.swing.JTextField();
         jLabel12 = new javax.swing.JLabel();
         jLabel13 = new javax.swing.JLabel();
-        jTextField6 = new javax.swing.JTextField();
-        jComboBox1 = new javax.swing.JComboBox<>();
+        passwordPengguna = new javax.swing.JTextField();
+        rolePengguna = new javax.swing.JComboBox<>();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        TablePengguna = new javax.swing.JTable();
+        SimpanPengguna = new javax.swing.JButton();
+        UpdatePengguna = new javax.swing.JButton();
+        HapusPengguna = new javax.swing.JButton();
+        ResetPengguna = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setResizable(false);
@@ -344,6 +389,11 @@ public class Admin extends javax.swing.JFrame {
         ContainerPanel.add(panel_varietas, "card2");
 
         panel_pengguna.setBackground(new java.awt.Color(204, 204, 204));
+        panel_pengguna.addComponentListener(new java.awt.event.ComponentAdapter() {
+            public void componentShown(java.awt.event.ComponentEvent evt) {
+                panel_penggunaComponentShown(evt);
+            }
+        });
 
         jLabel5.setFont(new java.awt.Font("Times New Roman", 1, 24)); // NOI18N
         jLabel5.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -358,9 +408,9 @@ public class Admin extends javax.swing.JFrame {
 
         jLabel11.setText("Username");
 
-        jTextField3.addActionListener(new java.awt.event.ActionListener() {
+        usernamePengguna.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField3ActionPerformed(evt);
+                usernamePenggunaActionPerformed(evt);
             }
         });
 
@@ -368,9 +418,14 @@ public class Admin extends javax.swing.JFrame {
 
         jLabel13.setText("Role");
 
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Admin", "Pengguna" }));
+        rolePengguna.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Admin", "Pengguna" }));
+        rolePengguna.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                rolePenggunaActionPerformed(evt);
+            }
+        });
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        TablePengguna.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
                 {null, null, null, null},
@@ -381,7 +436,46 @@ public class Admin extends javax.swing.JFrame {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
-        jScrollPane1.setViewportView(jTable1);
+        TablePengguna.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        TablePengguna.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                TablePenggunaMouseClicked(evt);
+            }
+        });
+        TablePengguna.addComponentListener(new java.awt.event.ComponentAdapter() {
+            public void componentShown(java.awt.event.ComponentEvent evt) {
+                TablePenggunaComponentShown(evt);
+            }
+        });
+        jScrollPane1.setViewportView(TablePengguna);
+
+        SimpanPengguna.setText("Simpan");
+        SimpanPengguna.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                SimpanPenggunaActionPerformed(evt);
+            }
+        });
+
+        UpdatePengguna.setText("Update");
+        UpdatePengguna.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                UpdatePenggunaActionPerformed(evt);
+            }
+        });
+
+        HapusPengguna.setText("Hapus");
+        HapusPengguna.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                HapusPenggunaActionPerformed(evt);
+            }
+        });
+
+        ResetPengguna.setText("Reset");
+        ResetPengguna.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ResetPenggunaActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout panel_penggunaLayout = new javax.swing.GroupLayout(panel_pengguna);
         panel_pengguna.setLayout(panel_penggunaLayout);
@@ -406,19 +500,27 @@ public class Admin extends javax.swing.JFrame {
                                     .addComponent(jLabel13))
                                 .addGap(18, 18, 18)
                                 .addGroup(panel_penggunaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(jTextField1, javax.swing.GroupLayout.DEFAULT_SIZE, 254, Short.MAX_VALUE)
-                                    .addComponent(jTextField2)
-                                    .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addComponent(namaPengguna, javax.swing.GroupLayout.DEFAULT_SIZE, 254, Short.MAX_VALUE)
+                                    .addComponent(asalDaerahPengguna)
+                                    .addComponent(rolePengguna, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                                 .addGap(116, 116, 116)
                                 .addGroup(panel_penggunaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                     .addGroup(panel_penggunaLayout.createSequentialGroup()
                                         .addComponent(jLabel11)
                                         .addGap(18, 18, 18)
-                                        .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, 254, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                        .addComponent(usernamePengguna, javax.swing.GroupLayout.PREFERRED_SIZE, 254, javax.swing.GroupLayout.PREFERRED_SIZE))
                                     .addGroup(panel_penggunaLayout.createSequentialGroup()
                                         .addComponent(jLabel12)
                                         .addGap(18, 18, 18)
-                                        .addComponent(jTextField6)))))))
+                                        .addComponent(passwordPengguna))))
+                            .addGroup(panel_penggunaLayout.createSequentialGroup()
+                                .addComponent(SimpanPengguna)
+                                .addGap(40, 40, 40)
+                                .addComponent(UpdatePengguna)
+                                .addGap(65, 65, 65)
+                                .addComponent(HapusPengguna)
+                                .addGap(31, 31, 31)
+                                .addComponent(ResetPengguna)))))
                 .addContainerGap(75, Short.MAX_VALUE))
         );
         panel_penggunaLayout.setVerticalGroup(
@@ -431,20 +533,26 @@ public class Admin extends javax.swing.JFrame {
                 .addGap(45, 45, 45)
                 .addGroup(panel_penggunaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel9)
-                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(namaPengguna, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel11)
-                    .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(usernamePengguna, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(panel_penggunaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel10)
-                    .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(asalDaerahPengguna, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel12)
-                    .addComponent(jTextField6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(passwordPengguna, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(panel_penggunaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel13)
-                    .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 115, Short.MAX_VALUE)
+                    .addComponent(rolePengguna, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 81, Short.MAX_VALUE)
+                .addGroup(panel_penggunaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(SimpanPengguna)
+                    .addComponent(UpdatePengguna)
+                    .addComponent(HapusPengguna)
+                    .addComponent(ResetPengguna))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 269, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(43, 43, 43))
         );
@@ -494,9 +602,106 @@ public class Admin extends javax.swing.JFrame {
         login.setVisible(true);
     }//GEN-LAST:event_kButton1ActionPerformed
 
-    private void jTextField3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField3ActionPerformed
+    private void usernamePenggunaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_usernamePenggunaActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField3ActionPerformed
+    }//GEN-LAST:event_usernamePenggunaActionPerformed
+
+    private void TablePenggunaComponentShown(java.awt.event.ComponentEvent evt) {//GEN-FIRST:event_TablePenggunaComponentShown
+        
+    }//GEN-LAST:event_TablePenggunaComponentShown
+
+    private void panel_penggunaComponentShown(java.awt.event.ComponentEvent evt) {//GEN-FIRST:event_panel_penggunaComponentShown
+     InitTablePengguna();
+     TampilDataPengguna();
+    }//GEN-LAST:event_panel_penggunaComponentShown
+
+    private void rolePenggunaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rolePenggunaActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_rolePenggunaActionPerformed
+
+    private void SimpanPenggunaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SimpanPenggunaActionPerformed
+        String nama = namaPengguna.getText();
+        String asal = asalDaerahPengguna.getText();
+        String username = usernamePengguna.getText();
+        String password = passwordPengguna.getText();
+        String role = rolePengguna.getSelectedItem().toString();
+        int response = JOptionPane.showConfirmDialog(null, "Anda yakin ingin menyimpan Pengguna ?", "Simpan Pengguna",
+                JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
+        if (response == JOptionPane.NO_OPTION) {
+            JOptionPane.showMessageDialog(null, "Batal Menyimpan Pengguna");
+        } else if (response == JOptionPane.YES_OPTION) {
+            if (User.tambah(username, password, nama, asal, role)) {
+                JOptionPane.showMessageDialog(null, "Berhasil Menyimpan Pengguna");
+                InitTablePengguna();
+                TampilDataPengguna();
+            } else {
+                JOptionPane.showMessageDialog(null, "Gagal");
+            }
+        }
+        
+    }//GEN-LAST:event_SimpanPenggunaActionPerformed
+
+    private void TablePenggunaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_TablePenggunaMouseClicked
+       int row = TablePengguna.getSelectedRow();
+       namaPengguna.setText(TablePengguna.getValueAt(row,0).toString());
+       asalDaerahPengguna.setText(TablePengguna.getValueAt(row,1).toString());
+       usernamePengguna.setText(TablePengguna.getValueAt(row,2).toString());
+       passwordPengguna.setText(TablePengguna.getValueAt(row,3).toString());
+       rolePengguna.setSelectedItem(TablePengguna.getValueAt(row,4).toString());
+    }//GEN-LAST:event_TablePenggunaMouseClicked
+
+    private void UpdatePenggunaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_UpdatePenggunaActionPerformed
+        String nama = namaPengguna.getText();
+        String asal = asalDaerahPengguna.getText();
+        String username = usernamePengguna.getText();
+        String password = passwordPengguna.getText();
+        String role = rolePengguna.getSelectedItem().toString();
+        
+        int row = TablePengguna.getSelectedRow();
+        int id = Integer.parseInt(TablePengguna.getModel().getValueAt(row,0).toString());
+        
+        int response = JOptionPane.showConfirmDialog(null, "Anda yakin ingin mengubah Pengguna ?", "Ubah Pengguna",
+                JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
+        if (response == JOptionPane.NO_OPTION) {
+            JOptionPane.showMessageDialog(null, "Batal Mengubah Pengguna");
+        } else if (response == JOptionPane.YES_OPTION) {
+            if (User.ubah(id, username, nama, asal, role)) {
+                JOptionPane.showMessageDialog(null, "Berhasil Mengubah Pengguna");
+                InitTablePengguna();
+                TampilDataPengguna();
+            } else {
+                JOptionPane.showMessageDialog(null, "Gagal");
+            }
+        }
+    }//GEN-LAST:event_UpdatePenggunaActionPerformed
+
+    private void HapusPenggunaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_HapusPenggunaActionPerformed
+        int row = TablePengguna.getSelectedRow();
+        int id = Integer.parseInt(TablePengguna.getModel().getValueAt(row,0).toString());
+        
+        int response = JOptionPane.showConfirmDialog(null, "Anda yakin ingin menghapus Pengguna ?", "hapus Pengguna",
+                JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
+        if (response == JOptionPane.NO_OPTION) {
+            JOptionPane.showMessageDialog(null, "Batal Menghapus Pengguna");
+        } else if (response == JOptionPane.YES_OPTION) {
+            if (User.hapus(id)) {
+                JOptionPane.showMessageDialog(null, "Berhasil Menghapus Pengguna");
+                InitTablePengguna();
+                TampilDataPengguna();
+            } else {
+                JOptionPane.showMessageDialog(null, "Gagal");
+            }
+        }
+   
+    }//GEN-LAST:event_HapusPenggunaActionPerformed
+
+    private void ResetPenggunaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ResetPenggunaActionPerformed
+        namaPengguna.setText("");
+       asalDaerahPengguna.setText("");
+       usernamePengguna.setText("");
+       passwordPengguna.setText("");
+       rolePengguna.setSelectedItem("");
+    }//GEN-LAST:event_ResetPenggunaActionPerformed
 
     /**
      * @param args the command line arguments
@@ -535,8 +740,13 @@ public class Admin extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel ContainerPanel;
+    private javax.swing.JButton HapusPengguna;
+    private javax.swing.JButton ResetPengguna;
+    private javax.swing.JButton SimpanPengguna;
+    private javax.swing.JTable TablePengguna;
+    private javax.swing.JButton UpdatePengguna;
+    private javax.swing.JTextField asalDaerahPengguna;
     private javax.swing.JPanel grup_aktif;
-    private javax.swing.JComboBox<String> jComboBox1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
@@ -552,20 +762,19 @@ public class Admin extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable jTable1;
-    private javax.swing.JTextField jTextField1;
-    private javax.swing.JTextField jTextField2;
-    private javax.swing.JTextField jTextField3;
-    private javax.swing.JTextField jTextField6;
     private keeptoo.KButton kButton1;
     private javax.swing.JPanel menu_grup;
     private javax.swing.JPanel menu_pengguna;
     private javax.swing.JPanel menu_varietas;
+    private javax.swing.JTextField namaPengguna;
     private javax.swing.JPanel panel_grup;
     private javax.swing.JPanel panel_pengguna;
     private javax.swing.JPanel panel_varietas;
+    private javax.swing.JTextField passwordPengguna;
     private javax.swing.JPanel pengguna_aktif;
+    private javax.swing.JComboBox<String> rolePengguna;
     private javax.swing.JPanel side_bar;
+    private javax.swing.JTextField usernamePengguna;
     private javax.swing.JPanel varietas_aktif;
     private javax.swing.JLabel welcomeText;
     // End of variables declaration//GEN-END:variables
