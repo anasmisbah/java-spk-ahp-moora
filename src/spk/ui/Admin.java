@@ -16,11 +16,17 @@ import java.sql.ResultSet;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.Vector;
+import javax.swing.ComboBoxModel;
 import javax.swing.JDialog;
 import javax.swing.JOptionPane;
 import spk.data.Kriteria;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.DefaultComboBoxModel;
+import javax.swing.JComboBox;
+import spk.data.ComboItem;
 import spk.data.Grup;
+import spk.data.Varietas;
 /**
  *
  * @author MOTHAFUCKAS
@@ -31,6 +37,7 @@ public class Admin extends javax.swing.JFrame {
     private ResultSet rss;
     private Pengguna User =  new Pengguna();
     private Grup grup = new Grup();
+    private Varietas varietas = new Varietas();
     private DefaultTableModel model;
     Pengguna pengguna = Auth.penggunaLogin();
     Kriteria kriteria = new Kriteria();
@@ -98,9 +105,47 @@ public class Admin extends javax.swing.JFrame {
         ArrayList<Grup> group = grup.allGrup();
         try {
             for (int i = 0; i < group.size(); i++) {
-                Object[] record = new Object[6];
+                Object[] record = new Object[2];
                 record[0]=group.get(i).getId();                
                 record[1]=group.get(i).getNama();
+                model.addRow(record);
+            }
+        } catch(Exception e) {
+            System.out.println(e.getMessage());
+        }        
+    }
+    
+    private void ComboGrup() {
+        ArrayList<Grup> group = grup.allGrup();
+        
+        try {
+            for (int i = 0; i < group.size(); i++) {
+                grupVarietas.addItem(new ComboItem(group.get(i).getNama(),group.get(i).getId()));
+            }
+        
+        
+        } catch(Exception e) {
+            System.out.println(e.getMessage());
+        }        
+    }
+    
+    private void InitTableVarietas() {
+        model = new DefaultTableModel();
+        model.addColumn("ID");
+        model.addColumn("Nama");
+        model.addColumn("Grup");
+        TableVarietas.setModel(model);
+        TableVarietas.removeColumn(TableVarietas.getColumnModel().getColumn(0));
+    }
+    
+    private void TampilDataVarietas() {
+        ArrayList<Varietas> variety = varietas.allVarietasGrup();
+        try {
+            for (int i = 0; i < variety.size(); i++) {
+                Object[] record = new Object[3];
+                record[0]=variety.get(i).getId();                
+                record[1]=variety.get(i).getNama();
+                record[2]=variety.get(i).getNamaGrup();
                 model.addRow(record);
             }
         } catch(Exception e) {
@@ -145,8 +190,17 @@ public class Admin extends javax.swing.JFrame {
         jPanel2 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         ContainerPanel = new javax.swing.JPanel();
-        panel_varietas = new javax.swing.JPanel();
-        jLabel7 = new javax.swing.JLabel();
+        panel_grup = new javax.swing.JPanel();
+        jLabel6 = new javax.swing.JLabel();
+        jLabel14 = new javax.swing.JLabel();
+        NamaGrup = new javax.swing.JTextField();
+        jLabel15 = new javax.swing.JLabel();
+        SimpanGrup = new javax.swing.JButton();
+        UpdateGrup = new javax.swing.JButton();
+        HapusGrup = new javax.swing.JButton();
+        ResetGrup = new javax.swing.JButton();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        TableGrup = new javax.swing.JTable();
         panel_pengguna = new javax.swing.JPanel();
         jLabel5 = new javax.swing.JLabel();
         jLabel8 = new javax.swing.JLabel();
@@ -166,17 +220,18 @@ public class Admin extends javax.swing.JFrame {
         UpdatePengguna = new javax.swing.JButton();
         HapusPengguna = new javax.swing.JButton();
         ResetPengguna = new javax.swing.JButton();
-        panel_grup = new javax.swing.JPanel();
-        jLabel6 = new javax.swing.JLabel();
-        jLabel14 = new javax.swing.JLabel();
-        NamaGrup = new javax.swing.JTextField();
-        jLabel15 = new javax.swing.JLabel();
-        SimpanGrup = new javax.swing.JButton();
-        UpdateGrup = new javax.swing.JButton();
-        HapusGrup = new javax.swing.JButton();
-        ResetGrup = new javax.swing.JButton();
-        jScrollPane2 = new javax.swing.JScrollPane();
-        TableGrup = new javax.swing.JTable();
+        panel_varietas = new javax.swing.JPanel();
+        jLabel7 = new javax.swing.JLabel();
+        namaVarietas = new javax.swing.JTextField();
+        jLabel16 = new javax.swing.JLabel();
+        jLabel17 = new javax.swing.JLabel();
+        grupVarietas = new javax.swing.JComboBox();
+        SimpanVarietas = new javax.swing.JButton();
+        UpdateVarietas = new javax.swing.JButton();
+        HapusVarietas = new javax.swing.JButton();
+        ResetVarietas = new javax.swing.JButton();
+        jScrollPane3 = new javax.swing.JScrollPane();
+        TableVarietas = new javax.swing.JTable();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setResizable(false);
@@ -370,31 +425,126 @@ public class Admin extends javax.swing.JFrame {
         ContainerPanel.setBackground(new java.awt.Color(255, 255, 255));
         ContainerPanel.setLayout(new java.awt.CardLayout());
 
-        panel_varietas.setBackground(new java.awt.Color(204, 204, 204));
+        panel_grup.setBackground(new java.awt.Color(204, 204, 204));
+        panel_grup.addComponentListener(new java.awt.event.ComponentAdapter() {
+            public void componentShown(java.awt.event.ComponentEvent evt) {
+                panel_grupComponentShown(evt);
+            }
+        });
 
-        jLabel7.setFont(new java.awt.Font("Times New Roman", 1, 24)); // NOI18N
-        jLabel7.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel7.setText("Varietas");
-        jLabel7.setFocusable(false);
+        jLabel6.setFont(new java.awt.Font("Times New Roman", 1, 24)); // NOI18N
+        jLabel6.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel6.setText("Grup");
+        jLabel6.setFocusable(false);
 
-        javax.swing.GroupLayout panel_varietasLayout = new javax.swing.GroupLayout(panel_varietas);
-        panel_varietas.setLayout(panel_varietasLayout);
-        panel_varietasLayout.setHorizontalGroup(
-            panel_varietasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(panel_varietasLayout.createSequentialGroup()
-                .addGap(385, 385, 385)
-                .addComponent(jLabel7)
-                .addContainerGap(428, Short.MAX_VALUE))
+        jLabel14.setText("Nama");
+
+        jLabel15.setText("Deskripsi");
+
+        SimpanGrup.setText("Simpan");
+        SimpanGrup.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                SimpanGrupActionPerformed(evt);
+            }
+        });
+
+        UpdateGrup.setText("Update");
+        UpdateGrup.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                UpdateGrupActionPerformed(evt);
+            }
+        });
+
+        HapusGrup.setText("Hapus");
+        HapusGrup.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                HapusGrupActionPerformed(evt);
+            }
+        });
+
+        ResetGrup.setText("Reset");
+        ResetGrup.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ResetGrupActionPerformed(evt);
+            }
+        });
+
+        TableGrup.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
+            },
+            new String [] {
+                "Title 1", "Title 2", "Title 3", "Title 4"
+            }
+        ));
+        TableGrup.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        TableGrup.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                TableGrupMouseClicked(evt);
+            }
+        });
+        jScrollPane2.setViewportView(TableGrup);
+
+        javax.swing.GroupLayout panel_grupLayout = new javax.swing.GroupLayout(panel_grup);
+        panel_grup.setLayout(panel_grupLayout);
+        panel_grupLayout.setHorizontalGroup(
+            panel_grupLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panel_grupLayout.createSequentialGroup()
+                .addContainerGap(431, Short.MAX_VALUE)
+                .addComponent(jLabel6)
+                .addGap(414, 414, 414))
+            .addGroup(panel_grupLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(panel_grupLayout.createSequentialGroup()
+                    .addGap(67, 67, 67)
+                    .addGroup(panel_grupLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(panel_grupLayout.createSequentialGroup()
+                            .addGap(327, 327, 327)
+                            .addComponent(jLabel15))
+                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 766, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGroup(panel_grupLayout.createSequentialGroup()
+                            .addGroup(panel_grupLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(SimpanGrup)
+                                .addComponent(jLabel14))
+                            .addGap(40, 40, 40)
+                            .addGroup(panel_grupLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(NamaGrup, javax.swing.GroupLayout.PREFERRED_SIZE, 245, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGroup(panel_grupLayout.createSequentialGroup()
+                                    .addComponent(UpdateGrup)
+                                    .addGap(65, 65, 65)
+                                    .addComponent(HapusGrup)
+                                    .addGap(31, 31, 31)
+                                    .addComponent(ResetGrup)))))
+                    .addContainerGap(67, Short.MAX_VALUE)))
         );
-        panel_varietasLayout.setVerticalGroup(
-            panel_varietasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(panel_varietasLayout.createSequentialGroup()
+        panel_grupLayout.setVerticalGroup(
+            panel_grupLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panel_grupLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jLabel7)
+                .addComponent(jLabel6)
                 .addContainerGap(581, Short.MAX_VALUE))
+            .addGroup(panel_grupLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(panel_grupLayout.createSequentialGroup()
+                    .addGap(44, 44, 44)
+                    .addComponent(jLabel15)
+                    .addGap(45, 45, 45)
+                    .addGroup(panel_grupLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(jLabel14)
+                        .addComponent(NamaGrup, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGap(150, 150, 150)
+                    .addGroup(panel_grupLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(SimpanGrup)
+                        .addComponent(UpdateGrup)
+                        .addComponent(HapusGrup)
+                        .addComponent(ResetGrup))
+                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 269, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addContainerGap(44, Short.MAX_VALUE)))
         );
 
-        ContainerPanel.add(panel_varietas, "card2");
+        ContainerPanel.add(panel_grup, "card2");
 
         panel_pengguna.setBackground(new java.awt.Color(204, 204, 204));
         panel_pengguna.addComponentListener(new java.awt.event.ComponentAdapter() {
@@ -562,51 +712,51 @@ public class Admin extends javax.swing.JFrame {
 
         ContainerPanel.add(panel_pengguna, "card2");
 
-        panel_grup.setBackground(new java.awt.Color(204, 204, 204));
-        panel_grup.addComponentListener(new java.awt.event.ComponentAdapter() {
+        panel_varietas.setBackground(new java.awt.Color(204, 204, 204));
+        panel_varietas.addComponentListener(new java.awt.event.ComponentAdapter() {
             public void componentShown(java.awt.event.ComponentEvent evt) {
-                panel_grupComponentShown(evt);
+                panel_varietasComponentShown(evt);
             }
         });
 
-        jLabel6.setFont(new java.awt.Font("Times New Roman", 1, 24)); // NOI18N
-        jLabel6.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel6.setText("Grup");
-        jLabel6.setFocusable(false);
+        jLabel7.setFont(new java.awt.Font("Times New Roman", 1, 24)); // NOI18N
+        jLabel7.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel7.setText("Varietas");
+        jLabel7.setFocusable(false);
 
-        jLabel14.setText("Nama");
+        jLabel16.setText("Nama");
 
-        jLabel15.setText("Deskripsi");
+        jLabel17.setText("Grup");
 
-        SimpanGrup.setText("Simpan");
-        SimpanGrup.addActionListener(new java.awt.event.ActionListener() {
+        SimpanVarietas.setText("Simpan");
+        SimpanVarietas.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                SimpanGrupActionPerformed(evt);
+                SimpanVarietasActionPerformed(evt);
             }
         });
 
-        UpdateGrup.setText("Update");
-        UpdateGrup.addActionListener(new java.awt.event.ActionListener() {
+        UpdateVarietas.setText("Update");
+        UpdateVarietas.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                UpdateGrupActionPerformed(evt);
+                UpdateVarietasActionPerformed(evt);
             }
         });
 
-        HapusGrup.setText("Hapus");
-        HapusGrup.addActionListener(new java.awt.event.ActionListener() {
+        HapusVarietas.setText("Hapus");
+        HapusVarietas.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                HapusGrupActionPerformed(evt);
+                HapusVarietasActionPerformed(evt);
             }
         });
 
-        ResetGrup.setText("Reset");
-        ResetGrup.addActionListener(new java.awt.event.ActionListener() {
+        ResetVarietas.setText("Reset");
+        ResetVarietas.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                ResetGrupActionPerformed(evt);
+                ResetVarietasActionPerformed(evt);
             }
         });
 
-        TableGrup.setModel(new javax.swing.table.DefaultTableModel(
+        TableVarietas.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
                 {null, null, null, null},
@@ -617,71 +767,72 @@ public class Admin extends javax.swing.JFrame {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
-        TableGrup.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
-        TableGrup.addMouseListener(new java.awt.event.MouseAdapter() {
+        TableVarietas.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        TableVarietas.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                TableGrupMouseClicked(evt);
+                TableVarietasMouseClicked(evt);
             }
         });
-        jScrollPane2.setViewportView(TableGrup);
+        jScrollPane3.setViewportView(TableVarietas);
 
-        javax.swing.GroupLayout panel_grupLayout = new javax.swing.GroupLayout(panel_grup);
-        panel_grup.setLayout(panel_grupLayout);
-        panel_grupLayout.setHorizontalGroup(
-            panel_grupLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panel_grupLayout.createSequentialGroup()
-                .addContainerGap(431, Short.MAX_VALUE)
-                .addComponent(jLabel6)
-                .addGap(414, 414, 414))
-            .addGroup(panel_grupLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(panel_grupLayout.createSequentialGroup()
-                    .addGap(67, 67, 67)
-                    .addGroup(panel_grupLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addGroup(panel_grupLayout.createSequentialGroup()
-                            .addGap(327, 327, 327)
-                            .addComponent(jLabel15))
-                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 766, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGroup(panel_grupLayout.createSequentialGroup()
-                            .addGroup(panel_grupLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(SimpanGrup)
-                                .addComponent(jLabel14))
-                            .addGap(40, 40, 40)
-                            .addGroup(panel_grupLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(NamaGrup, javax.swing.GroupLayout.PREFERRED_SIZE, 245, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGroup(panel_grupLayout.createSequentialGroup()
-                                    .addComponent(UpdateGrup)
-                                    .addGap(65, 65, 65)
-                                    .addComponent(HapusGrup)
-                                    .addGap(31, 31, 31)
-                                    .addComponent(ResetGrup)))))
-                    .addContainerGap(67, Short.MAX_VALUE)))
+        javax.swing.GroupLayout panel_varietasLayout = new javax.swing.GroupLayout(panel_varietas);
+        panel_varietas.setLayout(panel_varietasLayout);
+        panel_varietasLayout.setHorizontalGroup(
+            panel_varietasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panel_varietasLayout.createSequentialGroup()
+                .addGroup(panel_varietasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(panel_varietasLayout.createSequentialGroup()
+                        .addGap(385, 385, 385)
+                        .addComponent(jLabel7))
+                    .addGroup(panel_varietasLayout.createSequentialGroup()
+                        .addGap(60, 60, 60)
+                        .addGroup(panel_varietasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(panel_varietasLayout.createSequentialGroup()
+                                .addGroup(panel_varietasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel16)
+                                    .addComponent(jLabel17))
+                                .addGap(18, 18, 18)
+                                .addGroup(panel_varietasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(namaVarietas, javax.swing.GroupLayout.PREFERRED_SIZE, 254, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addGroup(panel_varietasLayout.createSequentialGroup()
+                                        .addComponent(grupVarietas, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                        .addGap(131, 131, 131))))
+                            .addGroup(panel_varietasLayout.createSequentialGroup()
+                                .addComponent(SimpanVarietas)
+                                .addGap(34, 34, 34)
+                                .addComponent(UpdateVarietas)
+                                .addGap(28, 28, 28)
+                                .addComponent(HapusVarietas)
+                                .addGap(28, 28, 28)
+                                .addComponent(ResetVarietas))
+                            .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 780, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addContainerGap(60, Short.MAX_VALUE))
         );
-        panel_grupLayout.setVerticalGroup(
-            panel_grupLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(panel_grupLayout.createSequentialGroup()
+        panel_varietasLayout.setVerticalGroup(
+            panel_varietasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panel_varietasLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jLabel6)
-                .addContainerGap(581, Short.MAX_VALUE))
-            .addGroup(panel_grupLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(panel_grupLayout.createSequentialGroup()
-                    .addGap(44, 44, 44)
-                    .addComponent(jLabel15)
-                    .addGap(45, 45, 45)
-                    .addGroup(panel_grupLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(jLabel14)
-                        .addComponent(NamaGrup, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGap(150, 150, 150)
-                    .addGroup(panel_grupLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(SimpanGrup)
-                        .addComponent(UpdateGrup)
-                        .addComponent(HapusGrup)
-                        .addComponent(ResetGrup))
-                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 269, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addContainerGap(44, Short.MAX_VALUE)))
+                .addComponent(jLabel7)
+                .addGap(42, 42, 42)
+                .addGroup(panel_varietasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel16)
+                    .addComponent(namaVarietas, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addGroup(panel_varietasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel17)
+                    .addComponent(grupVarietas, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 133, Short.MAX_VALUE)
+                .addGroup(panel_varietasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(SimpanVarietas)
+                    .addComponent(UpdateVarietas)
+                    .addComponent(HapusVarietas)
+                    .addComponent(ResetVarietas))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 269, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(45, 45, 45))
         );
 
-        ContainerPanel.add(panel_grup, "card2");
+        ContainerPanel.add(panel_varietas, "card2");
 
         getContentPane().add(ContainerPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 50, 900, 620));
 
@@ -820,7 +971,7 @@ public class Admin extends javax.swing.JFrame {
        asalDaerahPengguna.setText("");
        usernamePengguna.setText("");
        passwordPengguna.setText("");
-       rolePengguna.setSelectedItem("");
+       rolePengguna.getModel().setSelectedItem("");
     }//GEN-LAST:event_ResetPenggunaActionPerformed
 
     private void UpdateGrupActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_UpdateGrupActionPerformed
@@ -897,6 +1048,84 @@ public class Admin extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_SimpanGrupActionPerformed
 
+    private void SimpanVarietasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SimpanVarietasActionPerformed
+       Object item = grupVarietas.getSelectedItem();
+       int id = ((ComboItem)item).getId();
+       String nama = namaVarietas.getText();
+        int response = JOptionPane.showConfirmDialog(null, "Anda yakin ingin menyimpan Varietas ?", "Simpan Varietas",
+                JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
+        if (response == JOptionPane.NO_OPTION) {
+            JOptionPane.showMessageDialog(null, "Batal Menyimpan Varietas");
+        } else if (response == JOptionPane.YES_OPTION) {
+            if (varietas.tambah(nama, id)) {
+                JOptionPane.showMessageDialog(null, "Berhasil Menyimpan Varietas");
+                InitTableVarietas();
+                TampilDataVarietas();
+            } else {
+                JOptionPane.showMessageDialog(null, "Gagal");
+            }
+        }
+    }//GEN-LAST:event_SimpanVarietasActionPerformed
+
+    private void UpdateVarietasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_UpdateVarietasActionPerformed
+        Object item = grupVarietas.getSelectedItem();
+        int grup_id = ((ComboItem)item).getId();
+        String nama = namaVarietas.getText();
+        int row = TableVarietas.getSelectedRow();
+        int id = Integer.parseInt(TableVarietas.getModel().getValueAt(row,0).toString());
+        
+        int response = JOptionPane.showConfirmDialog(null, "Anda yakin ingin mengubah Varietas?", "Ubah Varietas",
+                JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
+        if (response == JOptionPane.NO_OPTION) {
+            JOptionPane.showMessageDialog(null, "Batal Mengubah Varietas");
+        } else if (response == JOptionPane.YES_OPTION) {
+            if (varietas.ubah(id, nama, grup_id)) {
+                JOptionPane.showMessageDialog(null, "Berhasil Mengubah Varietas");
+                InitTableVarietas();
+                TampilDataVarietas();   
+            } else {
+                JOptionPane.showMessageDialog(null, "Gagal");
+            }
+        }
+    }//GEN-LAST:event_UpdateVarietasActionPerformed
+
+    private void HapusVarietasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_HapusVarietasActionPerformed
+        int row = TableVarietas.getSelectedRow();
+        int id = Integer.parseInt(TableVarietas.getModel().getValueAt(row,0).toString());
+        
+        int response = JOptionPane.showConfirmDialog(null, "Anda yakin ingin menghapus Varietas ?", "hapus Varietas",
+                JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
+        if (response == JOptionPane.NO_OPTION) {
+            JOptionPane.showMessageDialog(null, "Batal Menghapus Varietas");
+        } else if (response == JOptionPane.YES_OPTION) {
+            if (varietas.hapus(id)) {
+                JOptionPane.showMessageDialog(null, "Berhasil Menghapus Varietas");
+                InitTableVarietas();
+                TampilDataVarietas();
+            } else {
+                JOptionPane.showMessageDialog(null, "Gagal");
+            }
+        }
+    }//GEN-LAST:event_HapusVarietasActionPerformed
+
+    private void ResetVarietasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ResetVarietasActionPerformed
+        namaVarietas.setText("");
+        grupVarietas.getModel().setSelectedItem("");
+    }//GEN-LAST:event_ResetVarietasActionPerformed
+
+    private void TableVarietasMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_TableVarietasMouseClicked
+        int row = TableVarietas.getSelectedRow();
+        namaVarietas.setText(TableVarietas.getValueAt(row,0).toString());
+        grupVarietas.getModel().setSelectedItem(TableVarietas.getValueAt(row,1).toString());
+    }//GEN-LAST:event_TableVarietasMouseClicked
+
+    private void panel_varietasComponentShown(java.awt.event.ComponentEvent evt) {//GEN-FIRST:event_panel_varietasComponentShown
+        InitTableVarietas();
+        TampilDataVarietas();
+        grupVarietas.removeAllItems();
+        ComboGrup();
+    }//GEN-LAST:event_panel_varietasComponentShown
+
     /**
      * @param args the command line arguments
      */
@@ -936,16 +1165,22 @@ public class Admin extends javax.swing.JFrame {
     private javax.swing.JPanel ContainerPanel;
     private javax.swing.JButton HapusGrup;
     private javax.swing.JButton HapusPengguna;
+    private javax.swing.JButton HapusVarietas;
     private javax.swing.JTextField NamaGrup;
     private javax.swing.JButton ResetGrup;
     private javax.swing.JButton ResetPengguna;
+    private javax.swing.JButton ResetVarietas;
     private javax.swing.JButton SimpanGrup;
     private javax.swing.JButton SimpanPengguna;
+    private javax.swing.JButton SimpanVarietas;
     private javax.swing.JTable TableGrup;
     private javax.swing.JTable TablePengguna;
+    private javax.swing.JTable TableVarietas;
     private javax.swing.JButton UpdateGrup;
     private javax.swing.JButton UpdatePengguna;
+    private javax.swing.JButton UpdateVarietas;
     private javax.swing.JTextField asalDaerahPengguna;
+    private javax.swing.JComboBox grupVarietas;
     private javax.swing.JPanel grup_aktif;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
@@ -954,6 +1189,8 @@ public class Admin extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel14;
     private javax.swing.JLabel jLabel15;
+    private javax.swing.JLabel jLabel16;
+    private javax.swing.JLabel jLabel17;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
@@ -965,11 +1202,13 @@ public class Admin extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JScrollPane jScrollPane3;
     private keeptoo.KButton kButton1;
     private javax.swing.JPanel menu_grup;
     private javax.swing.JPanel menu_pengguna;
     private javax.swing.JPanel menu_varietas;
     private javax.swing.JTextField namaPengguna;
+    private javax.swing.JTextField namaVarietas;
     private javax.swing.JPanel panel_grup;
     private javax.swing.JPanel panel_pengguna;
     private javax.swing.JPanel panel_varietas;

@@ -23,6 +23,7 @@ public class Varietas {
     private Connection con = Koneksi.getkoneksi();
     private Statement stt;
     private ResultSet rss;
+    private String nama_grup;
     
     //variabel kriteria dari varietas
     private float RerataJumlahTandan,RerataBeratTandan,PotensiTBS,Rendemen,PotensiCPO,Tinggi,PanjangPelepah,KerapatanTanam;
@@ -77,6 +78,11 @@ public class Varietas {
         this.group_id = group_id;
     }
     
+    public Varietas(int id, String nama, String nama_grup) {
+        this.id = id;
+        this.nama = nama;
+        this.nama_grup = nama_grup;
+    }
 
     public Varietas() {
     }
@@ -93,6 +99,10 @@ public class Varietas {
         return nama;
     }
 
+    public String getNamaGrup() {
+        return nama_grup;
+    }
+    
     public void setNama(String nama) {
         this.nama = nama;
     }
@@ -177,6 +187,21 @@ public class Varietas {
             System.out.println(e.getMessage());
         }
         return varietasAll;
+    }
+    
+    public ArrayList<Varietas> allVarietasGrup(){
+        ArrayList<Varietas> varietasGrups = new ArrayList<>();
+        try{
+            stt = con.createStatement();
+            String sql="Select * from varietas JOIN grup ON grup.id=varietas.grup_id;";
+            rss=stt.executeQuery(sql);
+            while(rss.next()){
+                varietasGrups.add(new Varietas(rss.getInt("id"),rss.getString("varietas.nama"),rss.getString("grup.nama")));
+            }
+        }catch(SQLException e){
+            System.out.println(e.getMessage());
+        }
+        return varietasGrups;
     }
     
     public Boolean hapus(int id){

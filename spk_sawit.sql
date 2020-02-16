@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 4.9.1
+-- version 4.8.5
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Waktu pembuatan: 31 Jan 2020 pada 02.56
--- Versi server: 10.4.8-MariaDB
--- Versi PHP: 7.3.11
+-- Generation Time: Feb 16, 2020 at 09:46 AM
+-- Server version: 10.1.38-MariaDB
+-- PHP Version: 7.3.3
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET AUTOCOMMIT = 0;
@@ -25,7 +25,7 @@ SET time_zone = "+00:00";
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `grup`
+-- Table structure for table `grup`
 --
 
 CREATE TABLE `grup` (
@@ -34,7 +34,7 @@ CREATE TABLE `grup` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
--- Dumping data untuk tabel `grup`
+-- Dumping data for table `grup`
 --
 
 INSERT INTO `grup` (`id`, `nama`) VALUES
@@ -46,7 +46,7 @@ INSERT INTO `grup` (`id`, `nama`) VALUES
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `kriteria`
+-- Table structure for table `kriteria`
 --
 
 CREATE TABLE `kriteria` (
@@ -56,7 +56,7 @@ CREATE TABLE `kriteria` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
--- Dumping data untuk tabel `kriteria`
+-- Dumping data for table `kriteria`
 --
 
 INSERT INTO `kriteria` (`id`, `nama`, `tipe`) VALUES
@@ -72,7 +72,7 @@ INSERT INTO `kriteria` (`id`, `nama`, `tipe`) VALUES
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `kriteria_varietas`
+-- Table structure for table `kriteria_varietas`
 --
 
 CREATE TABLE `kriteria_varietas` (
@@ -83,7 +83,7 @@ CREATE TABLE `kriteria_varietas` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
--- Dumping data untuk tabel `kriteria_varietas`
+-- Dumping data for table `kriteria_varietas`
 --
 
 INSERT INTO `kriteria_varietas` (`id`, `varietas_id`, `kriteria_id`, `nilai`) VALUES
@@ -155,33 +155,33 @@ INSERT INTO `kriteria_varietas` (`id`, `varietas_id`, `kriteria_id`, `nilai`) VA
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `pengguna`
+-- Table structure for table `pengguna`
 --
 
 CREATE TABLE `pengguna` (
   `id` int(11) NOT NULL,
   `nama` varchar(255) NOT NULL,
-  `username` varchar(255) NOT NULL,
-  `password` int(11) NOT NULL,
+  `username` varchar(100) NOT NULL,
+  `password` varchar(200) NOT NULL,
   `asal_daerah` varchar(255) NOT NULL,
   `role` varchar(255) NOT NULL,
-  `status_login` tinyint(4) NOT NULL DEFAULT 0
+  `status_login` tinyint(4) NOT NULL DEFAULT '0'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
--- Dumping data untuk tabel `pengguna`
+-- Dumping data for table `pengguna`
 --
 
 INSERT INTO `pengguna` (`id`, `nama`, `username`, `password`, `asal_daerah`, `role`, `status_login`) VALUES
-(1, 'administrator', 'admin', 123123, 'samarinda', 'admin', 0),
-(2, 'pengguna', 'pengguna', 123321, 'samarinda', 'pengguna', 0),
-(8, 'baru', 'baru', 123123, 'samarinda', 'pengguna', 0),
-(10, 'anas misbah', 'anas', 123123, 'balikpapan', 'pengguna', 0);
+(1, 'administrator', 'admin', '123123', 'samarinda', 'admin', 1),
+(2, 'pengguna', 'pengguna', '123321', 'samarinda', 'pengguna', 0),
+(8, 'baru', 'baru', '123123', 'samarinda', 'pengguna', 0),
+(10, 'anas misbah', 'anas', '123123', 'balikpapan', 'pengguna', 0);
 
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `perbandingankriteria`
+-- Table structure for table `perbandingankriteria`
 --
 
 CREATE TABLE `perbandingankriteria` (
@@ -193,43 +193,43 @@ CREATE TABLE `perbandingankriteria` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
--- Dumping data untuk tabel `perbandingankriteria`
+-- Dumping data for table `perbandingankriteria`
 --
 
 INSERT INTO `perbandingankriteria` (`id`, `kriteria1_id`, `kriteria2_id`, `nilai`, `pengguna_id`) VALUES
-(197, 1, 2, 5, 1),
-(198, 1, 3, 1, 1),
-(199, 1, 4, 4, 1),
-(200, 1, 5, 2, 1),
-(201, 1, 6, 2, 1),
-(202, 1, 7, 2, 1),
-(203, 1, 8, 2, 1),
-(204, 2, 3, 3, 1),
-(205, 2, 4, 2, 1),
-(206, 2, 5, 5, 1),
-(207, 2, 6, 8, 1),
-(208, 2, 7, 6, 1),
-(209, 2, 8, 4, 1),
-(210, 3, 4, 7, 1),
-(211, 3, 5, 2, 1),
-(212, 3, 6, 2, 1),
-(213, 3, 7, 2, 1),
-(214, 3, 8, 5, 1),
-(215, 4, 5, 2, 1),
-(216, 4, 6, 2, 1),
-(217, 4, 7, 4, 1),
-(218, 4, 8, 2, 1),
-(219, 5, 6, 1, 1),
-(220, 5, 7, 2, 1),
-(221, 5, 8, 7, 1),
-(222, 6, 7, 2, 1),
-(223, 6, 8, 9, 1),
-(224, 7, 8, 2, 1);
+(253, 1, 2, 5, 1),
+(254, 1, 3, 1, 1),
+(255, 1, 4, 4, 1),
+(256, 1, 5, 2, 1),
+(257, 1, 6, 2, 1),
+(258, 1, 7, 2, 1),
+(259, 1, 8, 2, 1),
+(260, 2, 3, 3, 1),
+(261, 2, 4, 2, 1),
+(262, 2, 5, 5, 1),
+(263, 2, 6, 8, 1),
+(264, 2, 7, 6, 1),
+(265, 2, 8, 4, 1),
+(266, 3, 4, 7, 1),
+(267, 3, 5, 2, 1),
+(268, 3, 6, 2, 1),
+(269, 3, 7, 2, 1),
+(270, 3, 8, 5, 1),
+(271, 4, 5, 2, 1),
+(272, 4, 6, 2, 1),
+(273, 4, 7, 4, 1),
+(274, 4, 8, 2, 1),
+(275, 5, 6, 1, 1),
+(276, 5, 7, 2, 1),
+(277, 5, 8, 7, 1),
+(278, 6, 7, 2, 1),
+(279, 6, 8, 8, 1),
+(280, 7, 8, 2, 1);
 
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `preferensialternatif`
+-- Table structure for table `preferensialternatif`
 --
 
 CREATE TABLE `preferensialternatif` (
@@ -240,7 +240,7 @@ CREATE TABLE `preferensialternatif` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
--- Dumping data untuk tabel `preferensialternatif`
+-- Dumping data for table `preferensialternatif`
 --
 
 INSERT INTO `preferensialternatif` (`id`, `pengguna_id`, `varietas_id`, `preferensi`) VALUES
@@ -256,7 +256,7 @@ INSERT INTO `preferensialternatif` (`id`, `pengguna_id`, `varietas_id`, `prefere
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `pvector_kriteria`
+-- Table structure for table `pvector_kriteria`
 --
 
 CREATE TABLE `pvector_kriteria` (
@@ -267,7 +267,7 @@ CREATE TABLE `pvector_kriteria` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
--- Dumping data untuk tabel `pvector_kriteria`
+-- Dumping data for table `pvector_kriteria`
 --
 
 INSERT INTO `pvector_kriteria` (`id`, `kriteria_id`, `pengguna_id`, `nilai`) VALUES
@@ -283,7 +283,7 @@ INSERT INTO `pvector_kriteria` (`id`, `kriteria_id`, `pengguna_id`, `nilai`) VAL
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `varietas`
+-- Table structure for table `varietas`
 --
 
 CREATE TABLE `varietas` (
@@ -293,7 +293,7 @@ CREATE TABLE `varietas` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
--- Dumping data untuk tabel `varietas`
+-- Dumping data for table `varietas`
 --
 
 INSERT INTO `varietas` (`id`, `nama`, `grup_id`) VALUES
@@ -311,19 +311,19 @@ INSERT INTO `varietas` (`id`, `nama`, `grup_id`) VALUES
 --
 
 --
--- Indeks untuk tabel `grup`
+-- Indexes for table `grup`
 --
 ALTER TABLE `grup`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indeks untuk tabel `kriteria`
+-- Indexes for table `kriteria`
 --
 ALTER TABLE `kriteria`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indeks untuk tabel `kriteria_varietas`
+-- Indexes for table `kriteria_varietas`
 --
 ALTER TABLE `kriteria_varietas`
   ADD PRIMARY KEY (`id`),
@@ -331,14 +331,14 @@ ALTER TABLE `kriteria_varietas`
   ADD KEY `kriteria_kriteria_varietas` (`kriteria_id`);
 
 --
--- Indeks untuk tabel `pengguna`
+-- Indexes for table `pengguna`
 --
 ALTER TABLE `pengguna`
   ADD PRIMARY KEY (`id`),
   ADD UNIQUE KEY `username_unique` (`username`);
 
 --
--- Indeks untuk tabel `perbandingankriteria`
+-- Indexes for table `perbandingankriteria`
 --
 ALTER TABLE `perbandingankriteria`
   ADD PRIMARY KEY (`id`),
@@ -347,7 +347,7 @@ ALTER TABLE `perbandingankriteria`
   ADD KEY `kriteria2_perbandingankriteria` (`kriteria2_id`);
 
 --
--- Indeks untuk tabel `preferensialternatif`
+-- Indexes for table `preferensialternatif`
 --
 ALTER TABLE `preferensialternatif`
   ADD PRIMARY KEY (`id`),
@@ -355,7 +355,7 @@ ALTER TABLE `preferensialternatif`
   ADD KEY `varietas_preferensialternatif` (`varietas_id`);
 
 --
--- Indeks untuk tabel `pvector_kriteria`
+-- Indexes for table `pvector_kriteria`
 --
 ALTER TABLE `pvector_kriteria`
   ADD PRIMARY KEY (`id`),
@@ -363,77 +363,77 @@ ALTER TABLE `pvector_kriteria`
   ADD KEY `kriteria_pvector_kriteria` (`kriteria_id`);
 
 --
--- Indeks untuk tabel `varietas`
+-- Indexes for table `varietas`
 --
 ALTER TABLE `varietas`
   ADD PRIMARY KEY (`id`),
   ADD KEY `grup_varietas` (`grup_id`);
 
 --
--- AUTO_INCREMENT untuk tabel yang dibuang
+-- AUTO_INCREMENT for dumped tables
 --
 
 --
--- AUTO_INCREMENT untuk tabel `grup`
+-- AUTO_INCREMENT for table `grup`
 --
 ALTER TABLE `grup`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
--- AUTO_INCREMENT untuk tabel `kriteria`
+-- AUTO_INCREMENT for table `kriteria`
 --
 ALTER TABLE `kriteria`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
--- AUTO_INCREMENT untuk tabel `kriteria_varietas`
+-- AUTO_INCREMENT for table `kriteria_varietas`
 --
 ALTER TABLE `kriteria_varietas`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=84;
 
 --
--- AUTO_INCREMENT untuk tabel `pengguna`
+-- AUTO_INCREMENT for table `pengguna`
 --
 ALTER TABLE `pengguna`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 --
--- AUTO_INCREMENT untuk tabel `perbandingankriteria`
+-- AUTO_INCREMENT for table `perbandingankriteria`
 --
 ALTER TABLE `perbandingankriteria`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=225;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=281;
 
 --
--- AUTO_INCREMENT untuk tabel `preferensialternatif`
+-- AUTO_INCREMENT for table `preferensialternatif`
 --
 ALTER TABLE `preferensialternatif`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=41;
 
 --
--- AUTO_INCREMENT untuk tabel `pvector_kriteria`
+-- AUTO_INCREMENT for table `pvector_kriteria`
 --
 ALTER TABLE `pvector_kriteria`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
--- AUTO_INCREMENT untuk tabel `varietas`
+-- AUTO_INCREMENT for table `varietas`
 --
 ALTER TABLE `varietas`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
 
 --
--- Ketidakleluasaan untuk tabel pelimpahan (Dumped Tables)
+-- Constraints for dumped tables
 --
 
 --
--- Ketidakleluasaan untuk tabel `kriteria_varietas`
+-- Constraints for table `kriteria_varietas`
 --
 ALTER TABLE `kriteria_varietas`
   ADD CONSTRAINT `kriteria_kriteria_varietas` FOREIGN KEY (`kriteria_id`) REFERENCES `kriteria` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
   ADD CONSTRAINT `varietas_kriteria_varietas` FOREIGN KEY (`varietas_id`) REFERENCES `varietas` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
--- Ketidakleluasaan untuk tabel `perbandingankriteria`
+-- Constraints for table `perbandingankriteria`
 --
 ALTER TABLE `perbandingankriteria`
   ADD CONSTRAINT `kriteria1_perbandingankriteria` FOREIGN KEY (`kriteria1_id`) REFERENCES `kriteria` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
@@ -441,21 +441,21 @@ ALTER TABLE `perbandingankriteria`
   ADD CONSTRAINT `pengguna_perbandingankriteria` FOREIGN KEY (`pengguna_id`) REFERENCES `pengguna` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
--- Ketidakleluasaan untuk tabel `preferensialternatif`
+-- Constraints for table `preferensialternatif`
 --
 ALTER TABLE `preferensialternatif`
   ADD CONSTRAINT `pengguna_preferensialternatif` FOREIGN KEY (`pengguna_id`) REFERENCES `pengguna` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
   ADD CONSTRAINT `varietas_preferensialternatif` FOREIGN KEY (`varietas_id`) REFERENCES `varietas` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
--- Ketidakleluasaan untuk tabel `pvector_kriteria`
+-- Constraints for table `pvector_kriteria`
 --
 ALTER TABLE `pvector_kriteria`
   ADD CONSTRAINT `kriteria_pvector_kriteria` FOREIGN KEY (`kriteria_id`) REFERENCES `kriteria` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
   ADD CONSTRAINT `pengguna_pvector_kriteria` FOREIGN KEY (`pengguna_id`) REFERENCES `pengguna` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
--- Ketidakleluasaan untuk tabel `varietas`
+-- Constraints for table `varietas`
 --
 ALTER TABLE `varietas`
   ADD CONSTRAINT `grup_varietas` FOREIGN KEY (`grup_id`) REFERENCES `grup` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
