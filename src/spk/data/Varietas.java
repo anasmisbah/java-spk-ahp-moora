@@ -78,10 +78,11 @@ public class Varietas {
         this.group_id = group_id;
     }
     
-    public Varietas(int id, String nama, String nama_grup) {
+    public Varietas(int id, String nama, String nama_grup, int group_id) {
         this.id = id;
         this.nama = nama;
         this.nama_grup = nama_grup;
+        this.group_id = group_id;
     }
 
     public Varietas() {
@@ -167,14 +168,14 @@ public class Varietas {
         ArrayList<Varietas> varietasAll =  new ArrayList<>();
         try{
             stt = con.createStatement();
-            String sql="Select * from varietas JOIN kriteria_varietas ON varietas.id=kriteria_varietas.varietas_id;";
+            String sql="Select * from varietas JOIN kriteria_varietas ON varietas.id=kriteria_varietas.varietas_id JOIN grup ON grup.id=varietas.grup_id;";
             rss=stt.executeQuery(sql);
             int i=0;
             float[] nilai = new float[8];
             while(rss.next()){
                 nilai[i]=rss.getFloat("nilai");
                 if(i==7){
-                    Varietas varietasSementara = new Varietas(rss.getInt("id"),rss.getString("nama"),rss.getInt("grup_id"));
+                    Varietas varietasSementara = new Varietas(rss.getInt("id"),rss.getString("varietas.nama"),rss.getString("grup.nama"),rss.getInt("grup_id"));
                     varietasSementara.setKriteriaVarietas(nilai[0], nilai[1], nilai[2], nilai[3], nilai[4], nilai[5], nilai[6], nilai[7]);
                     varietasAll.add(varietasSementara);
                     i=0;
@@ -189,20 +190,6 @@ public class Varietas {
         return varietasAll;
     }
     
-    public ArrayList<Varietas> allVarietasGrup(){
-        ArrayList<Varietas> varietasGrups = new ArrayList<>();
-        try{
-            stt = con.createStatement();
-            String sql="Select * from varietas JOIN grup ON grup.id=varietas.grup_id;";
-            rss=stt.executeQuery(sql);
-            while(rss.next()){
-                varietasGrups.add(new Varietas(rss.getInt("id"),rss.getString("varietas.nama"),rss.getString("grup.nama")));
-            }
-        }catch(SQLException e){
-            System.out.println(e.getMessage());
-        }
-        return varietasGrups;
-    }
     
     public Boolean hapus(int id){
         try {
