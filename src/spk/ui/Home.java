@@ -6,6 +6,7 @@
 package spk.ui;
 
 import java.awt.Color;
+import java.awt.Component;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.Statement;
@@ -21,6 +22,11 @@ import spk.data.Pengguna;
 import spk.data.Auth;
 import spk.data.Kriteria;
 import javax.swing.JOptionPane;
+import javax.swing.JTable;
+import javax.swing.table.DefaultTableCellRenderer;
+import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableColumnModel;
+import spk.data.MetodeAhp;
 
 /**
  *
@@ -37,6 +43,8 @@ public class Home extends javax.swing.JFrame {
     private Pengguna penggunaLogin;
     Pengguna pengguna = Auth.penggunaLogin();
     Kriteria kriteria = new Kriteria();
+    private DefaultTableModel model;
+    MetodeAhp ahp = new MetodeAhp();
 
     public Home() {
         con = Koneksi.getkoneksi();
@@ -44,7 +52,8 @@ public class Home extends javax.swing.JFrame {
 
         String nama = pengguna.getNama();
         welcomeText.setText("Hai, " + nama);
-        ArrayList<Double> bobot = kriteria.getPerbandinganKriteriaUser(pengguna.getId());
+        ArrayList<Double> bobot = kriteria.getPerbandinganKriteriaUser(pengguna.
+                getId());
 
         if (bobot.isEmpty()) {
 
@@ -54,12 +63,114 @@ public class Home extends javax.swing.JFrame {
 
         setColor(menu_kriteria);
         kriteria_aktif.setOpaque(true);
-        resetColor(new JPanel[]{menu_matriks}, new JPanel[]{matriks_aktif});        
+        resetColor(new JPanel[]{menu_matriks}, new JPanel[]{matriks_aktif});
         resetColor(new JPanel[]{menu_hasil}, new JPanel[]{hasil_aktif});
         panel_kriteria.setVisible(true);
         panel_hasil.setVisible(false);
         panel_matriks.setVisible(false);
 
+    }
+
+    private void InitTableMatriks() {
+        model = new DefaultTableModel();
+        model.addColumn("Kriteria");
+        model.addColumn("Rerata Jumlah Tandan");
+        model.addColumn("Rerata Berat Tandan");
+        model.addColumn("Potensi TBS");
+        model.addColumn("Rendemen");
+        model.addColumn("Potensi CPO");
+        model.addColumn("Tinggi");
+        model.addColumn("Panjang Pelepah");
+        model.addColumn("Kerapatan Tanam");
+//        model.addColumn("Eigen Value");
+        model.addColumn("Priority Vector");
+        TableMatriks.setModel(model);
+        TableMatriks.setRowHeight(30);
+        TableColumnModel columnModel = TableMatriks.getColumnModel();
+        for (int i = 0; i < 10; i++) {
+            columnModel.getColumn(i).setPreferredWidth(150);
+        }
+//        TableMatriks.removeColumn(TablePengguna.getColumnModel().getColumn(0));
+    }
+
+    private void TampilDataMatriks() {
+        ArrayList<Double> bobot = kriteria.getPerbandinganKriteriaUser(pengguna.
+                getId());
+        try {
+            double[] bobots = new double[bobot.size()];
+            for (int i = 0; i < bobot.size(); i++) {
+                bobots[i] = bobot.get(i);
+            }
+            ahp.proses(pengguna.getId(), bobots);
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+
+        double[][] matriks = ahp.getMatriksKriteria();
+        double[] pVector = ahp.getPriorityVector();
+        double eValue = ahp.getEigenValue();
+        double CI = ahp.getConsistencyIndex();
+        double CR = ahp.getConsistencyRatio();
+        double eigen = ahp.getEigenValue();
+        try {
+            for (int i = 0; i < 8; i++) {
+                Object[] record = new Object[10];
+                record[0] = kriteria.allKriteria().get(i).getNama();
+                for (int j = 0; j < 8; j++) {
+                    record[j + 1] = matriks[i][j];
+                }
+                record[9] = pVector[i];
+                model.addRow(record);
+            }
+            EV.setText(EV.getText() + "" + eigen);
+            KI.setText(KI.getText() + "" + CI);
+            KR.setText(KR.getText() + "" + CR);
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+
+        try {
+            Object[] row = new Object[10];
+            row[0] = "Jumlah Total";
+            for (int i = 1; i < 10; i++) {
+                row[i] = hitungNilai(i);
+            }
+            model.addRow(row);
+        } catch (Exception e) {
+
+        }
+        
+        TableMatriks.setDefaultRenderer(Object.class, new DefaultTableCellRenderer() {
+            public Component getTableCellRendererComponent(JTable table,
+                    Object value, boolean isSelected, boolean hasFocus, int row,
+                    int col) {
+
+                super.getTableCellRendererComponent(table, value, isSelected,
+                        hasFocus, row, col);
+
+                
+                if (row == 0 && col == 1 || row == 1 && col == 2 || row == 2 && col == 3 || row == 3 && col == 4 || row == 4 && col == 5 || row == 5 && col == 6 || row == 6 && col == 7 || row == 7 && col == 8 || row == 8 && col == 9 || row == 8 && col == 0) {
+                    setBackground(Color.YELLOW);
+                    setForeground(Color.BLACK);
+                } else {
+                    setBackground(table.getBackground());
+                    setForeground(table.getForeground());
+                }
+                return this;
+            }
+        });
+    }
+
+    public double hitungNilai(int column) {
+        double nilai = 0;
+        ArrayList list = new ArrayList();
+        for (int i = 0; i < TableMatriks.getModel().getRowCount(); i++) {
+            list.add(TableMatriks.getModel().getValueAt(i, column)); //get the all row values at column index 0
+        }
+        for (int i = 0; i < list.size(); i++) {
+            nilai = nilai + (Double) list.get(i);
+        }
+        return nilai;
     }
 
     public void radioKriteria(ArrayList<Double> bobot) {
@@ -536,10 +647,15 @@ public class Home extends javax.swing.JFrame {
         jLabel8 = new javax.swing.JLabel();
         helpButton = new javax.swing.JButton();
         simpan = new javax.swing.JButton();
-        panel_matriks = new javax.swing.JPanel();
-        jLabel6 = new javax.swing.JLabel();
         panel_hasil = new javax.swing.JPanel();
         jLabel7 = new javax.swing.JLabel();
+        panel_matriks = new javax.swing.JPanel();
+        jLabel6 = new javax.swing.JLabel();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        TableMatriks = new javax.swing.JTable();
+        KI = new javax.swing.JLabel();
+        KR = new javax.swing.JLabel();
+        EV = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setBackground(new java.awt.Color(255, 255, 255));
@@ -4489,24 +4605,19 @@ public class Home extends javax.swing.JFrame {
         panel_kriteriaLayout.setHorizontalGroup(
             panel_kriteriaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 900, Short.MAX_VALUE)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panel_kriteriaLayout.createSequentialGroup()
-                .addGap(0, 841, Short.MAX_VALUE)
-                .addComponent(helpButton))
             .addGroup(panel_kriteriaLayout.createSequentialGroup()
+                .addContainerGap()
                 .addGroup(panel_kriteriaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(panel_kriteriaLayout.createSequentialGroup()
-                        .addGroup(panel_kriteriaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(panel_kriteriaLayout.createSequentialGroup()
-                                .addGap(358, 358, 358)
-                                .addComponent(jLabel5))
-                            .addGroup(panel_kriteriaLayout.createSequentialGroup()
-                                .addGap(386, 386, 386)
-                                .addComponent(jLabel8)))
-                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addComponent(jLabel5)
+                    .addComponent(jLabel8))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panel_kriteriaLayout.createSequentialGroup()
+                .addGap(0, 0, Short.MAX_VALUE)
+                .addGroup(panel_kriteriaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(helpButton, javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panel_kriteriaLayout.createSequentialGroup()
-                        .addGap(0, 0, Short.MAX_VALUE)
-                        .addComponent(simpan, javax.swing.GroupLayout.PREFERRED_SIZE, 82, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap())
+                        .addComponent(simpan, javax.swing.GroupLayout.PREFERRED_SIZE, 82, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addContainerGap())))
         );
         panel_kriteriaLayout.setVerticalGroup(
             panel_kriteriaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -4526,33 +4637,6 @@ public class Home extends javax.swing.JFrame {
 
         ContainerPanel.add(panel_kriteria, "card2");
 
-        panel_matriks.setBackground(new java.awt.Color(204, 204, 204));
-
-        jLabel6.setFont(new java.awt.Font("Times New Roman", 1, 24)); // NOI18N
-        jLabel6.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel6.setLabelFor(panel_matriks);
-        jLabel6.setText("MATRIKS");
-        jLabel6.setFocusable(false);
-
-        javax.swing.GroupLayout panel_matriksLayout = new javax.swing.GroupLayout(panel_matriks);
-        panel_matriks.setLayout(panel_matriksLayout);
-        panel_matriksLayout.setHorizontalGroup(
-            panel_matriksLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(panel_matriksLayout.createSequentialGroup()
-                .addGap(385, 385, 385)
-                .addComponent(jLabel6)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
-        panel_matriksLayout.setVerticalGroup(
-            panel_matriksLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(panel_matriksLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jLabel6)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
-
-        ContainerPanel.add(panel_matriks, "card2");
-
         panel_hasil.setBackground(new java.awt.Color(204, 204, 204));
 
         jLabel7.setFont(new java.awt.Font("Times New Roman", 1, 24)); // NOI18N
@@ -4566,9 +4650,9 @@ public class Home extends javax.swing.JFrame {
         panel_hasilLayout.setHorizontalGroup(
             panel_hasilLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panel_hasilLayout.createSequentialGroup()
-                .addGap(385, 385, 385)
+                .addContainerGap()
                 .addComponent(jLabel7)
-                .addContainerGap(441, Short.MAX_VALUE))
+                .addContainerGap(816, Short.MAX_VALUE))
         );
         panel_hasilLayout.setVerticalGroup(
             panel_hasilLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -4580,6 +4664,79 @@ public class Home extends javax.swing.JFrame {
 
         ContainerPanel.add(panel_hasil, "card2");
 
+        panel_matriks.setBackground(new java.awt.Color(204, 204, 204));
+        panel_matriks.addComponentListener(new java.awt.event.ComponentAdapter() {
+            public void componentShown(java.awt.event.ComponentEvent evt) {
+                panel_matriksComponentShown(evt);
+            }
+        });
+
+        jLabel6.setFont(new java.awt.Font("Times New Roman", 1, 24)); // NOI18N
+        jLabel6.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel6.setLabelFor(panel_matriks);
+        jLabel6.setText("MATRIKS");
+        jLabel6.setFocusable(false);
+
+        TableMatriks.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
+            },
+            new String [] {
+                "Title 1", "Title 2", "Title 3", "Title 4"
+            }
+        ));
+        TableMatriks.setAutoResizeMode(javax.swing.JTable.AUTO_RESIZE_OFF);
+        TableMatriks.getTableHeader().setResizingAllowed(false);
+        TableMatriks.getTableHeader().setReorderingAllowed(false);
+        jScrollPane2.setViewportView(TableMatriks);
+
+        KI.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
+        KI.setText("Konsistensi Index = ");
+
+        KR.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
+        KR.setText("Konsistensi Ratio = ");
+
+        EV.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
+        EV.setText("Eigen Value =");
+
+        javax.swing.GroupLayout panel_matriksLayout = new javax.swing.GroupLayout(panel_matriks);
+        panel_matriks.setLayout(panel_matriksLayout);
+        panel_matriksLayout.setHorizontalGroup(
+            panel_matriksLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panel_matriksLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(panel_matriksLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 880, Short.MAX_VALUE)
+                    .addGroup(panel_matriksLayout.createSequentialGroup()
+                        .addGroup(panel_matriksLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel6)
+                            .addComponent(KR)
+                            .addComponent(KI)
+                            .addComponent(EV))
+                        .addGap(0, 0, Short.MAX_VALUE)))
+                .addContainerGap())
+        );
+        panel_matriksLayout.setVerticalGroup(
+            panel_matriksLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panel_matriksLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel6)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 65, Short.MAX_VALUE)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 300, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(EV)
+                .addGap(18, 18, 18)
+                .addComponent(KI)
+                .addGap(18, 18, 18)
+                .addComponent(KR)
+                .addGap(96, 96, 96))
+        );
+
+        ContainerPanel.add(panel_matriks, "card2");
+
         getContentPane().add(ContainerPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 50, 900, 620));
 
         pack();
@@ -4587,9 +4744,10 @@ public class Home extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void menu_kriteriaMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_menu_kriteriaMousePressed
-        ArrayList<Double> bobot = kriteria.getPerbandinganKriteriaUser(pengguna.getId());
+        ArrayList<Double> bobot = kriteria.getPerbandinganKriteriaUser(pengguna.
+                getId());
         if (bobot.isEmpty()) {
-            
+
         } else {
             this.radioKriteria(bobot);
         }
@@ -5643,10 +5801,13 @@ public class Home extends javax.swing.JFrame {
 
     private void simpanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_simpanActionPerformed
         JDialog.setDefaultLookAndFeelDecorated(true);
-        int response = JOptionPane.showConfirmDialog(null, "Anda yakin ingin menyimpan Bobot Kriteria ?", "Simpan Bobot Kriteria",
+        int response = JOptionPane.showConfirmDialog(null,
+                "Anda yakin ingin menyimpan Bobot Kriteria ?",
+                "Simpan Bobot Kriteria",
                 JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
         if (response == JOptionPane.NO_OPTION) {
-            JOptionPane.showMessageDialog(null, "Batal Menyimpan Bobot Kriteria");
+            JOptionPane.
+                    showMessageDialog(null, "Batal Menyimpan Bobot Kriteria");
         } else if (response == JOptionPane.YES_OPTION) {
 
             ArrayList<Double> nilai = new ArrayList<>();
@@ -5687,7 +5848,8 @@ public class Home extends javax.swing.JFrame {
                             if (j <= i) {
                                 continue;
                             } else {
-                                kriteria.tambahPerbandinganAntarKriteria(i, j, nilai.get(indexNilai), pengguna.getId());
+                                kriteria.tambahPerbandinganAntarKriteria(i, j,
+                                        nilai.get(indexNilai), pengguna.getId());
                                 indexNilai++;
                             }
                         }
@@ -5696,7 +5858,8 @@ public class Home extends javax.swing.JFrame {
                 }
                 JOptionPane.showMessageDialog(null, "Berhasil Menyimpan Bobot");
             } else {
-                JOptionPane.showMessageDialog(null, "Silahkan Isi Bobot Yang Masih Kosong");
+                JOptionPane.showMessageDialog(null,
+                        "Silahkan Isi Bobot Yang Masih Kosong");
             }
         }
     }//GEN-LAST:event_simpanActionPerformed
@@ -5708,6 +5871,14 @@ public class Home extends javax.swing.JFrame {
         login.setVisible(true);
     }//GEN-LAST:event_kButton1ActionPerformed
 
+    private void panel_matriksComponentShown(java.awt.event.ComponentEvent evt) {//GEN-FIRST:event_panel_matriksComponentShown
+        EV.setText("Eigen Value\t\t= ");
+        KI.setText("Konsistensi Index\t= ");
+        KR.setText("Konsistensi Rasio\t= ");
+        InitTableMatriks();
+        TampilDataMatriks();
+    }//GEN-LAST:event_panel_matriksComponentShown
+
     /**
      * @param args the command line arguments
      */
@@ -5718,20 +5889,25 @@ public class Home extends javax.swing.JFrame {
          * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
          */
         try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
+            for (javax.swing.UIManager.LookAndFeelInfo info
+                    : javax.swing.UIManager.getInstalledLookAndFeels()) {
                 if ("Windows".equals(info.getName())) {
                     javax.swing.UIManager.setLookAndFeel(info.getClassName());
                     break;
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(Home.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Home.class.getName()).log(
+                    java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(Home.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Home.class.getName()).log(
+                    java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(Home.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Home.class.getName()).log(
+                    java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(Home.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Home.class.getName()).log(
+                    java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
 
@@ -5758,7 +5934,8 @@ public class Home extends javax.swing.JFrame {
     }
 
     String getSelectedButtonText(ButtonGroup buttonGroup) {
-        for (Enumeration buttons = buttonGroup.getElements(); buttons.hasMoreElements();) {
+        for (Enumeration buttons = buttonGroup.getElements(); buttons.
+                hasMoreElements();) {
             AbstractButton button = (AbstractButton) buttons.nextElement();
 
             if (button.isSelected()) {
@@ -6006,6 +6183,7 @@ public class Home extends javax.swing.JFrame {
     private javax.swing.JRadioButton EH7;
     private javax.swing.JRadioButton EH8;
     private javax.swing.JRadioButton EH9;
+    private javax.swing.JLabel EV;
     private javax.swing.JRadioButton FG1;
     private javax.swing.JRadioButton FG2;
     private javax.swing.JRadioButton FG3;
@@ -6033,6 +6211,9 @@ public class Home extends javax.swing.JFrame {
     private javax.swing.JRadioButton GH7;
     private javax.swing.JRadioButton GH8;
     private javax.swing.JRadioButton GH9;
+    private javax.swing.JLabel KI;
+    private javax.swing.JLabel KR;
+    private javax.swing.JTable TableMatriks;
     private javax.swing.JPanel ahpProcess;
     private javax.swing.ButtonGroup groupAB;
     private javax.swing.ButtonGroup groupAC;
@@ -6158,6 +6339,7 @@ public class Home extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel92;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JSeparator jSeparator10;
     private javax.swing.JSeparator jSeparator11;

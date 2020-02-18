@@ -26,6 +26,7 @@ import javax.swing.DefaultComboBoxModel;
 import javax.swing.JComboBox;
 import spk.data.ComboItem;
 import spk.data.Grup;
+
 import spk.data.Varietas;
 
 /**
@@ -43,6 +44,7 @@ public class Admin extends javax.swing.JFrame {
     private DefaultTableModel model;
     Pengguna pengguna = Auth.penggunaLogin();
     Kriteria kriteria = new Kriteria();
+    
 
     /**
      * Creates new form Admin
@@ -73,6 +75,7 @@ public class Admin extends javax.swing.JFrame {
         model.addColumn("Role");
         TablePengguna.setModel(model);
         TablePengguna.removeColumn(TablePengguna.getColumnModel().getColumn(0));
+        TablePengguna.setRowHeight(30);
     }
 
     private void TampilDataPengguna() {
@@ -100,6 +103,7 @@ public class Admin extends javax.swing.JFrame {
         model.addColumn("Nama");
         TableGrup.setModel(model);
         TableGrup.removeColumn(TableGrup.getColumnModel().getColumn(0));
+        TableGrup.setRowHeight(30);
     }
 
     private void TampilDataGrup() {
@@ -147,6 +151,7 @@ public class Admin extends javax.swing.JFrame {
         TableVarietas.setModel(model);
         TableVarietas.removeColumn(TableVarietas.getColumnModel().getColumn(0));
         TableVarietas.removeColumn(TableVarietas.getColumnModel().getColumn(2));
+        TableVarietas.setRowHeight(30);
     }
 
     private void TampilDataVarietas() {
@@ -270,6 +275,14 @@ public class Admin extends javax.swing.JFrame {
         CPO = new javax.swing.JSpinner();
         Tinggi = new javax.swing.JSpinner();
         PP = new javax.swing.JSpinner();
+        jLabel26 = new javax.swing.JLabel();
+        jLabel27 = new javax.swing.JLabel();
+        jLabel28 = new javax.swing.JLabel();
+        jLabel29 = new javax.swing.JLabel();
+        jLabel30 = new javax.swing.JLabel();
+        jLabel31 = new javax.swing.JLabel();
+        jLabel32 = new javax.swing.JLabel();
+        jLabel33 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setResizable(false);
@@ -752,7 +765,7 @@ public class Admin extends javax.swing.JFrame {
         jLabel7.setText("Varietas");
         jLabel7.setFocusable(false);
         panel_varietas.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 11, -1, -1));
-        panel_varietas.add(namaVarietas, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 50, 254, -1));
+        panel_varietas.add(namaVarietas, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 50, 140, -1));
 
         jLabel16.setText("Nama");
         panel_varietas.add(jLabel16, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 53, -1, -1));
@@ -760,7 +773,7 @@ public class Admin extends javax.swing.JFrame {
         jLabel17.setText("Grup");
         panel_varietas.add(jLabel17, new org.netbeans.lib.awtextra.AbsoluteConstraints(500, 50, -1, -1));
 
-        panel_varietas.add(grupVarietas, new org.netbeans.lib.awtextra.AbsoluteConstraints(610, 50, 250, -1));
+        panel_varietas.add(grupVarietas, new org.netbeans.lib.awtextra.AbsoluteConstraints(610, 50, 140, -1));
 
         SimpanVarietas.setText("Simpan");
         SimpanVarietas.addActionListener(new java.awt.event.ActionListener() {
@@ -818,7 +831,7 @@ public class Admin extends javax.swing.JFrame {
         panel_varietas.add(jScrollPane3, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 306, 780, 269));
 
         KT.setModel(new javax.swing.SpinnerNumberModel(0.0f, 0.0f, null, 0.001f));
-        panel_varietas.add(KT, new org.netbeans.lib.awtextra.AbsoluteConstraints(610, 220, 254, -1));
+        panel_varietas.add(KT, new org.netbeans.lib.awtextra.AbsoluteConstraints(610, 220, 140, -1));
 
         jLabel18.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
         jLabel18.setText("Nilai Varietas");
@@ -849,25 +862,49 @@ public class Admin extends javax.swing.JFrame {
         panel_varietas.add(jLabel25, new org.netbeans.lib.awtextra.AbsoluteConstraints(500, 220, -1, -1));
 
         RJT.setModel(new javax.swing.SpinnerNumberModel(0.0f, 0.0f, null, 0.001f));
-        panel_varietas.add(RJT, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 130, 254, -1));
+        panel_varietas.add(RJT, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 130, 140, -1));
 
         RBT.setModel(new javax.swing.SpinnerNumberModel(0.0f, 0.0f, null, 0.001f));
-        panel_varietas.add(RBT, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 160, 254, -1));
+        panel_varietas.add(RBT, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 160, 140, -1));
 
         TBS.setModel(new javax.swing.SpinnerNumberModel(0.0f, 0.0f, null, 0.001f));
-        panel_varietas.add(TBS, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 190, 254, -1));
+        panel_varietas.add(TBS, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 190, 140, -1));
 
         Rendemen.setModel(new javax.swing.SpinnerNumberModel(0.0f, 0.0f, null, 0.001f));
-        panel_varietas.add(Rendemen, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 220, 254, -1));
+        panel_varietas.add(Rendemen, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 220, 140, -1));
 
         CPO.setModel(new javax.swing.SpinnerNumberModel(0.0f, 0.0f, null, 0.001f));
-        panel_varietas.add(CPO, new org.netbeans.lib.awtextra.AbsoluteConstraints(610, 130, 254, -1));
+        panel_varietas.add(CPO, new org.netbeans.lib.awtextra.AbsoluteConstraints(610, 130, 140, -1));
 
         Tinggi.setModel(new javax.swing.SpinnerNumberModel(0.0f, 0.0f, null, 0.001f));
-        panel_varietas.add(Tinggi, new org.netbeans.lib.awtextra.AbsoluteConstraints(610, 160, 254, -1));
+        panel_varietas.add(Tinggi, new org.netbeans.lib.awtextra.AbsoluteConstraints(610, 160, 140, -1));
 
         PP.setModel(new javax.swing.SpinnerNumberModel(0.0f, 0.0f, null, 0.001f));
-        panel_varietas.add(PP, new org.netbeans.lib.awtextra.AbsoluteConstraints(610, 190, 254, -1));
+        panel_varietas.add(PP, new org.netbeans.lib.awtextra.AbsoluteConstraints(610, 190, 140, -1));
+
+        jLabel26.setText("tandan/phn/thn");
+        panel_varietas.add(jLabel26, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 130, -1, -1));
+
+        jLabel27.setText("kg/tandan");
+        panel_varietas.add(jLabel27, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 160, -1, -1));
+
+        jLabel28.setText("ton/ha/thn");
+        panel_varietas.add(jLabel28, new org.netbeans.lib.awtextra.AbsoluteConstraints(760, 130, -1, -1));
+
+        jLabel29.setText("%");
+        panel_varietas.add(jLabel29, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 220, -1, -1));
+
+        jLabel30.setText("ton/ha/thn");
+        panel_varietas.add(jLabel30, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 190, -1, -1));
+
+        jLabel31.setText("cm/thn");
+        panel_varietas.add(jLabel31, new org.netbeans.lib.awtextra.AbsoluteConstraints(760, 160, -1, -1));
+
+        jLabel32.setText("m");
+        panel_varietas.add(jLabel32, new org.netbeans.lib.awtextra.AbsoluteConstraints(760, 190, -1, -1));
+
+        jLabel33.setText("phn/ha");
+        panel_varietas.add(jLabel33, new org.netbeans.lib.awtextra.AbsoluteConstraints(760, 220, -1, -1));
 
         ContainerPanel.add(panel_varietas, "card2");
 
@@ -1285,7 +1322,15 @@ public class Admin extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel23;
     private javax.swing.JLabel jLabel24;
     private javax.swing.JLabel jLabel25;
+    private javax.swing.JLabel jLabel26;
+    private javax.swing.JLabel jLabel27;
+    private javax.swing.JLabel jLabel28;
+    private javax.swing.JLabel jLabel29;
     private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel30;
+    private javax.swing.JLabel jLabel31;
+    private javax.swing.JLabel jLabel32;
+    private javax.swing.JLabel jLabel33;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
