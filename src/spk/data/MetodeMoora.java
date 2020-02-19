@@ -99,6 +99,9 @@ public class MetodeMoora {
         return new Varietas().getPreferensiAlternatifUser(penggunaId);
     }
     
+    public ArrayList<String> getNamaPreferensiAlternatifUser(int penggunaId){
+        return new Varietas().getNamaPreferensiAlternatifUser(penggunaId);
+    }
     
     
 }

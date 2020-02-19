@@ -11,6 +11,7 @@ import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Enumeration;
 import javax.swing.AbstractButton;
 import javax.swing.ButtonGroup;
@@ -52,7 +53,9 @@ public class Home extends javax.swing.JFrame {
     double[] pVector;
     private Varietas varietas = new Varietas();
     MetodeMoora moora = new MetodeMoora();
-
+    double max;
+     ArrayList<String> namaVarietasTop ;
+    
     public Home() {
         con = Koneksi.getkoneksi();
         initComponents();
@@ -347,6 +350,11 @@ public class Home extends javax.swing.JFrame {
                     return this;
                 }
             });
+            
+            max = Collections.max(moora.getPreferensiAlternatifUser(pengguna.getId()));
+            namaVarietasTop = varietas.getNamaPreferensiAlternatifUser(
+                    pengguna.getId());
+            
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }
@@ -862,6 +870,8 @@ public class Home extends javax.swing.JFrame {
         jSeparator31 = new javax.swing.JSeparator();
         jScrollPane5 = new javax.swing.JScrollPane();
         TableTernormalisasi = new javax.swing.JTable();
+        outputAkhir = new javax.swing.JLabel();
+        outputAkhir1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setBackground(new java.awt.Color(255, 255, 255));
@@ -5047,6 +5057,16 @@ public class Home extends javax.swing.JFrame {
 
         jScrollPane6.setViewportView(jPanel1);
 
+        outputAkhir.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
+        outputAkhir.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        outputAkhir.setText("Pilihan Terbaik Adalah ");
+        outputAkhir.setVerticalAlignment(javax.swing.SwingConstants.TOP);
+
+        outputAkhir1.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
+        outputAkhir1.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        outputAkhir1.setText("dengan Nilai Optimasi Sebesar");
+        outputAkhir1.setVerticalAlignment(javax.swing.SwingConstants.TOP);
+
         javax.swing.GroupLayout panel_hasilLayout = new javax.swing.GroupLayout(panel_hasil);
         panel_hasil.setLayout(panel_hasilLayout);
         panel_hasilLayout.setHorizontalGroup(
@@ -5055,10 +5075,12 @@ public class Home extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(panel_hasilLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jSeparator29)
+                    .addComponent(jScrollPane6, javax.swing.GroupLayout.DEFAULT_SIZE, 880, Short.MAX_VALUE)
                     .addGroup(panel_hasilLayout.createSequentialGroup()
                         .addComponent(jLabel7)
                         .addGap(0, 0, Short.MAX_VALUE))
-                    .addComponent(jScrollPane6, javax.swing.GroupLayout.DEFAULT_SIZE, 880, Short.MAX_VALUE))
+                    .addComponent(outputAkhir, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(outputAkhir1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
         panel_hasilLayout.setVerticalGroup(
@@ -5069,8 +5091,12 @@ public class Home extends javax.swing.JFrame {
                 .addGap(18, 18, 18)
                 .addComponent(jSeparator29, javax.swing.GroupLayout.PREFERRED_SIZE, 2, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jScrollPane6, javax.swing.GroupLayout.DEFAULT_SIZE, 539, Short.MAX_VALUE)
-                .addContainerGap())
+                .addComponent(jScrollPane6, javax.swing.GroupLayout.PREFERRED_SIZE, 394, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(outputAkhir)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(outputAkhir1)
+                .addContainerGap(88, Short.MAX_VALUE))
         );
 
         ContainerPanel.add(panel_hasil, "card2");
@@ -6289,6 +6315,10 @@ public class Home extends javax.swing.JFrame {
         TampilDataTernormalisasi();
         InitTableRanking();
         TampilDataRanking();
+        outputAkhir.setText("");
+        outputAkhir.setText("Pilihan Terbaik Berdasarkan Perhitungan adalah Varietas "+namaVarietasTop);
+        outputAkhir1.setText("Nilai Optimasi Sebesar "+max);
+        
     }//GEN-LAST:event_panel_hasilComponentShown
 
     /**
@@ -6801,6 +6831,8 @@ public class Home extends javax.swing.JFrame {
     private javax.swing.JPanel menu_hasil;
     private javax.swing.JPanel menu_kriteria;
     private javax.swing.JPanel menu_matriks;
+    private javax.swing.JLabel outputAkhir;
+    private javax.swing.JLabel outputAkhir1;
     private javax.swing.JPanel panel_hasil;
     private javax.swing.JPanel panel_kriteria;
     private javax.swing.JPanel panel_matriks;

@@ -327,4 +327,20 @@ public class Varietas {
         }
         return nilai;
     }
+    
+    public ArrayList<String> getNamaPreferensiAlternatifUser(int penggunaId){
+        ArrayList<String> nama =  new ArrayList<>();
+        try{
+            stt = con.createStatement();
+            String sql="Select * from preferensialternatif JOIN varietas ON varietas.id=preferensialternatif.varietas_id WHERE preferensialternatif.pengguna_id="+penggunaId+" order by preferensi desc limit 1;";
+            rss=stt.executeQuery(sql);
+            int i=0;
+            while(rss.next()){
+                nama.add(rss.getString("varietas.nama"));
+            }
+        }catch(SQLException e){
+            System.out.println(e.getMessage());
+        }
+        return nama;
+    }
 }
