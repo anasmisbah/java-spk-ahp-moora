@@ -49,6 +49,7 @@ public class Home extends javax.swing.JFrame {
     MetodeAhp ahp = new MetodeAhp();
     double CI = 0;
     double CR = 0;
+    double[] pVector;
     private Varietas varietas = new Varietas();
     MetodeMoora moora = new MetodeMoora();
 
@@ -113,7 +114,7 @@ public class Home extends javax.swing.JFrame {
         }
 
         double[][] matriks = ahp.getMatriksKriteria();
-        double[] pVector = ahp.getPriorityVector();
+        pVector = ahp.getPriorityVector();
         double eValue = ahp.getEigenValue();
         CI = ahp.getConsistencyIndex();
         CR = ahp.getConsistencyRatio();
@@ -302,9 +303,16 @@ public class Home extends javax.swing.JFrame {
 
             Object[] firstRow = new Object[9];
             for (int j = 1; j < 9; j++) {
-                firstRow[j] = allKriteria.get(j-1).getTipe();
+                firstRow[j] = allKriteria.get(j - 1).getTipe();
             }
             model.addRow(firstRow);
+
+            Object[] secondRow = new Object[9];
+            for (int j = 1; j < 9; j++) {
+                secondRow[j] = pVector[j - 1];
+            }
+            model.addRow(secondRow);
+
             for (int i = 0; i < variety.size(); i++) {
                 Object[] record = new Object[12];
                 record[0] = variety.get(i).getNama();
@@ -315,24 +323,30 @@ public class Home extends javax.swing.JFrame {
                 model.addRow(record);
             }
             TableRanking.setDefaultRenderer(Object.class,
-                new DefaultTableCellRenderer() {
-            public Component getTableCellRendererComponent(JTable table,
-                    Object value, boolean isSelected, boolean hasFocus, int row,
-                    int col) {
+                    new DefaultTableCellRenderer() {
+                public Component getTableCellRendererComponent(JTable table,
+                        Object value, boolean isSelected, boolean hasFocus,
+                        int row,
+                        int col) {
 
-                super.getTableCellRendererComponent(table, value, isSelected,
-                        hasFocus, row, col);
+                    super.
+                            getTableCellRendererComponent(table, value,
+                                    isSelected,
+                                    hasFocus, row, col);
 
-                if (row == 0) {
-                    setBackground(Color.YELLOW);
-                    setForeground(Color.BLACK);
-                } else {
-                    setBackground(table.getBackground());
-                    setForeground(table.getForeground());
+                    if (row == 0) {
+                        setBackground(Color.YELLOW);
+                        setForeground(Color.BLACK);
+                    } else if (row == 1) {
+                        setBackground(Color.GRAY);
+                        setForeground(Color.BLACK);
+                    } else {
+                        setBackground(table.getBackground());
+                        setForeground(table.getForeground());
+                    }
+                    return this;
                 }
-                return this;
-            }
-        });
+            });
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }
