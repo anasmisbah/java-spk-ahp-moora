@@ -27,6 +27,8 @@ import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableColumnModel;
 import spk.data.MetodeAhp;
+import spk.data.MetodeMoora;
+import spk.data.Varietas;
 
 /**
  *
@@ -45,6 +47,10 @@ public class Home extends javax.swing.JFrame {
     Kriteria kriteria = new Kriteria();
     private DefaultTableModel model;
     MetodeAhp ahp = new MetodeAhp();
+    double CI = 0;
+    double CR = 0;
+    private Varietas varietas = new Varietas();
+    MetodeMoora moora = new MetodeMoora();
 
     public Home() {
         con = Koneksi.getkoneksi();
@@ -109,8 +115,8 @@ public class Home extends javax.swing.JFrame {
         double[][] matriks = ahp.getMatriksKriteria();
         double[] pVector = ahp.getPriorityVector();
         double eValue = ahp.getEigenValue();
-        double CI = ahp.getConsistencyIndex();
-        double CR = ahp.getConsistencyRatio();
+        CI = ahp.getConsistencyIndex();
+        CR = ahp.getConsistencyRatio();
         double eigen = ahp.getEigenValue();
         try {
             for (int i = 0; i < 8; i++) {
@@ -139,8 +145,9 @@ public class Home extends javax.swing.JFrame {
         } catch (Exception e) {
 
         }
-        
-        TableMatriks.setDefaultRenderer(Object.class, new DefaultTableCellRenderer() {
+
+        TableMatriks.setDefaultRenderer(Object.class,
+                new DefaultTableCellRenderer() {
             public Component getTableCellRendererComponent(JTable table,
                     Object value, boolean isSelected, boolean hasFocus, int row,
                     int col) {
@@ -148,8 +155,11 @@ public class Home extends javax.swing.JFrame {
                 super.getTableCellRendererComponent(table, value, isSelected,
                         hasFocus, row, col);
 
-                
-                if (row == 0 && col == 1 || row == 1 && col == 2 || row == 2 && col == 3 || row == 3 && col == 4 || row == 4 && col == 5 || row == 5 && col == 6 || row == 6 && col == 7 || row == 7 && col == 8 || row == 8 && col == 9 || row == 8 && col == 0) {
+                if (row == 0 && col == 1 || row == 1 && col == 2 || row == 2
+                        && col == 3 || row == 3 && col == 4 || row == 4 && col
+                        == 5 || row == 5 && col == 6 || row == 6 && col == 7
+                        || row == 7 && col == 8 || row == 8 && col == 9 || row
+                        == 8 && col == 0) {
                     setBackground(Color.YELLOW);
                     setForeground(Color.BLACK);
                 } else {
@@ -159,6 +169,173 @@ public class Home extends javax.swing.JFrame {
                 return this;
             }
         });
+    }
+
+    private void InitTableVarietas() {
+        model = new DefaultTableModel();
+        model.addColumn("ID");
+        model.addColumn("Varietas");
+        model.addColumn("Grup");
+        model.addColumn("id_grup");
+        model.addColumn("Rerata Jumlah Tandan");
+        model.addColumn("Rerata Berat Tandan");
+        model.addColumn("Potensi TBS");
+        model.addColumn("Rendemen");
+        model.addColumn("Potensi CPO");
+        model.addColumn("Tinggi");
+        model.addColumn("Panjang Pelepah");
+        model.addColumn("Kerapatan Tanam");
+
+        TableVarietas.setModel(model);
+        TableVarietas.removeColumn(TableVarietas.getColumnModel().getColumn(0));
+        TableVarietas.removeColumn(TableVarietas.getColumnModel().getColumn(2));
+        TableVarietas.setRowHeight(30);
+        TableColumnModel columnModel = TableVarietas.getColumnModel();
+        for (int i = 0; i < 10; i++) {
+            columnModel.getColumn(i).setPreferredWidth(150);
+        }
+    }
+
+    private void TampilDataVarietas() {
+        ArrayList<Varietas> variety = varietas.allVarietas();
+        try {
+            for (int i = 0; i < variety.size(); i++) {
+                Object[] record = new Object[12];
+                record[0] = variety.get(i).getId();
+                record[1] = variety.get(i).getNama();
+                record[2] = variety.get(i).getNamaGrup();
+                record[3] = variety.get(i).getGroup_id();
+                record[4] = variety.get(i).getRerataJumlahTandan();
+                record[5] = variety.get(i).getRerataBeratTandan();
+                record[6] = variety.get(i).getPotensiTBS();
+                record[7] = variety.get(i).getRendemen();
+                record[8] = variety.get(i).getPotensiCPO();
+                record[9] = variety.get(i).getTinggi();
+                record[10] = variety.get(i).getPanjangPelepah();
+                record[11] = variety.get(i).getKerapatanTanam();
+                model.addRow(record);
+            }
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+    }
+
+    private void InitTableTernormalisasi() {
+        model = new DefaultTableModel();
+        model.addColumn("ID");
+        model.addColumn("Alternatif");
+        model.addColumn("Grup");
+        model.addColumn("id_grup");
+        model.addColumn("Rerata Jumlah Tandan");
+        model.addColumn("Rerata Berat Tandan");
+        model.addColumn("Potensi TBS");
+        model.addColumn("Rendemen");
+        model.addColumn("Potensi CPO");
+        model.addColumn("Tinggi");
+        model.addColumn("Panjang Pelepah");
+        model.addColumn("Kerapatan Tanam");
+
+        TableTernormalisasi.setModel(model);
+        TableTernormalisasi.removeColumn(TableTernormalisasi.getColumnModel().
+                getColumn(0));
+        TableTernormalisasi.removeColumn(TableTernormalisasi.getColumnModel().
+                getColumn(2));
+        TableTernormalisasi.setRowHeight(30);
+        TableColumnModel columnModel = TableTernormalisasi.getColumnModel();
+        for (int i = 0; i < 10; i++) {
+            columnModel.getColumn(i).setPreferredWidth(150);
+        }
+    }
+
+    private void TampilDataTernormalisasi() {
+        ArrayList<Varietas> variety = varietas.allVarietas();
+        ArrayList<Kriteria> allKriteria = kriteria.allKriteria();
+        moora.proses(pengguna.getId());
+        double[][] ternormalisasi = moora.getMatriksTernormalisasi();
+
+        try {
+            for (int i = 0; i < variety.size(); i++) {
+                Object[] record = new Object[12];
+                record[0] = variety.get(i).getId();
+                record[1] = variety.get(i).getNama();
+                record[2] = variety.get(i).getNamaGrup();
+                record[3] = variety.get(i).getGroup_id();
+                for (int j = 0; j < allKriteria.size(); j++) {
+                    record[j + 4] = ternormalisasi[i][j];
+                }
+                model.addRow(record);
+            }
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+    }
+
+    private void InitTableRanking() {
+        model = new DefaultTableModel();
+        model.addColumn("Alternatif");
+        model.addColumn("Rerata Jumlah Tandan");
+        model.addColumn("Rerata Berat Tandan");
+        model.addColumn("Potensi TBS");
+        model.addColumn("Rendemen");
+        model.addColumn("Potensi CPO");
+        model.addColumn("Tinggi");
+        model.addColumn("Panjang Pelepah");
+        model.addColumn("Kerapatan Tanam");
+        model.addColumn("Hasil Optimasi");
+
+        TableRanking.setModel(model);
+        TableRanking.setRowHeight(30);
+        TableColumnModel columnModel = TableRanking.getColumnModel();
+        for (int i = 0; i < 10; i++) {
+            columnModel.getColumn(i).setPreferredWidth(150);
+        }
+    }
+
+    private void TampilDataRanking() {
+        ArrayList<Varietas> variety = varietas.allVarietas();
+        ArrayList<Kriteria> allKriteria = kriteria.allKriteria();
+        moora.proses(pengguna.getId());
+        double[][] terbobot = moora.getMatriksTernormalisasiTerbobot();
+        double[] optimasi = moora.getHasilOptimasi();
+
+        try {
+
+            Object[] firstRow = new Object[9];
+            for (int j = 1; j < 9; j++) {
+                firstRow[j] = allKriteria.get(j-1).getTipe();
+            }
+            model.addRow(firstRow);
+            for (int i = 0; i < variety.size(); i++) {
+                Object[] record = new Object[12];
+                record[0] = variety.get(i).getNama();
+                for (int j = 0; j < allKriteria.size(); j++) {
+                    record[j + 1] = terbobot[i][j];
+                }
+                record[9] = optimasi[i];
+                model.addRow(record);
+            }
+            TableRanking.setDefaultRenderer(Object.class,
+                new DefaultTableCellRenderer() {
+            public Component getTableCellRendererComponent(JTable table,
+                    Object value, boolean isSelected, boolean hasFocus, int row,
+                    int col) {
+
+                super.getTableCellRendererComponent(table, value, isSelected,
+                        hasFocus, row, col);
+
+                if (row == 0) {
+                    setBackground(Color.YELLOW);
+                    setForeground(Color.BLACK);
+                } else {
+                    setBackground(table.getBackground());
+                    setForeground(table.getForeground());
+                }
+                return this;
+            }
+        });
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
     }
 
     public double hitungNilai(int column) {
@@ -647,8 +824,6 @@ public class Home extends javax.swing.JFrame {
         jLabel8 = new javax.swing.JLabel();
         helpButton = new javax.swing.JButton();
         simpan = new javax.swing.JButton();
-        panel_hasil = new javax.swing.JPanel();
-        jLabel7 = new javax.swing.JLabel();
         panel_matriks = new javax.swing.JPanel();
         jLabel6 = new javax.swing.JLabel();
         jScrollPane2 = new javax.swing.JScrollPane();
@@ -656,6 +831,23 @@ public class Home extends javax.swing.JFrame {
         KI = new javax.swing.JLabel();
         KR = new javax.swing.JLabel();
         EV = new javax.swing.JLabel();
+        finish = new javax.swing.JButton();
+        panel_hasil = new javax.swing.JPanel();
+        jLabel7 = new javax.swing.JLabel();
+        jSeparator29 = new javax.swing.JSeparator();
+        jScrollPane6 = new javax.swing.JScrollPane();
+        jPanel1 = new javax.swing.JPanel();
+        jLabel93 = new javax.swing.JLabel();
+        jScrollPane3 = new javax.swing.JScrollPane();
+        TableVarietas = new javax.swing.JTable();
+        jLabel94 = new javax.swing.JLabel();
+        jSeparator30 = new javax.swing.JSeparator();
+        jScrollPane4 = new javax.swing.JScrollPane();
+        TableRanking = new javax.swing.JTable();
+        jLabel95 = new javax.swing.JLabel();
+        jSeparator31 = new javax.swing.JSeparator();
+        jScrollPane5 = new javax.swing.JScrollPane();
+        TableTernormalisasi = new javax.swing.JTable();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setBackground(new java.awt.Color(255, 255, 255));
@@ -4637,33 +4829,6 @@ public class Home extends javax.swing.JFrame {
 
         ContainerPanel.add(panel_kriteria, "card2");
 
-        panel_hasil.setBackground(new java.awt.Color(204, 204, 204));
-
-        jLabel7.setFont(new java.awt.Font("Times New Roman", 1, 24)); // NOI18N
-        jLabel7.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel7.setLabelFor(panel_hasil);
-        jLabel7.setText("HASIL");
-        jLabel7.setFocusable(false);
-
-        javax.swing.GroupLayout panel_hasilLayout = new javax.swing.GroupLayout(panel_hasil);
-        panel_hasil.setLayout(panel_hasilLayout);
-        panel_hasilLayout.setHorizontalGroup(
-            panel_hasilLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(panel_hasilLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jLabel7)
-                .addContainerGap(816, Short.MAX_VALUE))
-        );
-        panel_hasilLayout.setVerticalGroup(
-            panel_hasilLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(panel_hasilLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jLabel7)
-                .addContainerGap(581, Short.MAX_VALUE))
-        );
-
-        ContainerPanel.add(panel_hasil, "card2");
-
         panel_matriks.setBackground(new java.awt.Color(204, 204, 204));
         panel_matriks.addComponentListener(new java.awt.event.ComponentAdapter() {
             public void componentShown(java.awt.event.ComponentEvent evt) {
@@ -4702,6 +4867,13 @@ public class Home extends javax.swing.JFrame {
         EV.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
         EV.setText("Eigen Value =");
 
+        finish.setText("jButton1");
+        finish.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                finishActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout panel_matriksLayout = new javax.swing.GroupLayout(panel_matriks);
         panel_matriks.setLayout(panel_matriksLayout);
         panel_matriksLayout.setHorizontalGroup(
@@ -4712,6 +4884,7 @@ public class Home extends javax.swing.JFrame {
                     .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 880, Short.MAX_VALUE)
                     .addGroup(panel_matriksLayout.createSequentialGroup()
                         .addGroup(panel_matriksLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(finish, javax.swing.GroupLayout.PREFERRED_SIZE, 157, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel6)
                             .addComponent(KR)
                             .addComponent(KI)
@@ -4732,10 +4905,161 @@ public class Home extends javax.swing.JFrame {
                 .addComponent(KI)
                 .addGap(18, 18, 18)
                 .addComponent(KR)
-                .addGap(96, 96, 96))
+                .addGap(18, 18, 18)
+                .addComponent(finish, javax.swing.GroupLayout.PREFERRED_SIZE, 54, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(24, 24, 24))
         );
 
         ContainerPanel.add(panel_matriks, "card2");
+
+        panel_hasil.setBackground(new java.awt.Color(204, 204, 204));
+        panel_hasil.addComponentListener(new java.awt.event.ComponentAdapter() {
+            public void componentShown(java.awt.event.ComponentEvent evt) {
+                panel_hasilComponentShown(evt);
+            }
+        });
+
+        jLabel7.setFont(new java.awt.Font("Times New Roman", 1, 24)); // NOI18N
+        jLabel7.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel7.setLabelFor(panel_hasil);
+        jLabel7.setText("HASIL");
+        jLabel7.setFocusable(false);
+
+        jSeparator29.setForeground(new java.awt.Color(0, 0, 0));
+
+        jLabel93.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
+        jLabel93.setText("Varietas");
+
+        TableVarietas.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
+            },
+            new String [] {
+                "Title 1", "Title 2", "Title 3", "Title 4"
+            }
+        ));
+        TableVarietas.setAutoResizeMode(javax.swing.JTable.AUTO_RESIZE_OFF);
+        TableVarietas.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        TableVarietas.getTableHeader().setResizingAllowed(false);
+        TableVarietas.getTableHeader().setReorderingAllowed(false);
+        jScrollPane3.setViewportView(TableVarietas);
+
+        jLabel94.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
+        jLabel94.setText("Normalisasi");
+
+        jSeparator30.setForeground(new java.awt.Color(0, 0, 0));
+
+        TableRanking.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
+            },
+            new String [] {
+                "Title 1", "Title 2", "Title 3", "Title 4"
+            }
+        ));
+        TableRanking.setAutoResizeMode(javax.swing.JTable.AUTO_RESIZE_OFF);
+        TableRanking.getTableHeader().setResizingAllowed(false);
+        TableRanking.getTableHeader().setReorderingAllowed(false);
+        jScrollPane4.setViewportView(TableRanking);
+
+        jLabel95.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
+        jLabel95.setText("Ranking");
+
+        jSeparator31.setForeground(new java.awt.Color(0, 0, 0));
+
+        TableTernormalisasi.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
+            },
+            new String [] {
+                "Title 1", "Title 2", "Title 3", "Title 4"
+            }
+        ));
+        TableTernormalisasi.setAutoResizeMode(javax.swing.JTable.AUTO_RESIZE_OFF);
+        TableTernormalisasi.getTableHeader().setResizingAllowed(false);
+        TableTernormalisasi.getTableHeader().setReorderingAllowed(false);
+        jScrollPane5.setViewportView(TableTernormalisasi);
+
+        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
+        jPanel1.setLayout(jPanel1Layout);
+        jPanel1Layout.setHorizontalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jSeparator30, javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jSeparator31, javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 845, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel93)
+                            .addComponent(jLabel94)
+                            .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, 841, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel95)
+                            .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 841, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(0, 0, Short.MAX_VALUE)))
+                .addContainerGap())
+        );
+        jPanel1Layout.setVerticalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGap(5, 5, 5)
+                .addComponent(jLabel93, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jSeparator30, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jLabel94, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jSeparator31, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jLabel95, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+
+        jScrollPane6.setViewportView(jPanel1);
+
+        javax.swing.GroupLayout panel_hasilLayout = new javax.swing.GroupLayout(panel_hasil);
+        panel_hasil.setLayout(panel_hasilLayout);
+        panel_hasilLayout.setHorizontalGroup(
+            panel_hasilLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panel_hasilLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(panel_hasilLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jSeparator29)
+                    .addGroup(panel_hasilLayout.createSequentialGroup()
+                        .addComponent(jLabel7)
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addComponent(jScrollPane6, javax.swing.GroupLayout.DEFAULT_SIZE, 880, Short.MAX_VALUE))
+                .addContainerGap())
+        );
+        panel_hasilLayout.setVerticalGroup(
+            panel_hasilLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panel_hasilLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel7)
+                .addGap(18, 18, 18)
+                .addComponent(jSeparator29, javax.swing.GroupLayout.PREFERRED_SIZE, 2, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jScrollPane6, javax.swing.GroupLayout.DEFAULT_SIZE, 539, Short.MAX_VALUE)
+                .addContainerGap())
+        );
+
+        ContainerPanel.add(panel_hasil, "card2");
 
         getContentPane().add(ContainerPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 50, 900, 620));
 
@@ -4773,13 +5097,29 @@ public class Home extends javax.swing.JFrame {
     }//GEN-LAST:event_menu_matriksMousePressed
 
     private void menu_hasilMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_menu_hasilMousePressed
-        setColor(menu_hasil);
-        hasil_aktif.setOpaque(true);
-        resetColor(new JPanel[]{menu_kriteria}, new JPanel[]{kriteria_aktif});
-        resetColor(new JPanel[]{menu_matriks}, new JPanel[]{matriks_aktif});
-        panel_kriteria.setVisible(false);
-        panel_hasil.setVisible(true);
-        panel_matriks.setVisible(false);
+        if (CR > 0.1) {
+            JOptionPane.showMessageDialog(this,
+                    "Nilai Konsistensi Rasio Anda Tidak Memenuhi Syarat Untuk Melanjutkan Perhitungan. Silahkan Ulangi Pengisian Kriteria Anda");
+        } else if (CR == 0) {
+            JOptionPane.showMessageDialog(this,
+                    "Silahkan Lakukan Perhitungan AHP terlebih Dahulu Melalui Menu Matriks");
+            setColor(menu_matriks);
+            matriks_aktif.setOpaque(true);
+            resetColor(new JPanel[]{menu_kriteria}, new JPanel[]{kriteria_aktif});
+            resetColor(new JPanel[]{menu_hasil}, new JPanel[]{hasil_aktif});
+            panel_kriteria.setVisible(false);
+            panel_hasil.setVisible(false);
+            panel_matriks.setVisible(true);
+        } else {
+            setColor(menu_hasil);
+            hasil_aktif.setOpaque(true);
+            resetColor(new JPanel[]{menu_kriteria}, new JPanel[]{kriteria_aktif});
+            resetColor(new JPanel[]{menu_matriks}, new JPanel[]{matriks_aktif});
+            panel_kriteria.setVisible(false);
+            panel_hasil.setVisible(true);
+            panel_matriks.setVisible(false);
+        }
+
     }//GEN-LAST:event_menu_hasilMousePressed
 
     private void AB1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AB1ActionPerformed
@@ -5857,6 +6197,14 @@ public class Home extends javax.swing.JFrame {
                     indexNilai = 0;
                 }
                 JOptionPane.showMessageDialog(null, "Berhasil Menyimpan Bobot");
+                setColor(menu_matriks);
+                matriks_aktif.setOpaque(true);
+                resetColor(new JPanel[]{menu_kriteria}, new JPanel[]{
+                    kriteria_aktif});
+                resetColor(new JPanel[]{menu_hasil}, new JPanel[]{hasil_aktif});
+                panel_kriteria.setVisible(false);
+                panel_hasil.setVisible(false);
+                panel_matriks.setVisible(true);
             } else {
                 JOptionPane.showMessageDialog(null,
                         "Silahkan Isi Bobot Yang Masih Kosong");
@@ -5877,7 +6225,57 @@ public class Home extends javax.swing.JFrame {
         KR.setText("Konsistensi Rasio\t= ");
         InitTableMatriks();
         TampilDataMatriks();
+        if (CR > 0.1) {
+            finish.setText("Kembali Ke Kriteria");
+            finish.setBackground(Color.red);
+            JOptionPane.showMessageDialog(this,
+                    "Nilai Konsistensi Rasio Anda Tidak Memenuhi Syarat Untuk Melanjutkan Perhitungan. Silahkan Ulangi Pengisian Kriteria Anda");
+
+        } else {
+            finish.setText("Lanjut Ke Hasil");
+            finish.setBackground(Color.green);
+        }
+        if (CR == 0) {
+            finish.setVisible(false);
+        }
     }//GEN-LAST:event_panel_matriksComponentShown
+
+    private void finishActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_finishActionPerformed
+        if (finish.getText().equalsIgnoreCase("Kembali Ke Kriteria")) {
+            ArrayList<Double> bobot = kriteria.getPerbandinganKriteriaUser(
+                    pengguna.
+                            getId());
+            if (bobot.isEmpty()) {
+
+            } else {
+                this.radioKriteria(bobot);
+            }
+            setColor(menu_kriteria);
+            kriteria_aktif.setOpaque(true);
+            resetColor(new JPanel[]{menu_matriks}, new JPanel[]{matriks_aktif});
+            resetColor(new JPanel[]{menu_hasil}, new JPanel[]{hasil_aktif});
+            panel_kriteria.setVisible(true);
+            panel_hasil.setVisible(false);
+            panel_matriks.setVisible(false);
+        } else if (finish.getText().equalsIgnoreCase("Lanjut Ke Hasil")) {
+            setColor(menu_hasil);
+            hasil_aktif.setOpaque(true);
+            resetColor(new JPanel[]{menu_kriteria}, new JPanel[]{kriteria_aktif});
+            resetColor(new JPanel[]{menu_matriks}, new JPanel[]{matriks_aktif});
+            panel_kriteria.setVisible(false);
+            panel_hasil.setVisible(true);
+            panel_matriks.setVisible(false);
+        }
+    }//GEN-LAST:event_finishActionPerformed
+
+    private void panel_hasilComponentShown(java.awt.event.ComponentEvent evt) {//GEN-FIRST:event_panel_hasilComponentShown
+        InitTableVarietas();
+        TampilDataVarietas();
+        InitTableTernormalisasi();
+        TampilDataTernormalisasi();
+        InitTableRanking();
+        TampilDataRanking();
+    }//GEN-LAST:event_panel_hasilComponentShown
 
     /**
      * @param args the command line arguments
@@ -6214,7 +6612,11 @@ public class Home extends javax.swing.JFrame {
     private javax.swing.JLabel KI;
     private javax.swing.JLabel KR;
     private javax.swing.JTable TableMatriks;
+    private javax.swing.JTable TableRanking;
+    private javax.swing.JTable TableTernormalisasi;
+    private javax.swing.JTable TableVarietas;
     private javax.swing.JPanel ahpProcess;
+    private javax.swing.JButton finish;
     private javax.swing.ButtonGroup groupAB;
     private javax.swing.ButtonGroup groupAC;
     private javax.swing.ButtonGroup groupAD;
@@ -6337,9 +6739,17 @@ public class Home extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel90;
     private javax.swing.JLabel jLabel91;
     private javax.swing.JLabel jLabel92;
+    private javax.swing.JLabel jLabel93;
+    private javax.swing.JLabel jLabel94;
+    private javax.swing.JLabel jLabel95;
+    private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JScrollPane jScrollPane3;
+    private javax.swing.JScrollPane jScrollPane4;
+    private javax.swing.JScrollPane jScrollPane5;
+    private javax.swing.JScrollPane jScrollPane6;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JSeparator jSeparator10;
     private javax.swing.JSeparator jSeparator11;
@@ -6361,7 +6771,10 @@ public class Home extends javax.swing.JFrame {
     private javax.swing.JSeparator jSeparator26;
     private javax.swing.JSeparator jSeparator27;
     private javax.swing.JSeparator jSeparator28;
+    private javax.swing.JSeparator jSeparator29;
     private javax.swing.JSeparator jSeparator3;
+    private javax.swing.JSeparator jSeparator30;
+    private javax.swing.JSeparator jSeparator31;
     private javax.swing.JSeparator jSeparator4;
     private javax.swing.JSeparator jSeparator5;
     private javax.swing.JSeparator jSeparator6;

@@ -13,7 +13,20 @@ import java.util.Arrays;
  * @author anas
  */
 public class MetodeMoora {
-    
+    private double[][] matriksTernormalisasi;
+    private double[][] matriksTernormalisasiTerbobot;
+    private double[] hasilOptimasi;
+
+    public double[][] getMatriksTernormalisasiTerbobot() {
+        return matriksTernormalisasiTerbobot;
+    }
+
+    public double[] getHasilOptimasi() {
+        return hasilOptimasi;
+    }
+    public double[][] getMatriksTernormalisasi() {
+        return matriksTernormalisasi;
+    }
     public void proses(int penggunaId){
         
         //membuat dummy matriks alternatif
@@ -49,7 +62,7 @@ public class MetodeMoora {
             }
         }
         
-        
+        this.matriksTernormalisasi = matriksTernormalisasi;
         //TODO : dapatkan bobot dari setiap kriteria
         ArrayList<Double> bobot = kriteria.getpvectorKriteriaUser(penggunaId);
         
@@ -68,6 +81,8 @@ public class MetodeMoora {
                 hasilOptimasi[x] +=matriksTernormalisasiTerbobot[x][y];
             }
         }
+        this.matriksTernormalisasiTerbobot = matriksTernormalisasiTerbobot;
+        this.hasilOptimasi = hasilOptimasi;
 //        System.out.println(Arrays.toString(hasilOptimasi));
         
         //cek alternatif sebelumnya
