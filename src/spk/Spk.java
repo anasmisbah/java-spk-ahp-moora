@@ -31,23 +31,23 @@ public class Spk {
     public static void main(String[] args) {
 // TODO code application logic here
 //            LOGIC LOGIN
-            Pengguna pengguna = Auth.penggunaLogin();
-            
-            if (pengguna != null) {
-                if (pengguna.getRole().equalsIgnoreCase("Admin")) {
-                    Admin admin = new Admin();
-                    admin.setVisible(true);
-                }
-                else {
-                    Home home = new Home();
-                    home.setVisible(true);
-                }
-                
-            } else {
-                
-                Login login = new Login();
-                login.setVisible(true);
-            }
+//            Pengguna pengguna = Auth.penggunaLogin();
+//            
+//            if (pengguna != null) {
+//                if (pengguna.getRole().equalsIgnoreCase("Admin")) {
+//                    Admin admin = new Admin();
+//                    admin.setVisible(true);
+//                }
+//                else {
+//                    Home home = new Home();
+//                    home.setVisible(true);
+//                }
+//                
+//            } else {
+//                
+//                Login login = new Login();
+//                login.setVisible(true);
+//            }
             
 //            Pengguna pengguna = Auth.penggunaLogin();
 //            if(pengguna != null){
@@ -59,9 +59,11 @@ public class Spk {
 //            regis.setVisible(true);
 
 //            PERHITUNGAN AHP
-//            double[] bobots = {5,1,4,2,2,2,2,3,2,5,8,6,4,7,2,2,2,5,2,2,4,2,1,2,7,2,9,2}; contoh bobots isi yg dibawa lewat parameter dari hasil form
-//            MetodeAhp metod = new MetodeAhp();
-//            metod.proses(1,bobots);
+            double[] bobots = {5,1,4,2,2,2,2,3,2,5,8,6,4,7,2,2,2,5,2,2,4,2,1,2,7,2,9,2}; 
+            int[] pilihans   = {0,1,1,0,0,0,0,1,1,1,1,1,0,0,0,0,1,1,1,0,0,0,1,1,1,0,0,0};
+//            contoh bobots isi yg dibawa lewat parameter dari hasil form
+            MetodeAhp metod = new MetodeAhp();
+            metod.proses(1,bobots,pilihans);
 
 //            PERHITUNGAN MOORA
 //            MetodeMoora moora = new MetodeMoora();
@@ -79,18 +81,18 @@ public class Spk {
 //            kriteria.showDetail(8);
 
 //            CRUD VARIETAS
-//            Varietas vari = new Varietas();
-//            vari.tambah("baru", 1);
+            Varietas vari = new Varietas();
+//            vari.tambah("baru","baru","baru.jpg");
 //            float[] nilaiKriteria = {1,2,3,4,5,6,7,8};
 //            vari.tambahNilaiKriteriaVarietas(nilaiKriteria);
-//            vari.ubah(14,"ubah", 1);
-//            vari.ubahNilaiKriteriaVarietas(14,new float[]{8,7,6,5,4,3,2,1});
-//            System.out.println(vari.detail(14));
+//            vari.ubah(16,"ubah", "baru ubah","ubah.jpg");
+//            vari.ubahNilaiKriteriaVarietas(16,new float[]{8,7,6,5,4,3,2,1});
+//            System.out.println(vari.detail(16));
 //            vari.allVarietas().forEach(varietas->{
 //                System.out.println(varietas.getNama()+"|"+varietas.getRerataJumlahTandan());
 //            });
-//            vari.hapusKriteriaVarietas(14);
-//            vari.hapus(14);
+//            vari.hapusKriteriaVarietas(16);
+//            vari.hapus(16);
 
 //            CRUD PENGGUNA
 //            Pengguna pengguna = new Pengguna();

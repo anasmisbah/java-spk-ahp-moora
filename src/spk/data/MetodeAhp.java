@@ -44,7 +44,7 @@ public class MetodeAhp {
         return matriksKriteria;
     }
 
-    public void proses(int idUser, double[] bobots) {
+    public void proses(int idUser, double[] bobots,int[] pilihans) {
         //dummy array bobot
 //        double[] bobots = {5,1,4,2,2,2,2,3,2,5,8,6,4,7,2,2,2,5,2,2,4,2,1,2,7,2,9,2}; contoh bobots isi yg dibawa lewat parameter dari hasil form
 
@@ -58,8 +58,15 @@ public class MetodeAhp {
         for (int x = 0; x <= (kriteriaAll.size() - 2); x++) {
             for (int y = x + 1; y <= (kriteriaAll.size() - 1); y++) {
                 double bobot = bobots[urut];
+                int pilihan = pilihans[urut];
+                
+                if (pilihan == 1) {
                 matriksKriteria[x][y] = bobot;
                 matriksKriteria[y][x] = 1 / bobot;
+                } else {
+                    matriksKriteria[x][y] = 1 / bobot;
+                    matriksKriteria[y][x] = bobot;
+                }
                 urut++;
 
                 //TODO : simpan ke db
@@ -69,7 +76,6 @@ public class MetodeAhp {
 
             }
         }
-
         //mengisi setiap pasangan kriteria yg sama dengan nilai 1
         for (int i = 0; i <= jumlahKriteria - 1; i++) {
             matriksKriteria[i][i] = 1;

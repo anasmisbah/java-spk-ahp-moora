@@ -19,7 +19,8 @@ public class Varietas {
     
     private int id;
     private String nama;
-    private int group_id;
+    private String group;
+    private String foto;
     private Connection con = Koneksi.getkoneksi();
     private Statement stt;
     private ResultSet rss;
@@ -72,17 +73,11 @@ public class Varietas {
     }
     
             
-    public Varietas(int id, String nama, int group_id) {
+    public Varietas(int id, String nama, String group,String foto) {
         this.id = id;
         this.nama = nama;
-        this.group_id = group_id;
-    }
-    
-    public Varietas(int id, String nama, String nama_grup, int group_id) {
-        this.id = id;
-        this.nama = nama;
-        this.nama_grup = nama_grup;
-        this.group_id = group_id;
+        this.group = group;
+        this.foto = foto;
     }
 
     public Varietas() {
@@ -100,25 +95,31 @@ public class Varietas {
         return nama;
     }
 
-    public String getNamaGrup() {
-        return nama_grup;
-    }
-    
     public void setNama(String nama) {
         this.nama = nama;
     }
 
-    public int getGroup_id() {
-        return group_id;
+    public String getGroup() {
+        return group;
     }
 
-    public void setGroup_id(int group_id) {
-        this.group_id = group_id;
+    public void setGroup(String group) {
+        this.group = group;
+    }
+
+    public String getFoto() {
+        return foto;
+    }
+
+    public void setFoto(String foto) {
+        this.foto = foto;
     }
     
-    public Boolean tambah(String nama,int grup_id){
+    
+    
+    public Boolean tambah(String nama,String grup,String foto){
         try {
-            String sql = "INSERT INTO varietas VALUES (NULL,'" + nama + "','" + grup_id + "');";
+            String sql = "INSERT INTO varietas VALUES (NULL,'" + nama + "','" + grup + "','" + foto + "');";
             stt = con.createStatement();
             stt.executeUpdate(sql);
             return true; 
@@ -128,9 +129,9 @@ public class Varietas {
         }
     }
     
-    public Boolean ubah(int id,String nama,int grup_id){
+    public Boolean ubah(int id,String nama,String grup,String foto){
         try {
-            String sql = "UPDATE varietas SET nama='" + nama + "',grup_id="+ grup_id +" WHERE id=" + id + ";";
+            String sql = "UPDATE varietas SET nama='" + nama + "',grup='"+ grup +"',foto='"+ foto +"' WHERE id=" + id + ";";
             stt = con.createStatement();
             stt.executeUpdate(sql);
             return true;
@@ -148,7 +149,7 @@ public class Varietas {
             String sql="Select * from varietas JOIN kriteria_varietas ON varietas.id=kriteria_varietas.varietas_id WHERE varietas.id="+id+";";
             rss=stt.executeQuery(sql);
             if(rss.next()){
-                varietas=new Varietas(rss.getInt("id"),rss.getString("nama"),rss.getInt("grup_id"));
+                varietas=new Varietas(rss.getInt("id"),rss.getString("nama"),rss.getString("grup"),rss.getString("foto"));
                 float[] nilai = new float[8];
                 nilai[0] = rss.getFloat("nilai");
                 int i=0;
@@ -168,14 +169,14 @@ public class Varietas {
         ArrayList<Varietas> varietasAll =  new ArrayList<>();
         try{
             stt = con.createStatement();
-            String sql="Select * from varietas JOIN kriteria_varietas ON varietas.id=kriteria_varietas.varietas_id JOIN grup ON grup.id=varietas.grup_id;";
+            String sql="Select * from varietas JOIN kriteria_varietas ON varietas.id=kriteria_varietas.varietas_id";
             rss=stt.executeQuery(sql);
             int i=0;
             float[] nilai = new float[8];
             while(rss.next()){
                 nilai[i]=rss.getFloat("nilai");
                 if(i==7){
-                    Varietas varietasSementara = new Varietas(rss.getInt("id"),rss.getString("varietas.nama"),rss.getString("grup.nama"),rss.getInt("grup_id"));
+                    Varietas varietasSementara = new Varietas(rss.getInt("id"),rss.getString("varietas.nama"),rss.getString("grup"),rss.getString("foto"));
                     varietasSementara.setKriteriaVarietas(nilai[0], nilai[1], nilai[2], nilai[3], nilai[4], nilai[5], nilai[6], nilai[7]);
                     varietasAll.add(varietasSementara);
                     i=0;
@@ -260,7 +261,7 @@ public class Varietas {
             stt = con.createStatement();
             rss=stt.executeQuery(selectPenggunaRegistered);
             if(rss.next()){
-                varietasBaru = new Varietas(rss.getInt("id"),rss.getString("nama"),rss.getInt("grup_id"));
+                varietasBaru = new Varietas(rss.getInt("id"),rss.getString("nama"),rss.getString("grup"),rss.getString("foto"));
             }
         }catch(SQLException e){
             System.out.println(e.getMessage());
