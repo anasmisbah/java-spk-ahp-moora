@@ -102,41 +102,8 @@ public class Admin extends javax.swing.JFrame {
         }
     }
 
-    private void InitTableGrup() {
-        model = new DefaultTableModel();
-        model.addColumn("ID");
-        model.addColumn("Nama");
-        TableGrup.setModel(model);
-        TableGrup.removeColumn(TableGrup.getColumnModel().getColumn(0));
-        TableGrup.setRowHeight(30);
-    }
 
-    private void TampilDataGrup() {
-        ArrayList<Grup> group = grup.allGrup();
-        try {
-            for (int i = 0; i < group.size(); i++) {
-                Object[] record = new Object[2];
-                record[0] = group.get(i).getId();
-                record[1] = group.get(i).getNama();
-                model.addRow(record);
-            }
-        } catch (Exception e) {
-            System.out.println(e.getMessage());
-        }
-    }
 
-    private void ComboGrup() {
-        ArrayList<Grup> group = grup.allGrup();
-
-        try {
-            for (int i = 0; i < group.size(); i++) {
-                grupVarietas.addItem(new ComboItem(group.get(i).getNama(), group.get(i).getId()));
-            }
-
-        } catch (Exception e) {
-            System.out.println(e.getMessage());
-        }
-    }
 
     private void InitTableVarietas() {
         model = new DefaultTableModel();
@@ -993,7 +960,7 @@ public class Admin extends javax.swing.JFrame {
     private void panel_varietasComponentShown(java.awt.event.ComponentEvent evt) {//GEN-FIRST:event_panel_varietasComponentShown
         InitTableVarietas();
         TampilDataVarietas();
-        ComboGrup();
+
     }//GEN-LAST:event_panel_varietasComponentShown
 
     private void chooseFileActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_chooseFileActionPerformed
