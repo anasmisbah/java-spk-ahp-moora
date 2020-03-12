@@ -6,7 +6,9 @@
 package spk.ui;
 
 import java.awt.Color;
+import java.awt.Image;
 import java.awt.List;
+import java.io.File;
 import java.sql.Connection;
 import javax.swing.JPanel;
 import spk.data.Auth;
@@ -23,7 +25,10 @@ import javax.swing.JOptionPane;
 import spk.data.Kriteria;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.DefaultComboBoxModel;
+import javax.swing.ImageIcon;
 import javax.swing.JComboBox;
+import javax.swing.JFileChooser;
+import javax.swing.filechooser.FileNameExtensionFilter;
 import spk.data.ComboItem;
 import spk.data.Grup;
 
@@ -44,7 +49,7 @@ public class Admin extends javax.swing.JFrame {
     private DefaultTableModel model;
     Pengguna pengguna = Auth.penggunaLogin();
     Kriteria kriteria = new Kriteria();
-    
+    String path = "";
 
     /**
      * Creates new form Admin
@@ -56,10 +61,10 @@ public class Admin extends javax.swing.JFrame {
 
         setColor(menu_pengguna);
         pengguna_aktif.setOpaque(true);
-        resetColor(new JPanel[]{menu_grup}, new JPanel[]{grup_aktif});
+
         resetColor(new JPanel[]{menu_varietas}, new JPanel[]{varietas_aktif});
         panel_pengguna.setVisible(true);
-        panel_grup.setVisible(false);
+    
         panel_varietas.setVisible(false);
         JDialog.setDefaultLookAndFeelDecorated(true);
 
@@ -138,7 +143,6 @@ public class Admin extends javax.swing.JFrame {
         model.addColumn("ID");
         model.addColumn("Nama");
         model.addColumn("Grup");
-        model.addColumn("id_grup");
         model.addColumn("Rerata Jumlah Tandan");
         model.addColumn("Rerata Berat Tandan");
         model.addColumn("Potensi TBS");
@@ -150,7 +154,6 @@ public class Admin extends javax.swing.JFrame {
 
         TableVarietas.setModel(model);
         TableVarietas.removeColumn(TableVarietas.getColumnModel().getColumn(0));
-        TableVarietas.removeColumn(TableVarietas.getColumnModel().getColumn(2));
         TableVarietas.setRowHeight(30);
     }
 
@@ -159,19 +162,18 @@ public class Admin extends javax.swing.JFrame {
 
         try {
             for (int i = 0; i < variety.size(); i++) {
-                Object[] record = new Object[12];
+                Object[] record = new Object[11];
                 record[0] = variety.get(i).getId();
                 record[1] = variety.get(i).getNama();
-                record[2] = variety.get(i).getNamaGrup();
-                record[3] = variety.get(i).getGroup_id();
-                record[4] = variety.get(i).getRerataJumlahTandan();
-                record[5] = variety.get(i).getRerataBeratTandan();
-                record[6] = variety.get(i).getPotensiTBS();
-                record[7] = variety.get(i).getRendemen();
-                record[8] = variety.get(i).getPotensiCPO();
-                record[9] = variety.get(i).getTinggi();
-                record[10] = variety.get(i).getPanjangPelepah();
-                record[11] = variety.get(i).getKerapatanTanam();
+                record[2] = variety.get(i).getGroup();
+                record[3] = variety.get(i).getRerataJumlahTandan();
+                record[4] = variety.get(i).getRerataBeratTandan();
+                record[5] = variety.get(i).getPotensiTBS();
+                record[6] = variety.get(i).getRendemen();
+                record[7] = variety.get(i).getPotensiCPO();
+                record[8] = variety.get(i).getTinggi();
+                record[9] = variety.get(i).getPanjangPelepah();
+                record[10] = variety.get(i).getKerapatanTanam();
                 model.addRow(record);
             }
         } catch (Exception e) {
@@ -203,9 +205,6 @@ public class Admin extends javax.swing.JFrame {
     private void initComponents() {
 
         side_bar = new javax.swing.JPanel();
-        menu_grup = new javax.swing.JPanel();
-        grup_aktif = new javax.swing.JPanel();
-        jLabel2 = new javax.swing.JLabel();
         menu_pengguna = new javax.swing.JPanel();
         pengguna_aktif = new javax.swing.JPanel();
         jLabel3 = new javax.swing.JLabel();
@@ -217,17 +216,6 @@ public class Admin extends javax.swing.JFrame {
         jPanel2 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         ContainerPanel = new javax.swing.JPanel();
-        panel_grup = new javax.swing.JPanel();
-        jLabel6 = new javax.swing.JLabel();
-        jLabel14 = new javax.swing.JLabel();
-        NamaGrup = new javax.swing.JTextField();
-        jLabel15 = new javax.swing.JLabel();
-        SimpanGrup = new javax.swing.JButton();
-        UpdateGrup = new javax.swing.JButton();
-        HapusGrup = new javax.swing.JButton();
-        ResetGrup = new javax.swing.JButton();
-        jScrollPane2 = new javax.swing.JScrollPane();
-        TableGrup = new javax.swing.JTable();
         panel_pengguna = new javax.swing.JPanel();
         jLabel5 = new javax.swing.JLabel();
         jLabel9 = new javax.swing.JLabel();
@@ -251,7 +239,6 @@ public class Admin extends javax.swing.JFrame {
         namaVarietas = new javax.swing.JTextField();
         jLabel16 = new javax.swing.JLabel();
         jLabel17 = new javax.swing.JLabel();
-        grupVarietas = new javax.swing.JComboBox();
         SimpanVarietas = new javax.swing.JButton();
         UpdateVarietas = new javax.swing.JButton();
         HapusVarietas = new javax.swing.JButton();
@@ -283,6 +270,10 @@ public class Admin extends javax.swing.JFrame {
         jLabel31 = new javax.swing.JLabel();
         jLabel32 = new javax.swing.JLabel();
         jLabel33 = new javax.swing.JLabel();
+        grupField = new javax.swing.JTextField();
+        jLabel6 = new javax.swing.JLabel();
+        fotoField = new javax.swing.JLabel();
+        chooseFile = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setResizable(false);
@@ -290,52 +281,6 @@ public class Admin extends javax.swing.JFrame {
 
         side_bar.setBackground(new java.awt.Color(23, 35, 51));
         side_bar.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-
-        menu_grup.setBackground(new java.awt.Color(23, 35, 51));
-        menu_grup.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mousePressed(java.awt.event.MouseEvent evt) {
-                menu_grupMousePressed(evt);
-            }
-        });
-
-        grup_aktif.setOpaque(false);
-        grup_aktif.setPreferredSize(new java.awt.Dimension(5, 40));
-
-        javax.swing.GroupLayout grup_aktifLayout = new javax.swing.GroupLayout(grup_aktif);
-        grup_aktif.setLayout(grup_aktifLayout);
-        grup_aktifLayout.setHorizontalGroup(
-            grup_aktifLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 5, Short.MAX_VALUE)
-        );
-        grup_aktifLayout.setVerticalGroup(
-            grup_aktifLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
-        );
-
-        jLabel2.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        jLabel2.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel2.setText("Grup");
-
-        javax.swing.GroupLayout menu_grupLayout = new javax.swing.GroupLayout(menu_grup);
-        menu_grup.setLayout(menu_grupLayout);
-        menu_grupLayout.setHorizontalGroup(
-            menu_grupLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(menu_grupLayout.createSequentialGroup()
-                .addComponent(grup_aktif, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(83, 83, 83)
-                .addComponent(jLabel2)
-                .addGap(0, 91, Short.MAX_VALUE))
-        );
-        menu_grupLayout.setVerticalGroup(
-            menu_grupLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(grup_aktif, javax.swing.GroupLayout.DEFAULT_SIZE, 42, Short.MAX_VALUE)
-            .addGroup(menu_grupLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jLabel2)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
-
-        side_bar.add(menu_grup, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 130, 210, -1));
 
         menu_pengguna.setBackground(new java.awt.Color(41, 57, 80));
         menu_pengguna.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -426,7 +371,7 @@ public class Admin extends javax.swing.JFrame {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        side_bar.add(menu_varietas, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 170, 210, -1));
+        side_bar.add(menu_varietas, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 130, 210, -1));
 
         welcomeText.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         welcomeText.setForeground(new java.awt.Color(255, 255, 255));
@@ -475,127 +420,6 @@ public class Admin extends javax.swing.JFrame {
 
         ContainerPanel.setBackground(new java.awt.Color(255, 255, 255));
         ContainerPanel.setLayout(new java.awt.CardLayout());
-
-        panel_grup.setBackground(new java.awt.Color(204, 204, 204));
-        panel_grup.addComponentListener(new java.awt.event.ComponentAdapter() {
-            public void componentShown(java.awt.event.ComponentEvent evt) {
-                panel_grupComponentShown(evt);
-            }
-        });
-
-        jLabel6.setFont(new java.awt.Font("Times New Roman", 1, 24)); // NOI18N
-        jLabel6.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel6.setText("Grup");
-        jLabel6.setFocusable(false);
-
-        jLabel14.setText("Nama");
-
-        jLabel15.setText("Deskripsi");
-
-        SimpanGrup.setText("Simpan");
-        SimpanGrup.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                SimpanGrupActionPerformed(evt);
-            }
-        });
-
-        UpdateGrup.setText("Update");
-        UpdateGrup.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                UpdateGrupActionPerformed(evt);
-            }
-        });
-
-        HapusGrup.setText("Hapus");
-        HapusGrup.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                HapusGrupActionPerformed(evt);
-            }
-        });
-
-        ResetGrup.setText("Reset");
-        ResetGrup.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                ResetGrupActionPerformed(evt);
-            }
-        });
-
-        TableGrup.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
-            },
-            new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4"
-            }
-        ));
-        TableGrup.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
-        TableGrup.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                TableGrupMouseClicked(evt);
-            }
-        });
-        jScrollPane2.setViewportView(TableGrup);
-
-        javax.swing.GroupLayout panel_grupLayout = new javax.swing.GroupLayout(panel_grup);
-        panel_grup.setLayout(panel_grupLayout);
-        panel_grupLayout.setHorizontalGroup(
-            panel_grupLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(panel_grupLayout.createSequentialGroup()
-                .addGap(66, 66, 66)
-                .addComponent(jLabel6)
-                .addContainerGap(779, Short.MAX_VALUE))
-            .addGroup(panel_grupLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(panel_grupLayout.createSequentialGroup()
-                    .addGap(67, 67, 67)
-                    .addGroup(panel_grupLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addGroup(panel_grupLayout.createSequentialGroup()
-                            .addGap(327, 327, 327)
-                            .addComponent(jLabel15))
-                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 766, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGroup(panel_grupLayout.createSequentialGroup()
-                            .addGroup(panel_grupLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(SimpanGrup)
-                                .addComponent(jLabel14))
-                            .addGap(40, 40, 40)
-                            .addGroup(panel_grupLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(NamaGrup, javax.swing.GroupLayout.PREFERRED_SIZE, 245, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGroup(panel_grupLayout.createSequentialGroup()
-                                    .addComponent(UpdateGrup)
-                                    .addGap(65, 65, 65)
-                                    .addComponent(HapusGrup)
-                                    .addGap(31, 31, 31)
-                                    .addComponent(ResetGrup)))))
-                    .addContainerGap(67, Short.MAX_VALUE)))
-        );
-        panel_grupLayout.setVerticalGroup(
-            panel_grupLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(panel_grupLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jLabel6)
-                .addContainerGap(581, Short.MAX_VALUE))
-            .addGroup(panel_grupLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(panel_grupLayout.createSequentialGroup()
-                    .addGap(44, 44, 44)
-                    .addComponent(jLabel15)
-                    .addGap(45, 45, 45)
-                    .addGroup(panel_grupLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(jLabel14)
-                        .addComponent(NamaGrup, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGap(150, 150, 150)
-                    .addGroup(panel_grupLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(SimpanGrup)
-                        .addComponent(UpdateGrup)
-                        .addComponent(HapusGrup)
-                        .addComponent(ResetGrup))
-                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 269, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addContainerGap(44, Short.MAX_VALUE)))
-        );
-
-        ContainerPanel.add(panel_grup, "card2");
 
         panel_pengguna.setBackground(new java.awt.Color(204, 204, 204));
         panel_pengguna.addComponentListener(new java.awt.event.ComponentAdapter() {
@@ -764,16 +588,14 @@ public class Admin extends javax.swing.JFrame {
         jLabel7.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel7.setText("Varietas");
         jLabel7.setFocusable(false);
-        panel_varietas.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 11, -1, -1));
-        panel_varietas.add(namaVarietas, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 50, 140, -1));
+        panel_varietas.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 10, -1, -1));
+        panel_varietas.add(namaVarietas, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 60, 160, -1));
 
         jLabel16.setText("Nama");
-        panel_varietas.add(jLabel16, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 53, -1, -1));
+        panel_varietas.add(jLabel16, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 60, -1, -1));
 
         jLabel17.setText("Grup");
-        panel_varietas.add(jLabel17, new org.netbeans.lib.awtextra.AbsoluteConstraints(500, 50, -1, -1));
-
-        panel_varietas.add(grupVarietas, new org.netbeans.lib.awtextra.AbsoluteConstraints(610, 50, 140, -1));
+        panel_varietas.add(jLabel17, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 90, -1, -1));
 
         SimpanVarietas.setText("Simpan");
         SimpanVarietas.addActionListener(new java.awt.event.ActionListener() {
@@ -781,7 +603,7 @@ public class Admin extends javax.swing.JFrame {
                 SimpanVarietasActionPerformed(evt);
             }
         });
-        panel_varietas.add(SimpanVarietas, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 272, -1, -1));
+        panel_varietas.add(SimpanVarietas, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 420, -1, -1));
 
         UpdateVarietas.setText("Update");
         UpdateVarietas.addActionListener(new java.awt.event.ActionListener() {
@@ -789,7 +611,7 @@ public class Admin extends javax.swing.JFrame {
                 UpdateVarietasActionPerformed(evt);
             }
         });
-        panel_varietas.add(UpdateVarietas, new org.netbeans.lib.awtextra.AbsoluteConstraints(161, 272, -1, -1));
+        panel_varietas.add(UpdateVarietas, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 420, -1, -1));
 
         HapusVarietas.setText("Hapus");
         HapusVarietas.addActionListener(new java.awt.event.ActionListener() {
@@ -797,7 +619,7 @@ public class Admin extends javax.swing.JFrame {
                 HapusVarietasActionPerformed(evt);
             }
         });
-        panel_varietas.add(HapusVarietas, new org.netbeans.lib.awtextra.AbsoluteConstraints(256, 272, -1, -1));
+        panel_varietas.add(HapusVarietas, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 420, -1, -1));
 
         ResetVarietas.setText("Reset");
         ResetVarietas.addActionListener(new java.awt.event.ActionListener() {
@@ -805,7 +627,7 @@ public class Admin extends javax.swing.JFrame {
                 ResetVarietasActionPerformed(evt);
             }
         });
-        panel_varietas.add(ResetVarietas, new org.netbeans.lib.awtextra.AbsoluteConstraints(347, 272, -1, -1));
+        panel_varietas.add(ResetVarietas, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 420, -1, -1));
 
         TableVarietas.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -828,83 +650,96 @@ public class Admin extends javax.swing.JFrame {
         });
         jScrollPane3.setViewportView(TableVarietas);
 
-        panel_varietas.add(jScrollPane3, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 306, 780, 269));
+        panel_varietas.add(jScrollPane3, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 460, 780, 140));
 
         KT.setModel(new javax.swing.SpinnerNumberModel(0.0f, 0.0f, null, 0.001f));
-        panel_varietas.add(KT, new org.netbeans.lib.awtextra.AbsoluteConstraints(610, 220, 140, -1));
+        panel_varietas.add(KT, new org.netbeans.lib.awtextra.AbsoluteConstraints(600, 380, 140, -1));
 
         jLabel18.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
         jLabel18.setText("Nilai Varietas");
-        panel_varietas.add(jLabel18, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 88, -1, -1));
+        panel_varietas.add(jLabel18, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 250, -1, -1));
 
         jLabel8.setText("Rerata Jumlah Tandan");
-        panel_varietas.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 130, -1, -1));
+        panel_varietas.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 290, -1, -1));
 
         jLabel19.setText("Rerata Berat Tandan");
-        panel_varietas.add(jLabel19, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 160, -1, -1));
+        panel_varietas.add(jLabel19, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 320, -1, -1));
 
         jLabel20.setText("Potensi TBS");
-        panel_varietas.add(jLabel20, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 190, -1, -1));
+        panel_varietas.add(jLabel20, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 350, -1, -1));
 
         jLabel21.setText("Rendemen");
-        panel_varietas.add(jLabel21, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 220, -1, -1));
+        panel_varietas.add(jLabel21, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 380, -1, -1));
 
         jLabel22.setText("Potensi CPO");
-        panel_varietas.add(jLabel22, new org.netbeans.lib.awtextra.AbsoluteConstraints(500, 130, -1, -1));
+        panel_varietas.add(jLabel22, new org.netbeans.lib.awtextra.AbsoluteConstraints(490, 290, -1, -1));
 
         jLabel23.setText("Tinggi");
-        panel_varietas.add(jLabel23, new org.netbeans.lib.awtextra.AbsoluteConstraints(500, 160, -1, -1));
+        panel_varietas.add(jLabel23, new org.netbeans.lib.awtextra.AbsoluteConstraints(490, 320, -1, -1));
 
         jLabel24.setText("Panjang Pelepah");
-        panel_varietas.add(jLabel24, new org.netbeans.lib.awtextra.AbsoluteConstraints(500, 190, -1, -1));
+        panel_varietas.add(jLabel24, new org.netbeans.lib.awtextra.AbsoluteConstraints(490, 350, -1, -1));
 
         jLabel25.setText("Kerapatan Tanam");
-        panel_varietas.add(jLabel25, new org.netbeans.lib.awtextra.AbsoluteConstraints(500, 220, -1, -1));
+        panel_varietas.add(jLabel25, new org.netbeans.lib.awtextra.AbsoluteConstraints(490, 380, -1, -1));
 
         RJT.setModel(new javax.swing.SpinnerNumberModel(0.0f, 0.0f, null, 0.001f));
-        panel_varietas.add(RJT, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 130, 140, -1));
+        panel_varietas.add(RJT, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 290, 140, -1));
 
         RBT.setModel(new javax.swing.SpinnerNumberModel(0.0f, 0.0f, null, 0.001f));
-        panel_varietas.add(RBT, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 160, 140, -1));
+        panel_varietas.add(RBT, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 320, 140, -1));
 
         TBS.setModel(new javax.swing.SpinnerNumberModel(0.0f, 0.0f, null, 0.001f));
-        panel_varietas.add(TBS, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 190, 140, -1));
+        panel_varietas.add(TBS, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 350, 140, -1));
 
         Rendemen.setModel(new javax.swing.SpinnerNumberModel(0.0f, 0.0f, null, 0.001f));
-        panel_varietas.add(Rendemen, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 220, 140, -1));
+        panel_varietas.add(Rendemen, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 380, 140, -1));
 
         CPO.setModel(new javax.swing.SpinnerNumberModel(0.0f, 0.0f, null, 0.001f));
-        panel_varietas.add(CPO, new org.netbeans.lib.awtextra.AbsoluteConstraints(610, 130, 140, -1));
+        panel_varietas.add(CPO, new org.netbeans.lib.awtextra.AbsoluteConstraints(600, 290, 140, -1));
 
         Tinggi.setModel(new javax.swing.SpinnerNumberModel(0.0f, 0.0f, null, 0.001f));
-        panel_varietas.add(Tinggi, new org.netbeans.lib.awtextra.AbsoluteConstraints(610, 160, 140, -1));
+        panel_varietas.add(Tinggi, new org.netbeans.lib.awtextra.AbsoluteConstraints(600, 320, 140, -1));
 
         PP.setModel(new javax.swing.SpinnerNumberModel(0.0f, 0.0f, null, 0.001f));
-        panel_varietas.add(PP, new org.netbeans.lib.awtextra.AbsoluteConstraints(610, 190, 140, -1));
+        panel_varietas.add(PP, new org.netbeans.lib.awtextra.AbsoluteConstraints(600, 350, 140, -1));
 
         jLabel26.setText("tandan/phn/thn");
-        panel_varietas.add(jLabel26, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 130, -1, -1));
+        panel_varietas.add(jLabel26, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 290, -1, -1));
 
         jLabel27.setText("kg/tandan");
-        panel_varietas.add(jLabel27, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 160, -1, -1));
+        panel_varietas.add(jLabel27, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 320, -1, -1));
 
         jLabel28.setText("ton/ha/thn");
-        panel_varietas.add(jLabel28, new org.netbeans.lib.awtextra.AbsoluteConstraints(760, 130, -1, -1));
+        panel_varietas.add(jLabel28, new org.netbeans.lib.awtextra.AbsoluteConstraints(750, 290, -1, -1));
 
         jLabel29.setText("%");
-        panel_varietas.add(jLabel29, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 220, -1, -1));
+        panel_varietas.add(jLabel29, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 380, -1, -1));
 
         jLabel30.setText("ton/ha/thn");
-        panel_varietas.add(jLabel30, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 190, -1, -1));
+        panel_varietas.add(jLabel30, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 350, -1, -1));
 
         jLabel31.setText("cm/thn");
-        panel_varietas.add(jLabel31, new org.netbeans.lib.awtextra.AbsoluteConstraints(760, 160, -1, -1));
+        panel_varietas.add(jLabel31, new org.netbeans.lib.awtextra.AbsoluteConstraints(750, 320, -1, -1));
 
         jLabel32.setText("m");
-        panel_varietas.add(jLabel32, new org.netbeans.lib.awtextra.AbsoluteConstraints(760, 190, -1, -1));
+        panel_varietas.add(jLabel32, new org.netbeans.lib.awtextra.AbsoluteConstraints(750, 350, -1, -1));
 
         jLabel33.setText("phn/ha");
-        panel_varietas.add(jLabel33, new org.netbeans.lib.awtextra.AbsoluteConstraints(760, 220, -1, -1));
+        panel_varietas.add(jLabel33, new org.netbeans.lib.awtextra.AbsoluteConstraints(750, 380, -1, -1));
+        panel_varietas.add(grupField, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 90, 160, -1));
+
+        jLabel6.setText("Foto");
+        panel_varietas.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(490, 70, -1, 10));
+        panel_varietas.add(fotoField, new org.netbeans.lib.awtextra.AbsoluteConstraints(490, 120, 310, 140));
+
+        chooseFile.setText("Pilih File");
+        chooseFile.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                chooseFileActionPerformed(evt);
+            }
+        });
+        panel_varietas.add(chooseFile, new org.netbeans.lib.awtextra.AbsoluteConstraints(490, 90, -1, 20));
 
         ContainerPanel.add(panel_varietas, "card2");
 
@@ -914,33 +749,23 @@ public class Admin extends javax.swing.JFrame {
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
-    private void menu_grupMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_menu_grupMousePressed
-        setColor(menu_grup);
-        grup_aktif.setOpaque(true);
-        resetColor(new JPanel[]{menu_pengguna}, new JPanel[]{pengguna_aktif});
-        resetColor(new JPanel[]{menu_varietas}, new JPanel[]{varietas_aktif});
-        panel_pengguna.setVisible(false);
-        panel_grup.setVisible(true);
-        panel_varietas.setVisible(false);
-    }//GEN-LAST:event_menu_grupMousePressed
-
     private void menu_penggunaMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_menu_penggunaMousePressed
         setColor(menu_pengguna);
         pengguna_aktif.setOpaque(true);
-        resetColor(new JPanel[]{menu_grup}, new JPanel[]{grup_aktif});
+        
         resetColor(new JPanel[]{menu_varietas}, new JPanel[]{varietas_aktif});
         panel_pengguna.setVisible(true);
-        panel_grup.setVisible(false);
+        
         panel_varietas.setVisible(false);
     }//GEN-LAST:event_menu_penggunaMousePressed
 
     private void menu_varietasMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_menu_varietasMousePressed
         setColor(menu_varietas);
         varietas_aktif.setOpaque(true);
-        resetColor(new JPanel[]{menu_grup}, new JPanel[]{grup_aktif});
+        
         resetColor(new JPanel[]{menu_pengguna}, new JPanel[]{pengguna_aktif});
         panel_pengguna.setVisible(false);
-        panel_grup.setVisible(false);
+        
         panel_varietas.setVisible(true);
     }//GEN-LAST:event_menu_varietasMousePressed
 
@@ -1048,82 +873,8 @@ public class Admin extends javax.swing.JFrame {
         rolePengguna.getModel().setSelectedItem("");
     }//GEN-LAST:event_ResetPenggunaActionPerformed
 
-    private void UpdateGrupActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_UpdateGrupActionPerformed
-        String nama = NamaGrup.getText();
-
-        int row = TableGrup.getSelectedRow();
-        int id = Integer.parseInt(TableGrup.getModel().getValueAt(row, 0).toString());
-
-        int response = JOptionPane.showConfirmDialog(null, "Anda yakin ingin mengubah Grup ?", "Ubah Grup",
-                JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
-        if (response == JOptionPane.NO_OPTION) {
-            JOptionPane.showMessageDialog(null, "Batal Mengubah Grup");
-        } else if (response == JOptionPane.YES_OPTION) {
-            if (grup.ubah(id, nama)) {
-                JOptionPane.showMessageDialog(null, "Berhasil Mengubah Grup");
-                InitTableGrup();
-                TampilDataGrup();
-            } else {
-                JOptionPane.showMessageDialog(null, "Gagal");
-            }
-        }
-    }//GEN-LAST:event_UpdateGrupActionPerformed
-
-    private void HapusGrupActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_HapusGrupActionPerformed
-        int row = TableGrup.getSelectedRow();
-        int id = Integer.parseInt(TableGrup.getModel().getValueAt(row, 0).toString());
-
-        int response = JOptionPane.showConfirmDialog(null, "Anda yakin ingin menghapus Grup ?", "hapus Grup",
-                JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
-        if (response == JOptionPane.NO_OPTION) {
-            JOptionPane.showMessageDialog(null, "Batal Menghapus Grup");
-        } else if (response == JOptionPane.YES_OPTION) {
-            if (grup.hapus(id)) {
-                JOptionPane.showMessageDialog(null, "Berhasil Menghapus Grup");
-                InitTableGrup();
-                TampilDataGrup();
-            } else {
-                JOptionPane.showMessageDialog(null, "Gagal");
-            }
-        }
-    }//GEN-LAST:event_HapusGrupActionPerformed
-
-    private void ResetGrupActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ResetGrupActionPerformed
-        NamaGrup.setText("");
-    }//GEN-LAST:event_ResetGrupActionPerformed
-
-    private void TableGrupMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_TableGrupMouseClicked
-        int row = TableGrup.getSelectedRow();
-        NamaGrup.setText(TableGrup.getValueAt(row, 0).toString());
-
-    }//GEN-LAST:event_TableGrupMouseClicked
-
-    private void panel_grupComponentShown(java.awt.event.ComponentEvent evt) {//GEN-FIRST:event_panel_grupComponentShown
-        InitTableGrup();
-        TampilDataGrup();
-    }//GEN-LAST:event_panel_grupComponentShown
-
-    private void SimpanGrupActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SimpanGrupActionPerformed
-        String nama = NamaGrup.getText();
-
-        int response = JOptionPane.showConfirmDialog(null, "Anda yakin ingin menyimpan Grup ?", "Simpan Grup",
-                JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
-        if (response == JOptionPane.NO_OPTION) {
-            JOptionPane.showMessageDialog(null, "Batal Menyimpan Grup");
-        } else if (response == JOptionPane.YES_OPTION) {
-            if (grup.tambah(nama)) {
-                JOptionPane.showMessageDialog(null, "Berhasil Menyimpan Grup");
-                InitTableGrup();
-                TampilDataGrup();
-            } else {
-                JOptionPane.showMessageDialog(null, "Gagal");
-            }
-        }
-    }//GEN-LAST:event_SimpanGrupActionPerformed
-
     private void SimpanVarietasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SimpanVarietasActionPerformed
-        Object item = grupVarietas.getSelectedItem();
-        int id = ((ComboItem) item).getId();
+        String grup = grupField.getText();
         String nama = namaVarietas.getText();
 
         float[] nilai = new float[8];
@@ -1141,7 +892,7 @@ public class Admin extends javax.swing.JFrame {
         if (response == JOptionPane.NO_OPTION) {
             JOptionPane.showMessageDialog(null, "Batal Menyimpan Varietas");
         } else if (response == JOptionPane.YES_OPTION) {
-            if (varietas.tambah(nama, id) && varietas.tambahNilaiKriteriaVarietas(nilai)) {
+            if (varietas.tambah(nama, grup,path) && varietas.tambahNilaiKriteriaVarietas(nilai)) {
                 JOptionPane.showMessageDialog(null, "Berhasil Menyimpan Varietas");
                 InitTableVarietas();
                 TampilDataVarietas();
@@ -1152,8 +903,7 @@ public class Admin extends javax.swing.JFrame {
     }//GEN-LAST:event_SimpanVarietasActionPerformed
 
     private void UpdateVarietasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_UpdateVarietasActionPerformed
-        Object item = grupVarietas.getSelectedItem();
-        int grup_id = ((ComboItem) item).getId();
+        String grup = grupField.getText();
         String nama = namaVarietas.getText();
         int row = TableVarietas.getSelectedRow();
         int id = Integer.parseInt(TableVarietas.getModel().getValueAt(row, 0).toString());
@@ -1174,7 +924,7 @@ public class Admin extends javax.swing.JFrame {
         if (response == JOptionPane.NO_OPTION) {
             JOptionPane.showMessageDialog(null, "Batal Mengubah Varietas");
         } else if (response == JOptionPane.YES_OPTION) {
-            if (varietas.ubah(id, nama, grup_id) && varietas.ubahNilaiKriteriaVarietas(id, nilai)) {
+            if (varietas.ubah(id, nama, grup, path) && varietas.ubahNilaiKriteriaVarietas(id, nilai)) {
                 JOptionPane.showMessageDialog(null, "Berhasil Mengubah Varietas");
                 InitTableVarietas();
                 TampilDataVarietas();
@@ -1205,7 +955,7 @@ public class Admin extends javax.swing.JFrame {
 
     private void ResetVarietasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ResetVarietasActionPerformed
         namaVarietas.setText("");
-        grupVarietas.getModel().setSelectedItem("");
+        grupField.setText("");
         RJT.getModel().setValue(0);
         RBT.getModel().setValue(0);
         TBS.getModel().setValue(0);
@@ -1214,15 +964,14 @@ public class Admin extends javax.swing.JFrame {
         Tinggi.getModel().setValue(0);
         PP.getModel().setValue(0);
         KT.getModel().setValue(0);
+        fotoField.setIcon(null);
     }//GEN-LAST:event_ResetVarietasActionPerformed
 
     private void TableVarietasMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_TableVarietasMouseClicked
+        path = "";
         int row = TableVarietas.getSelectedRow();
-        namaVarietas.setText(TableVarietas.getValueAt(row, 0).toString());
-        int id = Integer.parseInt(TableVarietas.getModel().getValueAt(row, 3).toString());
-        grupVarietas.getModel().setSelectedItem(new ComboItem(TableVarietas.getValueAt(row, 1).toString(),id));
-        
-        
+        namaVarietas.setText(TableVarietas.getValueAt(row, 0).toString()); 
+        grupField.setText(TableVarietas.getValueAt(row, 1).toString());
         RJT.getModel().setValue(TableVarietas.getValueAt(row, 2));
         RBT.getModel().setValue(TableVarietas.getValueAt(row, 3));
         TBS.getModel().setValue(TableVarietas.getValueAt(row, 4));
@@ -1231,14 +980,50 @@ public class Admin extends javax.swing.JFrame {
         Tinggi.getModel().setValue(TableVarietas.getValueAt(row, 7));
         PP.getModel().setValue(TableVarietas.getValueAt(row, 8));
         KT.getModel().setValue(TableVarietas.getValueAt(row, 9));
+        
+        
+        int id = Integer.parseInt(TableVarietas.getModel().getValueAt(row, 0).toString());
+        fotoField.setIcon(varietas.getImage(id, fotoField.getWidth(), fotoField.getHeight()));
+        
+        
+        
+        
     }//GEN-LAST:event_TableVarietasMouseClicked
 
     private void panel_varietasComponentShown(java.awt.event.ComponentEvent evt) {//GEN-FIRST:event_panel_varietasComponentShown
         InitTableVarietas();
         TampilDataVarietas();
-        grupVarietas.removeAllItems();
         ComboGrup();
     }//GEN-LAST:event_panel_varietasComponentShown
+
+    private void chooseFileActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_chooseFileActionPerformed
+        JFileChooser jFile = new JFileChooser();
+        jFile.setCurrentDirectory(new File(System.getProperty("user.home")));
+        
+        FileNameExtensionFilter filter = new FileNameExtensionFilter("*.image","jpg","png","jpeg");
+        jFile.addChoosableFileFilter(filter);
+        
+        int result = jFile.showSaveDialog(null);
+        
+        File selectedFile = jFile.getSelectedFile();
+        String filename = selectedFile.getName();
+        
+        if (filename.endsWith(".jpg") || filename.endsWith(".JPG") || filename.endsWith(".png") || filename.endsWith(".PNG") || filename.endsWith(".jpeg") || filename.endsWith(".JPEG")) {
+            if (result == JFileChooser.APPROVE_OPTION) {
+                path = selectedFile.getAbsolutePath();
+                ImageIcon myImage = new ImageIcon(path);
+                
+                Image img = myImage.getImage();
+                Image newImage = img.getScaledInstance(fotoField.getWidth(), fotoField.getHeight(), Image.SCALE_SMOOTH);
+                
+                ImageIcon image = new ImageIcon(newImage);
+                fotoField.setIcon(image);
+            }
+        }
+        else {
+            JOptionPane.showMessageDialog(rootPane, "Silahkan pilih file bertipe gambar","COba Lagi",1);
+        }
+    }//GEN-LAST:event_chooseFileActionPerformed
 
     /**
      * @param args the command line arguments
@@ -1278,44 +1063,36 @@ public class Admin extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JSpinner CPO;
     private javax.swing.JPanel ContainerPanel;
-    private javax.swing.JButton HapusGrup;
     private javax.swing.JButton HapusPengguna;
     private javax.swing.JButton HapusVarietas;
     private javax.swing.JSpinner KT;
-    private javax.swing.JTextField NamaGrup;
     private javax.swing.JSpinner PP;
     private javax.swing.JSpinner RBT;
     private javax.swing.JSpinner RJT;
     private javax.swing.JSpinner Rendemen;
-    private javax.swing.JButton ResetGrup;
     private javax.swing.JButton ResetPengguna;
     private javax.swing.JButton ResetVarietas;
-    private javax.swing.JButton SimpanGrup;
     private javax.swing.JButton SimpanPengguna;
     private javax.swing.JButton SimpanVarietas;
     private javax.swing.JSpinner TBS;
-    private javax.swing.JTable TableGrup;
     private javax.swing.JTable TablePengguna;
     private javax.swing.JTable TableVarietas;
     private javax.swing.JSpinner Tinggi;
-    private javax.swing.JButton UpdateGrup;
     private javax.swing.JButton UpdatePengguna;
     private javax.swing.JButton UpdateVarietas;
     private javax.swing.JTextField asalDaerahPengguna;
-    private javax.swing.JComboBox grupVarietas;
-    private javax.swing.JPanel grup_aktif;
+    private javax.swing.JButton chooseFile;
+    private javax.swing.JLabel fotoField;
+    private javax.swing.JTextField grupField;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel13;
-    private javax.swing.JLabel jLabel14;
-    private javax.swing.JLabel jLabel15;
     private javax.swing.JLabel jLabel16;
     private javax.swing.JLabel jLabel17;
     private javax.swing.JLabel jLabel18;
     private javax.swing.JLabel jLabel19;
-    private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel20;
     private javax.swing.JLabel jLabel21;
     private javax.swing.JLabel jLabel22;
@@ -1339,15 +1116,12 @@ public class Admin extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
     private keeptoo.KButton kButton1;
-    private javax.swing.JPanel menu_grup;
     private javax.swing.JPanel menu_pengguna;
     private javax.swing.JPanel menu_varietas;
     private javax.swing.JTextField namaPengguna;
     private javax.swing.JTextField namaVarietas;
-    private javax.swing.JPanel panel_grup;
     private javax.swing.JPanel panel_pengguna;
     private javax.swing.JPanel panel_varietas;
     private javax.swing.JTextField passwordPengguna;

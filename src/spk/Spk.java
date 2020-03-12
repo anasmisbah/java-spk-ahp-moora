@@ -31,23 +31,23 @@ public class Spk {
     public static void main(String[] args) {
 // TODO code application logic here
 //            LOGIC LOGIN
-//            Pengguna pengguna = Auth.penggunaLogin();
-//            
-//            if (pengguna != null) {
-//                if (pengguna.getRole().equalsIgnoreCase("Admin")) {
-//                    Admin admin = new Admin();
-//                    admin.setVisible(true);
-//                }
-//                else {
-//                    Home home = new Home();
-//                    home.setVisible(true);
-//                }
-//                
-//            } else {
-//                
-//                Login login = new Login();
-//                login.setVisible(true);
-//            }
+            Pengguna pengguna = Auth.penggunaLogin();
+            
+            if (pengguna != null) {
+                if (pengguna.getRole().equalsIgnoreCase("Admin")) {
+                    Admin admin = new Admin();
+                    admin.setVisible(true);
+                }
+                else {
+                    Home home = new Home();
+                    home.setVisible(true);
+                }
+                
+            } else {
+                
+                Login login = new Login();
+                login.setVisible(true);
+            }
             
 //            Pengguna pengguna = Auth.penggunaLogin();
 //            if(pengguna != null){
@@ -59,11 +59,11 @@ public class Spk {
 //            regis.setVisible(true);
 
 //            PERHITUNGAN AHP
-            double[] bobots = {5,1,4,2,2,2,2,3,2,5,8,6,4,7,2,2,2,5,2,2,4,2,1,2,7,2,9,2}; 
-            int[] pilihans   = {0,1,1,0,0,0,0,1,1,1,1,1,0,0,0,0,1,1,1,0,0,0,1,1,1,0,0,0};
-//            contoh bobots isi yg dibawa lewat parameter dari hasil form
-            MetodeAhp metod = new MetodeAhp();
-            metod.proses(1,bobots,pilihans);
+//            double[] bobots = {5,1,4,2,2,2,2,3,2,5,8,6,4,7,2,2,2,5,2,2,4,2,1,2,7,2,9,2}; 
+//            int[] pilihans   = {0,1,1,0,0,0,0,1,1,1,1,1,0,0,0,0,1,1,1,0,0,0,1,1,1,0,0,0};
+////            contoh bobots isi yg dibawa lewat parameter dari hasil form
+//            MetodeAhp metod = new MetodeAhp();
+//            metod.proses(1,bobots,pilihans);
 
 //            PERHITUNGAN MOORA
 //            MetodeMoora moora = new MetodeMoora();
