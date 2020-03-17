@@ -68,7 +68,7 @@ public class Home extends javax.swing.JFrame {
         if (bobot.isEmpty()) {
 
         } else {
-            this.radioKriteria(bobot);
+            this.radioPreferensi(bobot);
         }
 
         setColor(menu_kriteria);
@@ -78,6 +78,9 @@ public class Home extends javax.swing.JFrame {
         panel_kriteria.setVisible(true);
         panel_hasil.setVisible(false);
         panel_matriks.setVisible(false);
+        
+        jScrollPane6.getVerticalScrollBar().setUnitIncrement(16);
+        jScrollPane1.getVerticalScrollBar().setUnitIncrement(16);
 
     }
 
@@ -107,11 +110,70 @@ public class Home extends javax.swing.JFrame {
         ArrayList<Double> bobot = kriteria.getPerbandinganKriteriaUser(pengguna.
                 getId());
         try {
-            double[] bobots = new double[bobot.size()];
-            for (int i = 0; i < bobot.size(); i++) {
-                bobots[i] = bobot.get(i);
-            }
-            ahp.proses(pengguna.getId(), bobots);
+            double[] bobots =  new double[28];
+            int [] pilihan=  new int[28];
+            
+            bobots[0] = getButtonGroup(groupAB.getElements());
+            bobots[1] = getButtonGroup(groupAC.getElements());
+            bobots[2] = getButtonGroup(groupAD.getElements());
+            bobots[3] = getButtonGroup(groupAE.getElements());
+            bobots[4] = getButtonGroup(groupAF.getElements());
+            bobots[5] = getButtonGroup(groupAG.getElements());
+            bobots[6] = getButtonGroup(groupAH.getElements());
+            bobots[7] = getButtonGroup(groupBC.getElements());
+            bobots[8] = getButtonGroup(groupBD.getElements());
+            bobots[9] = getButtonGroup(groupBE.getElements());
+            bobots[10] = getButtonGroup(groupBF.getElements());
+            bobots[11] = getButtonGroup(groupBG.getElements());
+            bobots[12] = getButtonGroup(groupBH.getElements());
+            bobots[13] = getButtonGroup(groupCD.getElements());
+            bobots[14] = getButtonGroup(groupCE.getElements());
+            bobots[15] = getButtonGroup(groupCF.getElements());
+            bobots[16] = getButtonGroup(groupCG.getElements());
+            bobots[17] = getButtonGroup(groupCH.getElements());
+            bobots[18] = getButtonGroup(groupDE.getElements());
+            bobots[19] = getButtonGroup(groupDF.getElements());
+            bobots[20] = getButtonGroup(groupDG.getElements());
+            bobots[21] = getButtonGroup(groupDH.getElements());
+            bobots[22] = getButtonGroup(groupEF.getElements());
+            bobots[23] = getButtonGroup(groupEG.getElements());
+            bobots[24] = getButtonGroup(groupEH.getElements());
+            bobots[25] = getButtonGroup(groupFG.getElements());
+            bobots[26] = getButtonGroup(groupFH.getElements());
+            bobots[27] = getButtonGroup(groupGH.getElements());
+            
+            pilihan[0] = (int)getButtonGroup(ab.getElements());
+            pilihan[1] = (int)getButtonGroup(ac.getElements());
+            pilihan[2] = (int)getButtonGroup(ad.getElements());
+            pilihan[3] = (int)getButtonGroup(ae.getElements());
+            pilihan[4] = (int)getButtonGroup(af.getElements());
+            pilihan[5] = (int)getButtonGroup(ag.getElements());
+            pilihan[6] = (int)getButtonGroup(ah.getElements());
+            pilihan[7] = (int)getButtonGroup(bc.getElements());
+            pilihan[8] = (int)getButtonGroup(bd.getElements());
+            pilihan[9] = (int)getButtonGroup(be.getElements());
+            pilihan[10] = (int)getButtonGroup(bf.getElements());
+            pilihan[11] = (int)getButtonGroup(bg.getElements());
+            pilihan[12] = (int)getButtonGroup(bh.getElements());
+            pilihan[13] = (int)getButtonGroup(cd.getElements());
+            pilihan[14] = (int)getButtonGroup(ce.getElements());
+            pilihan[15] = (int)getButtonGroup(cf.getElements());
+            pilihan[16] = (int)getButtonGroup(cg.getElements());
+            pilihan[17] = (int)getButtonGroup(ch.getElements());
+            pilihan[18] = (int)getButtonGroup(de.getElements());
+            pilihan[19] = (int)getButtonGroup(df.getElements());
+            pilihan[20] = (int)getButtonGroup(dg.getElements());
+            pilihan[21] = (int)getButtonGroup(dh.getElements());
+            pilihan[22] = (int)getButtonGroup(ef.getElements());
+            pilihan[23] = (int)getButtonGroup(eg.getElements());
+            pilihan[24] = (int)getButtonGroup(eh.getElements());
+            pilihan[25] = (int)getButtonGroup(fg.getElements());
+            pilihan[26] = (int)getButtonGroup(fh.getElements());
+            pilihan[27] = (int)getButtonGroup(gh.getElements());
+           
+            
+            
+            ahp.proses(pengguna.getId(), bobots,pilihan);
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }
@@ -180,7 +242,6 @@ public class Home extends javax.swing.JFrame {
         model.addColumn("ID");
         model.addColumn("Varietas");
         model.addColumn("Grup");
-        model.addColumn("id_grup");
         model.addColumn("Rerata Jumlah Tandan");
         model.addColumn("Rerata Berat Tandan");
         model.addColumn("Potensi TBS");
@@ -192,7 +253,6 @@ public class Home extends javax.swing.JFrame {
 
         TableVarietas.setModel(model);
         TableVarietas.removeColumn(TableVarietas.getColumnModel().getColumn(0));
-        TableVarietas.removeColumn(TableVarietas.getColumnModel().getColumn(2));
         TableVarietas.setRowHeight(30);
         TableColumnModel columnModel = TableVarietas.getColumnModel();
         for (int i = 0; i < 10; i++) {
@@ -204,19 +264,18 @@ public class Home extends javax.swing.JFrame {
         ArrayList<Varietas> variety = varietas.allVarietas();
         try {
             for (int i = 0; i < variety.size(); i++) {
-                Object[] record = new Object[12];
+                Object[] record = new Object[11];
                 record[0] = variety.get(i).getId();
                 record[1] = variety.get(i).getNama();
-                record[2] = variety.get(i).getNamaGrup();
-                record[3] = variety.get(i).getGroup_id();
-                record[4] = variety.get(i).getRerataJumlahTandan();
-                record[5] = variety.get(i).getRerataBeratTandan();
-                record[6] = variety.get(i).getPotensiTBS();
-                record[7] = variety.get(i).getRendemen();
-                record[8] = variety.get(i).getPotensiCPO();
-                record[9] = variety.get(i).getTinggi();
-                record[10] = variety.get(i).getPanjangPelepah();
-                record[11] = variety.get(i).getKerapatanTanam();
+                record[2] = variety.get(i).getGroup();
+                record[3] = variety.get(i).getRerataJumlahTandan();
+                record[4] = variety.get(i).getRerataBeratTandan();
+                record[5] = variety.get(i).getPotensiTBS();
+                record[6] = variety.get(i).getRendemen();
+                record[7] = variety.get(i).getPotensiCPO();
+                record[8] = variety.get(i).getTinggi();
+                record[9] = variety.get(i).getPanjangPelepah();
+                record[10] = variety.get(i).getKerapatanTanam();
                 model.addRow(record);
             }
         } catch (Exception e) {
@@ -229,7 +288,6 @@ public class Home extends javax.swing.JFrame {
         model.addColumn("ID");
         model.addColumn("Alternatif");
         model.addColumn("Grup");
-        model.addColumn("id_grup");
         model.addColumn("Rerata Jumlah Tandan");
         model.addColumn("Rerata Berat Tandan");
         model.addColumn("Potensi TBS");
@@ -242,8 +300,6 @@ public class Home extends javax.swing.JFrame {
         TableTernormalisasi.setModel(model);
         TableTernormalisasi.removeColumn(TableTernormalisasi.getColumnModel().
                 getColumn(0));
-        TableTernormalisasi.removeColumn(TableTernormalisasi.getColumnModel().
-                getColumn(2));
         TableTernormalisasi.setRowHeight(30);
         TableColumnModel columnModel = TableTernormalisasi.getColumnModel();
         for (int i = 0; i < 10; i++) {
@@ -262,10 +318,9 @@ public class Home extends javax.swing.JFrame {
                 Object[] record = new Object[12];
                 record[0] = variety.get(i).getId();
                 record[1] = variety.get(i).getNama();
-                record[2] = variety.get(i).getNamaGrup();
-                record[3] = variety.get(i).getGroup_id();
+                record[2] = variety.get(i).getGroup();
                 for (int j = 0; j < allKriteria.size(); j++) {
-                    record[j + 4] = ternormalisasi[i][j];
+                    record[j + 3] = ternormalisasi[i][j];
                 }
                 model.addRow(record);
             }
@@ -372,38 +427,275 @@ public class Home extends javax.swing.JFrame {
         return nilai;
     }
 
-    public void radioKriteria(ArrayList<Double> bobot) {
 
-        setButtonGroup(bobot.get(0).intValue(), groupAB.getElements());
-        setButtonGroup(bobot.get(1).intValue(), groupAC.getElements());
-        setButtonGroup(bobot.get(2).intValue(), groupAD.getElements());
-        setButtonGroup(bobot.get(3).intValue(), groupAE.getElements());
-        setButtonGroup(bobot.get(4).intValue(), groupAF.getElements());
-        setButtonGroup(bobot.get(5).intValue(), groupAG.getElements());
-        setButtonGroup(bobot.get(6).intValue(), groupAH.getElements());
-        setButtonGroup(bobot.get(7).intValue(), groupBC.getElements());
-        setButtonGroup(bobot.get(8).intValue(), groupBD.getElements());
-        setButtonGroup(bobot.get(9).intValue(), groupBE.getElements());
-        setButtonGroup(bobot.get(10).intValue(), groupBF.getElements());
-        setButtonGroup(bobot.get(11).intValue(), groupBG.getElements());
-        setButtonGroup(bobot.get(12).intValue(), groupBH.getElements());
-        setButtonGroup(bobot.get(13).intValue(), groupCD.getElements());
-        setButtonGroup(bobot.get(14).intValue(), groupCE.getElements());
-        setButtonGroup(bobot.get(15).intValue(), groupCF.getElements());
-        setButtonGroup(bobot.get(16).intValue(), groupCG.getElements());
-        setButtonGroup(bobot.get(17).intValue(), groupCH.getElements());
-        setButtonGroup(bobot.get(18).intValue(), groupDE.getElements());
-        setButtonGroup(bobot.get(19).intValue(), groupDF.getElements());
-        setButtonGroup(bobot.get(20).intValue(), groupDG.getElements());
-        setButtonGroup(bobot.get(21).intValue(), groupDH.getElements());
-        setButtonGroup(bobot.get(22).intValue(), groupEF.getElements());
-        setButtonGroup(bobot.get(23).intValue(), groupEG.getElements());
-        setButtonGroup(bobot.get(24).intValue(), groupEH.getElements());
-        setButtonGroup(bobot.get(25).intValue(), groupFG.getElements());
-        setButtonGroup(bobot.get(26).intValue(), groupFH.getElements());
-        setButtonGroup(bobot.get(27).intValue(), groupGH.getElements());
+
+    public void radioPreferensi(ArrayList<Double> bobot) {
+        int rounds ;
+        if (bobot.get(0).doubleValue()>=1) {
+            setPreferensiGroup(bobot.get(0).intValue(), ab.getElements());
+            setButtonGroup(bobot.get(0).intValue(), groupAB.getElements());
+        } else {
+            rounds = (int) Math.ceil(1/bobot.get(0).doubleValue());
+            setPreferensiGroup(bobot.get(0).intValue(), ab.getElements());
+            setButtonGroup(rounds, groupAB.getElements());
+        }
+        
+        if (bobot.get(1).doubleValue()>=1) {
+            setPreferensiGroup(bobot.get(1).intValue(), ac.getElements());
+            setButtonGroup(bobot.get(1).intValue(), groupAC.getElements());
+        } else {
+            rounds = (int) Math.ceil(1/bobot.get(1).doubleValue());
+            setPreferensiGroup(bobot.get(1).intValue(), ac.getElements());
+            setButtonGroup(rounds, groupAC.getElements());
+        }
+        
+        if (bobot.get(2).doubleValue()>=1) {
+            setPreferensiGroup(bobot.get(2).intValue(), ad.getElements());
+            setButtonGroup(bobot.get(2).intValue(), groupAD.getElements());
+        } else {
+            rounds = (int) Math.ceil(1/bobot.get(2).doubleValue());
+            setPreferensiGroup(bobot.get(2).intValue(), ad.getElements());
+            setButtonGroup(rounds, groupAD.getElements());
+        }
+        
+        if (bobot.get(3).doubleValue()>=1) {
+            setPreferensiGroup(bobot.get(3).intValue(), ae.getElements());
+            setButtonGroup(bobot.get(3).intValue(), groupAE.getElements());
+        } else {
+            rounds = (int) Math.ceil(1/bobot.get(3).doubleValue());
+            setPreferensiGroup(bobot.get(3).intValue(), ae.getElements());
+            setButtonGroup(rounds, groupAE.getElements());
+        }
+        
+        if (bobot.get(4).doubleValue()>=1) {
+            setPreferensiGroup(bobot.get(4).intValue(), af.getElements());
+            setButtonGroup(bobot.get(4).intValue(), groupAF.getElements());
+        } else {
+            rounds = (int) Math.ceil(1/bobot.get(4).doubleValue());
+            setPreferensiGroup(bobot.get(4).intValue(), af.getElements());
+            setButtonGroup(rounds, groupAF.getElements());
+        }
+        
+        if (bobot.get(5).doubleValue()>=1) {
+            setPreferensiGroup(bobot.get(5).intValue(), ag.getElements());
+            setButtonGroup(bobot.get(5).intValue(), groupAG.getElements());
+        } else {
+            rounds = (int) Math.ceil(1/bobot.get(5).doubleValue());
+            setPreferensiGroup(bobot.get(5).intValue(), ag.getElements());
+            setButtonGroup(rounds, groupAG.getElements());
+        }
+        
+        if (bobot.get(6).doubleValue()>=1) {
+            setPreferensiGroup(bobot.get(6).intValue(), ah.getElements());
+            setButtonGroup(bobot.get(6).intValue(), groupAH.getElements());
+        } else {
+            rounds = (int) Math.ceil(1/bobot.get(6).doubleValue());
+            setPreferensiGroup(bobot.get(6).intValue(), ah.getElements());
+            setButtonGroup(rounds, groupAH.getElements());
+        }
+        
+        if (bobot.get(7).doubleValue()>=1) {
+            setPreferensiGroup(bobot.get(7).intValue(), bc.getElements());
+            setButtonGroup(bobot.get(7).intValue(), groupBC.getElements());
+        } else {
+            rounds = (int) Math.ceil(1/bobot.get(7).doubleValue());
+            setPreferensiGroup(bobot.get(7).intValue(), bc.getElements());
+            setButtonGroup(rounds, groupBC.getElements());
+        }
+        
+        if (bobot.get(8).doubleValue()>=1) {
+            setPreferensiGroup(bobot.get(8).intValue(), bd.getElements());
+            setButtonGroup(bobot.get(8).intValue(), groupBD.getElements());
+        } else {
+            rounds = (int) Math.ceil(1/bobot.get(8).doubleValue());
+            setPreferensiGroup(bobot.get(8).intValue(), bd.getElements());
+            setButtonGroup(rounds, groupBD.getElements());
+        }
+        
+        if (bobot.get(9).doubleValue()>=1) {
+            setPreferensiGroup(bobot.get(9).intValue(), be.getElements());
+            setButtonGroup(bobot.get(9).intValue(), groupBE.getElements());
+        } else {
+            rounds = (int) Math.ceil(1/bobot.get(9).doubleValue());
+            setPreferensiGroup(bobot.get(9).intValue(), be.getElements());
+            setButtonGroup(rounds, groupBE.getElements());
+        }
+        
+        if (bobot.get(10).doubleValue()>=1) {
+            setPreferensiGroup(bobot.get(10).intValue(), bf.getElements());
+            setButtonGroup(bobot.get(10).intValue(), groupBF.getElements());
+        } else {
+            rounds = (int) Math.ceil(1/bobot.get(10).doubleValue());
+            setPreferensiGroup(bobot.get(10).intValue(), bf.getElements());
+            setButtonGroup(rounds, groupBF.getElements());
+        }
+        
+        if (bobot.get(11).doubleValue()>=1) {
+            setPreferensiGroup(bobot.get(11).intValue(), bg.getElements());
+            setButtonGroup(bobot.get(11).intValue(), groupBG.getElements());
+        } else {
+            rounds = (int) Math.ceil(1/bobot.get(11).doubleValue());
+            setPreferensiGroup(bobot.get(11).intValue(), bg.getElements());
+            setButtonGroup(rounds, groupBG.getElements());
+        }
+        
+        if (bobot.get(12).doubleValue()>=1) {
+            setPreferensiGroup(bobot.get(12).intValue(), bh.getElements());
+            setButtonGroup(bobot.get(12).intValue(), groupBH.getElements());
+        } else {
+            rounds = (int) Math.ceil(1/bobot.get(12).doubleValue());
+            setPreferensiGroup(bobot.get(12).intValue(), bh.getElements());
+            setButtonGroup(rounds, groupBH.getElements());
+        }
+        
+        if (bobot.get(13).doubleValue()>=1) {
+            setPreferensiGroup(bobot.get(13).intValue(), cd.getElements());
+            setButtonGroup(bobot.get(13).intValue(), groupCD.getElements());
+        } else {
+            rounds = (int) Math.ceil(1/bobot.get(13).doubleValue());
+            setPreferensiGroup(bobot.get(13).intValue(), cd.getElements());
+            setButtonGroup(rounds, groupCD.getElements());
+        }
+        
+        if (bobot.get(14).doubleValue()>=1) {
+            setPreferensiGroup(bobot.get(14).intValue(), ce.getElements());
+            setButtonGroup(bobot.get(14).intValue(), groupCE.getElements());
+        } else {
+            rounds = (int) Math.ceil(1/bobot.get(14).doubleValue());
+            setPreferensiGroup(bobot.get(14).intValue(), ce.getElements());
+            setButtonGroup(rounds, groupCE.getElements());
+        }
+        
+        if (bobot.get(15).doubleValue()>=1) {
+            setPreferensiGroup(bobot.get(15).intValue(), cf.getElements());
+            setButtonGroup(bobot.get(15).intValue(), groupCF.getElements());
+        } else {
+            rounds = (int) Math.ceil(1/bobot.get(15).doubleValue());
+            setPreferensiGroup(bobot.get(15).intValue(), cf.getElements());
+            setButtonGroup(rounds, groupCF.getElements());
+        }
+        
+        if (bobot.get(16).doubleValue()>=1) {
+            setPreferensiGroup(bobot.get(16).intValue(), cg.getElements());
+            setButtonGroup(bobot.get(16).intValue(), groupCG.getElements());
+        } else {
+            rounds = (int) Math.ceil(1/bobot.get(16).doubleValue());
+            setPreferensiGroup(bobot.get(16).intValue(), cg.getElements());
+            setButtonGroup(rounds, groupCG.getElements());
+        }
+        
+        if (bobot.get(17).doubleValue()>=1) {
+            setPreferensiGroup(bobot.get(17).intValue(), ch.getElements());
+            setButtonGroup(bobot.get(17).intValue(), groupCH.getElements());
+        } else {
+            rounds = (int) Math.ceil(1/bobot.get(17).doubleValue());
+            setPreferensiGroup(bobot.get(17).intValue(), ch.getElements());
+            setButtonGroup(rounds, groupCH.getElements());
+        }
+        
+        if (bobot.get(18).doubleValue()>=1) {
+            setPreferensiGroup(bobot.get(18).intValue(), de.getElements());
+            setButtonGroup(bobot.get(18).intValue(), groupDE.getElements());
+        } else {
+            rounds = (int) Math.ceil(1/bobot.get(18).doubleValue());
+            setPreferensiGroup(bobot.get(18).intValue(), de.getElements());
+            setButtonGroup(rounds, groupDE.getElements());
+        }
+        
+        if (bobot.get(19).doubleValue()>=1) {
+            setPreferensiGroup(bobot.get(19).intValue(), df.getElements());
+            setButtonGroup(bobot.get(19).intValue(), groupDF.getElements());
+        } else {
+            rounds = (int) Math.ceil(1/bobot.get(19).doubleValue());
+            setPreferensiGroup(bobot.get(19).intValue(), df.getElements());
+            setButtonGroup(rounds, groupDF.getElements());
+        }
+        
+        if (bobot.get(20).doubleValue()>=1) {
+            setPreferensiGroup(bobot.get(20).intValue(), dg.getElements());
+            setButtonGroup(bobot.get(20).intValue(), groupDG.getElements());
+        } else {
+            rounds = (int) Math.ceil(1/bobot.get(20).doubleValue());
+            setPreferensiGroup(bobot.get(20).intValue(), dg.getElements());
+            setButtonGroup(rounds, groupDG.getElements());
+        }
+        
+        if (bobot.get(21).doubleValue()>=1) {
+            setPreferensiGroup(bobot.get(21).intValue(), dh.getElements());
+            setButtonGroup(bobot.get(21).intValue(), groupDH.getElements());
+        } else {
+            rounds = (int) Math.ceil(1/bobot.get(21).doubleValue());
+            setPreferensiGroup(bobot.get(21).intValue(), dh.getElements());
+            setButtonGroup(rounds, groupDH.getElements());
+        }
+        
+        if (bobot.get(22).doubleValue()>=1) {
+            setPreferensiGroup(bobot.get(22).intValue(), ef.getElements());
+            setButtonGroup(bobot.get(22).intValue(), groupEF.getElements());
+        } else {
+            rounds = (int) Math.ceil(1/bobot.get(22).doubleValue());
+            setPreferensiGroup(bobot.get(22).intValue(), ef.getElements());
+            setButtonGroup(rounds, groupEF.getElements());
+        }
+        
+        if (bobot.get(23).doubleValue()>=1) {
+            setPreferensiGroup(bobot.get(23).intValue(), eg.getElements());
+            setButtonGroup(bobot.get(23).intValue(), groupEG.getElements());
+        } else {
+            rounds = (int) Math.ceil(1/bobot.get(23).doubleValue());
+            setPreferensiGroup(bobot.get(23).intValue(), eg.getElements());
+            setButtonGroup(rounds, groupEG.getElements());
+        }
+        
+        if (bobot.get(24).doubleValue()>=1) {
+            setPreferensiGroup(bobot.get(24).intValue(), eh.getElements());
+            setButtonGroup(bobot.get(24).intValue(), groupEH.getElements());
+        } else {
+            rounds = (int) Math.ceil(1/bobot.get(24).doubleValue());
+            setPreferensiGroup(bobot.get(24).intValue(), eh.getElements());
+            setButtonGroup(rounds, groupEH.getElements());
+        }
+        
+        if (bobot.get(25).doubleValue()>=1) {
+            setPreferensiGroup(bobot.get(25).intValue(), fg.getElements());
+            setButtonGroup(bobot.get(25).intValue(), groupFG.getElements());
+        } else {
+            rounds = (int) Math.ceil(1/bobot.get(25).doubleValue());
+            setPreferensiGroup(bobot.get(25).intValue(), fg.getElements());
+            setButtonGroup(rounds, groupFG.getElements());
+        }
+        
+        if (bobot.get(26).doubleValue()>=1) {
+            setPreferensiGroup(bobot.get(26).intValue(), fh.getElements());
+            setButtonGroup(bobot.get(26).intValue(), groupFH.getElements());
+        } else {
+            rounds = (int) Math.ceil(1/bobot.get(26).doubleValue());
+            setPreferensiGroup(bobot.get(26).intValue(), fh.getElements());
+            setButtonGroup(rounds, groupFH.getElements());
+        }
+        
+        if (bobot.get(27).doubleValue()>=1) {
+            setPreferensiGroup(bobot.get(27).intValue(), gh.getElements());
+            setButtonGroup(bobot.get(27).intValue(), groupGH.getElements());
+        } else {
+            rounds = (int) Math.ceil(1/bobot.get(27).doubleValue());
+            setPreferensiGroup(bobot.get(27).intValue(), gh.getElements());
+            setButtonGroup(rounds, groupGH.getElements());
+        }
+        
     }
-
+    
+    public void setPreferensiGroup(int rdValue, Enumeration elements) {
+        while (elements.hasMoreElements()) {
+            AbstractButton button = (AbstractButton) elements.nextElement();
+            if (rdValue >=1 && Integer.parseInt(button.getText())==1) {
+                button.setSelected(true);
+            } else if (rdValue <1 && Integer.parseInt(button.getText())==0) {
+                button.setSelected(true);
+            }
+        }
+    }
+    
     public void setButtonGroup(int rdValue, Enumeration elements) {
         while (elements.hasMoreElements()) {
             AbstractButton button = (AbstractButton) elements.nextElement();
@@ -503,33 +795,6 @@ public class Home extends javax.swing.JFrame {
         jPanel2 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         ContainerPanel = new javax.swing.JPanel();
-        panel_hasil = new javax.swing.JPanel();
-        jLabel7 = new javax.swing.JLabel();
-        jSeparator29 = new javax.swing.JSeparator();
-        jScrollPane6 = new javax.swing.JScrollPane();
-        jPanel1 = new javax.swing.JPanel();
-        jLabel93 = new javax.swing.JLabel();
-        jScrollPane3 = new javax.swing.JScrollPane();
-        TableVarietas = new javax.swing.JTable();
-        jLabel94 = new javax.swing.JLabel();
-        jSeparator30 = new javax.swing.JSeparator();
-        jScrollPane4 = new javax.swing.JScrollPane();
-        TableRanking = new javax.swing.JTable();
-        jLabel95 = new javax.swing.JLabel();
-        jSeparator31 = new javax.swing.JSeparator();
-        jScrollPane5 = new javax.swing.JScrollPane();
-        TableTernormalisasi = new javax.swing.JTable();
-        outputAkhir = new javax.swing.JLabel();
-        outputAkhir1 = new javax.swing.JLabel();
-        panel_matriks = new javax.swing.JPanel();
-        jPanel3 = new javax.swing.JPanel();
-        jScrollPane2 = new javax.swing.JScrollPane();
-        TableMatriks = new javax.swing.JTable();
-        EV = new javax.swing.JLabel();
-        KI = new javax.swing.JLabel();
-        KR = new javax.swing.JLabel();
-        finish = new javax.swing.JButton();
-        jLabel6 = new javax.swing.JLabel();
         panel_kriteria = new javax.swing.JPanel();
         jLabel5 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
@@ -929,6 +1194,33 @@ public class Home extends javax.swing.JFrame {
         jLabel8 = new javax.swing.JLabel();
         helpButton = new javax.swing.JButton();
         simpan = new javax.swing.JButton();
+        panel_matriks = new javax.swing.JPanel();
+        jPanel3 = new javax.swing.JPanel();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        TableMatriks = new javax.swing.JTable();
+        EV = new javax.swing.JLabel();
+        KI = new javax.swing.JLabel();
+        KR = new javax.swing.JLabel();
+        finish = new javax.swing.JButton();
+        jLabel6 = new javax.swing.JLabel();
+        panel_hasil = new javax.swing.JPanel();
+        jLabel7 = new javax.swing.JLabel();
+        jSeparator29 = new javax.swing.JSeparator();
+        jScrollPane6 = new javax.swing.JScrollPane();
+        jPanel1 = new javax.swing.JPanel();
+        jLabel93 = new javax.swing.JLabel();
+        jScrollPane3 = new javax.swing.JScrollPane();
+        TableVarietas = new javax.swing.JTable();
+        jLabel94 = new javax.swing.JLabel();
+        jSeparator30 = new javax.swing.JSeparator();
+        jScrollPane4 = new javax.swing.JScrollPane();
+        TableRanking = new javax.swing.JTable();
+        jLabel95 = new javax.swing.JLabel();
+        jSeparator31 = new javax.swing.JSeparator();
+        jScrollPane5 = new javax.swing.JScrollPane();
+        TableTernormalisasi = new javax.swing.JTable();
+        outputAkhir = new javax.swing.JLabel();
+        outputAkhir1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setBackground(new java.awt.Color(255, 255, 255));
@@ -1128,283 +1420,6 @@ public class Home extends javax.swing.JFrame {
         ContainerPanel.setBackground(new java.awt.Color(255, 255, 255));
         ContainerPanel.setLayout(new java.awt.CardLayout());
 
-        panel_hasil.setBackground(new java.awt.Color(204, 204, 204));
-        panel_hasil.addComponentListener(new java.awt.event.ComponentAdapter() {
-            public void componentShown(java.awt.event.ComponentEvent evt) {
-                panel_hasilComponentShown(evt);
-            }
-        });
-
-        jLabel7.setFont(new java.awt.Font("Times New Roman", 1, 24)); // NOI18N
-        jLabel7.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel7.setLabelFor(panel_hasil);
-        jLabel7.setText("HASIL");
-        jLabel7.setFocusable(false);
-
-        jSeparator29.setForeground(new java.awt.Color(0, 0, 0));
-
-        jLabel93.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
-        jLabel93.setText("Varietas");
-
-        TableVarietas.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
-            },
-            new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4"
-            }
-        ));
-        TableVarietas.setAutoResizeMode(javax.swing.JTable.AUTO_RESIZE_OFF);
-        TableVarietas.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
-        TableVarietas.getTableHeader().setResizingAllowed(false);
-        TableVarietas.getTableHeader().setReorderingAllowed(false);
-        jScrollPane3.setViewportView(TableVarietas);
-
-        jLabel94.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
-        jLabel94.setText("Normalisasi");
-
-        jSeparator30.setForeground(new java.awt.Color(0, 0, 0));
-
-        TableRanking.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
-            },
-            new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4"
-            }
-        ));
-        TableRanking.setAutoResizeMode(javax.swing.JTable.AUTO_RESIZE_OFF);
-        TableRanking.getTableHeader().setResizingAllowed(false);
-        TableRanking.getTableHeader().setReorderingAllowed(false);
-        jScrollPane4.setViewportView(TableRanking);
-
-        jLabel95.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
-        jLabel95.setText("Ranking");
-
-        jSeparator31.setForeground(new java.awt.Color(0, 0, 0));
-
-        TableTernormalisasi.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
-            },
-            new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4"
-            }
-        ));
-        TableTernormalisasi.setAutoResizeMode(javax.swing.JTable.AUTO_RESIZE_OFF);
-        TableTernormalisasi.getTableHeader().setResizingAllowed(false);
-        TableTernormalisasi.getTableHeader().setReorderingAllowed(false);
-        jScrollPane5.setViewportView(TableTernormalisasi);
-
-        outputAkhir.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
-        outputAkhir.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        outputAkhir.setText("Pilihan Terbaik Adalah ");
-        outputAkhir.setVerticalAlignment(javax.swing.SwingConstants.TOP);
-        outputAkhir.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-
-        outputAkhir1.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
-        outputAkhir1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        outputAkhir1.setText("dengan Nilai Optimasi Sebesar");
-        outputAkhir1.setVerticalAlignment(javax.swing.SwingConstants.TOP);
-        outputAkhir1.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-
-        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
-        jPanel1.setLayout(jPanel1Layout);
-        jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jSeparator30, javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jSeparator31, javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 845, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel93)
-                            .addComponent(jLabel94)
-                            .addComponent(jLabel95)
-                            .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 841, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, 841, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(0, 0, Short.MAX_VALUE))
-                    .addComponent(outputAkhir1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(outputAkhir, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-        );
-        jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(5, 5, 5)
-                .addComponent(jLabel93, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jSeparator30, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel94, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jSeparator31, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jLabel95, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(outputAkhir)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(outputAkhir1)
-                .addContainerGap(55, Short.MAX_VALUE))
-        );
-
-        jScrollPane6.setViewportView(jPanel1);
-
-        javax.swing.GroupLayout panel_hasilLayout = new javax.swing.GroupLayout(panel_hasil);
-        panel_hasil.setLayout(panel_hasilLayout);
-        panel_hasilLayout.setHorizontalGroup(
-            panel_hasilLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(panel_hasilLayout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(panel_hasilLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jSeparator29)
-                    .addComponent(jScrollPane6, javax.swing.GroupLayout.DEFAULT_SIZE, 880, Short.MAX_VALUE)
-                    .addGroup(panel_hasilLayout.createSequentialGroup()
-                        .addComponent(jLabel7)
-                        .addGap(0, 0, Short.MAX_VALUE)))
-                .addContainerGap())
-        );
-        panel_hasilLayout.setVerticalGroup(
-            panel_hasilLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(panel_hasilLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jLabel7)
-                .addGap(18, 18, 18)
-                .addComponent(jSeparator29, javax.swing.GroupLayout.PREFERRED_SIZE, 2, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jScrollPane6, javax.swing.GroupLayout.DEFAULT_SIZE, 539, Short.MAX_VALUE)
-                .addContainerGap())
-        );
-
-        ContainerPanel.add(panel_hasil, "card2");
-
-        panel_matriks.setBackground(new java.awt.Color(204, 204, 204));
-        panel_matriks.addComponentListener(new java.awt.event.ComponentAdapter() {
-            public void componentShown(java.awt.event.ComponentEvent evt) {
-                panel_matriksComponentShown(evt);
-            }
-        });
-
-        TableMatriks.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
-            },
-            new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4"
-            }
-        ));
-        TableMatriks.setAutoResizeMode(javax.swing.JTable.AUTO_RESIZE_OFF);
-        TableMatriks.getTableHeader().setResizingAllowed(false);
-        TableMatriks.getTableHeader().setReorderingAllowed(false);
-        jScrollPane2.setViewportView(TableMatriks);
-
-        EV.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
-        EV.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        EV.setText("Eigen Value =");
-
-        KI.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
-        KI.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        KI.setText("Konsistensi Index = ");
-
-        KR.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
-        KR.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        KR.setText("Konsistensi Ratio = ");
-
-        finish.setText("jButton1");
-        finish.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                finishActionPerformed(evt);
-            }
-        });
-
-        javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
-        jPanel3.setLayout(jPanel3Layout);
-        jPanel3Layout.setHorizontalGroup(
-            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel3Layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(EV, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(KI, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(KR, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addContainerGap())
-            .addGroup(jPanel3Layout.createSequentialGroup()
-                .addGap(357, 357, 357)
-                .addComponent(finish, javax.swing.GroupLayout.PREFERRED_SIZE, 157, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(366, Short.MAX_VALUE))
-            .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(jPanel3Layout.createSequentialGroup()
-                    .addContainerGap()
-                    .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 860, Short.MAX_VALUE)
-                    .addContainerGap()))
-        );
-        jPanel3Layout.setVerticalGroup(
-            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel3Layout.createSequentialGroup()
-                .addContainerGap(351, Short.MAX_VALUE)
-                .addComponent(EV)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(KI)
-                .addGap(18, 18, 18)
-                .addComponent(KR)
-                .addGap(18, 18, 18)
-                .addComponent(finish, javax.swing.GroupLayout.PREFERRED_SIZE, 54, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(34, 34, 34))
-            .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(jPanel3Layout.createSequentialGroup()
-                    .addContainerGap()
-                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 300, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addContainerGap(241, Short.MAX_VALUE)))
-        );
-
-        jLabel6.setFont(new java.awt.Font("Times New Roman", 1, 24)); // NOI18N
-        jLabel6.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel6.setLabelFor(panel_matriks);
-        jLabel6.setText("MATRIKS");
-        jLabel6.setFocusable(false);
-
-        javax.swing.GroupLayout panel_matriksLayout = new javax.swing.GroupLayout(panel_matriks);
-        panel_matriks.setLayout(panel_matriksLayout);
-        panel_matriksLayout.setHorizontalGroup(
-            panel_matriksLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(panel_matriksLayout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(panel_matriksLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel6)
-                    .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
-        panel_matriksLayout.setVerticalGroup(
-            panel_matriksLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(panel_matriksLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jLabel6)
-                .addGap(18, 18, 18)
-                .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addContainerGap())
-        );
-
-        ContainerPanel.add(panel_matriks, "card2");
-
         panel_kriteria.setBackground(new java.awt.Color(204, 204, 204));
 
         jLabel5.setFont(new java.awt.Font("Times New Roman", 1, 24)); // NOI18N
@@ -1438,7 +1453,6 @@ public class Home extends javax.swing.JFrame {
         ab.add(ABb);
         ABb.setForeground(new java.awt.Color(204, 204, 204));
         ABb.setText("0");
-        ABb.setActionCommand("0");
         ABb.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         ABb.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
         ahpProcess.add(ABb, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 30, -1, -1));
@@ -5053,7 +5067,8 @@ public class Home extends javax.swing.JFrame {
         ad.add(ADa);
         ADa.setForeground(new java.awt.Color(204, 204, 204));
         ADa.setText("1");
-        ADa.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        ADa.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        ADa.setHorizontalTextPosition(javax.swing.SwingConstants.RIGHT);
         ADa.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
         ahpProcess.add(ADa, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 160, -1, -1));
 
@@ -5061,7 +5076,8 @@ public class Home extends javax.swing.JFrame {
         ad.add(ADd);
         ADd.setForeground(new java.awt.Color(204, 204, 204));
         ADd.setText("0");
-        ADd.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        ADd.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        ADd.setHorizontalTextPosition(javax.swing.SwingConstants.RIGHT);
         ADd.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
         ahpProcess.add(ADd, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 160, -1, -1));
 
@@ -5069,7 +5085,8 @@ public class Home extends javax.swing.JFrame {
         ae.add(AEa);
         AEa.setForeground(new java.awt.Color(204, 204, 204));
         AEa.setText("1");
-        AEa.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        AEa.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        AEa.setHorizontalTextPosition(javax.swing.SwingConstants.RIGHT);
         AEa.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
         ahpProcess.add(AEa, new org.netbeans.lib.awtextra.AbsoluteConstraints(510, 160, -1, -1));
 
@@ -5077,7 +5094,8 @@ public class Home extends javax.swing.JFrame {
         ae.add(AEe);
         AEe.setForeground(new java.awt.Color(204, 204, 204));
         AEe.setText("0");
-        AEe.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        AEe.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        AEe.setHorizontalTextPosition(javax.swing.SwingConstants.RIGHT);
         AEe.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
         ahpProcess.add(AEe, new org.netbeans.lib.awtextra.AbsoluteConstraints(790, 160, -1, -1));
 
@@ -5085,7 +5103,8 @@ public class Home extends javax.swing.JFrame {
         af.add(AFa);
         AFa.setForeground(new java.awt.Color(204, 204, 204));
         AFa.setText("1");
-        AFa.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        AFa.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        AFa.setHorizontalTextPosition(javax.swing.SwingConstants.RIGHT);
         AFa.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
         ahpProcess.add(AFa, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 290, -1, -1));
 
@@ -5093,7 +5112,8 @@ public class Home extends javax.swing.JFrame {
         af.add(AFf);
         AFf.setForeground(new java.awt.Color(204, 204, 204));
         AFf.setText("0");
-        AFf.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        AFf.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        AFf.setHorizontalTextPosition(javax.swing.SwingConstants.RIGHT);
         AFf.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
         ahpProcess.add(AFf, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 290, -1, -1));
 
@@ -5101,7 +5121,8 @@ public class Home extends javax.swing.JFrame {
         ag.add(AGa);
         AGa.setForeground(new java.awt.Color(204, 204, 204));
         AGa.setText("1");
-        AGa.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        AGa.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        AGa.setHorizontalTextPosition(javax.swing.SwingConstants.RIGHT);
         AGa.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
         ahpProcess.add(AGa, new org.netbeans.lib.awtextra.AbsoluteConstraints(510, 290, -1, -1));
 
@@ -5109,7 +5130,8 @@ public class Home extends javax.swing.JFrame {
         ag.add(AGg);
         AGg.setForeground(new java.awt.Color(204, 204, 204));
         AGg.setText("0");
-        AGg.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        AGg.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        AGg.setHorizontalTextPosition(javax.swing.SwingConstants.RIGHT);
         AGg.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
         ahpProcess.add(AGg, new org.netbeans.lib.awtextra.AbsoluteConstraints(790, 290, -1, -1));
 
@@ -5117,7 +5139,8 @@ public class Home extends javax.swing.JFrame {
         ah.add(AHa);
         AHa.setForeground(new java.awt.Color(204, 204, 204));
         AHa.setText("1");
-        AHa.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        AHa.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        AHa.setHorizontalTextPosition(javax.swing.SwingConstants.RIGHT);
         AHa.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
         ahpProcess.add(AHa, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 420, -1, -1));
 
@@ -5125,7 +5148,8 @@ public class Home extends javax.swing.JFrame {
         ah.add(AHh);
         AHh.setForeground(new java.awt.Color(204, 204, 204));
         AHh.setText("0");
-        AHh.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        AHh.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        AHh.setHorizontalTextPosition(javax.swing.SwingConstants.RIGHT);
         AHh.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
         ahpProcess.add(AHh, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 420, -1, -1));
 
@@ -5133,7 +5157,8 @@ public class Home extends javax.swing.JFrame {
         bc.add(BCb);
         BCb.setForeground(new java.awt.Color(204, 204, 204));
         BCb.setText("1");
-        BCb.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        BCb.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        BCb.setHorizontalTextPosition(javax.swing.SwingConstants.RIGHT);
         BCb.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
         ahpProcess.add(BCb, new org.netbeans.lib.awtextra.AbsoluteConstraints(500, 420, -1, -1));
 
@@ -5141,7 +5166,8 @@ public class Home extends javax.swing.JFrame {
         bc.add(BCc);
         BCc.setForeground(new java.awt.Color(204, 204, 204));
         BCc.setText("0");
-        BCc.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        BCc.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        BCc.setHorizontalTextPosition(javax.swing.SwingConstants.RIGHT);
         BCc.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
         ahpProcess.add(BCc, new org.netbeans.lib.awtextra.AbsoluteConstraints(780, 420, -1, -1));
 
@@ -5149,7 +5175,8 @@ public class Home extends javax.swing.JFrame {
         bd.add(BDb);
         BDb.setForeground(new java.awt.Color(204, 204, 204));
         BDb.setText("1");
-        BDb.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        BDb.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        BDb.setHorizontalTextPosition(javax.swing.SwingConstants.RIGHT);
         BDb.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
         ahpProcess.add(BDb, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 550, -1, -1));
 
@@ -5157,7 +5184,8 @@ public class Home extends javax.swing.JFrame {
         bd.add(BDd);
         BDd.setForeground(new java.awt.Color(204, 204, 204));
         BDd.setText("0");
-        BDd.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        BDd.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        BDd.setHorizontalTextPosition(javax.swing.SwingConstants.RIGHT);
         BDd.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
         ahpProcess.add(BDd, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 550, -1, -1));
 
@@ -5165,7 +5193,8 @@ public class Home extends javax.swing.JFrame {
         be.add(BEb);
         BEb.setForeground(new java.awt.Color(204, 204, 204));
         BEb.setText("1");
-        BEb.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        BEb.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        BEb.setHorizontalTextPosition(javax.swing.SwingConstants.RIGHT);
         BEb.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
         ahpProcess.add(BEb, new org.netbeans.lib.awtextra.AbsoluteConstraints(500, 550, -1, -1));
 
@@ -5173,7 +5202,8 @@ public class Home extends javax.swing.JFrame {
         be.add(BEe);
         BEe.setForeground(new java.awt.Color(204, 204, 204));
         BEe.setText("0");
-        BEe.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        BEe.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        BEe.setHorizontalTextPosition(javax.swing.SwingConstants.RIGHT);
         BEe.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
         ahpProcess.add(BEe, new org.netbeans.lib.awtextra.AbsoluteConstraints(780, 550, -1, -1));
 
@@ -5181,7 +5211,8 @@ public class Home extends javax.swing.JFrame {
         bf.add(BFb);
         BFb.setForeground(new java.awt.Color(204, 204, 204));
         BFb.setText("1");
-        BFb.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        BFb.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        BFb.setHorizontalTextPosition(javax.swing.SwingConstants.RIGHT);
         BFb.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
         ahpProcess.add(BFb, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 680, -1, -1));
 
@@ -5189,7 +5220,8 @@ public class Home extends javax.swing.JFrame {
         bg.add(BFf);
         BFf.setForeground(new java.awt.Color(204, 204, 204));
         BFf.setText("1");
-        BFf.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        BFf.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        BFf.setHorizontalTextPosition(javax.swing.SwingConstants.RIGHT);
         BFf.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
         ahpProcess.add(BFf, new org.netbeans.lib.awtextra.AbsoluteConstraints(500, 680, -1, -1));
 
@@ -5197,7 +5229,8 @@ public class Home extends javax.swing.JFrame {
         bf.add(BGb);
         BGb.setForeground(new java.awt.Color(204, 204, 204));
         BGb.setText("0");
-        BGb.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        BGb.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        BGb.setHorizontalTextPosition(javax.swing.SwingConstants.RIGHT);
         BGb.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
         ahpProcess.add(BGb, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 680, -1, -1));
 
@@ -5205,7 +5238,8 @@ public class Home extends javax.swing.JFrame {
         bg.add(BGg);
         BGg.setForeground(new java.awt.Color(204, 204, 204));
         BGg.setText("0");
-        BGg.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        BGg.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        BGg.setHorizontalTextPosition(javax.swing.SwingConstants.RIGHT);
         BGg.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
         ahpProcess.add(BGg, new org.netbeans.lib.awtextra.AbsoluteConstraints(780, 680, -1, -1));
 
@@ -5213,7 +5247,8 @@ public class Home extends javax.swing.JFrame {
         cd.add(BHb);
         BHb.setForeground(new java.awt.Color(204, 204, 204));
         BHb.setText("1");
-        BHb.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        BHb.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        BHb.setHorizontalTextPosition(javax.swing.SwingConstants.RIGHT);
         BHb.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
         ahpProcess.add(BHb, new org.netbeans.lib.awtextra.AbsoluteConstraints(500, 810, -1, -1));
 
@@ -5221,7 +5256,8 @@ public class Home extends javax.swing.JFrame {
         bh.add(BHh);
         BHh.setForeground(new java.awt.Color(204, 204, 204));
         BHh.setText("0");
-        BHh.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        BHh.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        BHh.setHorizontalTextPosition(javax.swing.SwingConstants.RIGHT);
         BHh.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
         ahpProcess.add(BHh, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 810, -1, -1));
 
@@ -5229,7 +5265,8 @@ public class Home extends javax.swing.JFrame {
         bh.add(CDc);
         CDc.setForeground(new java.awt.Color(204, 204, 204));
         CDc.setText("1");
-        CDc.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        CDc.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        CDc.setHorizontalTextPosition(javax.swing.SwingConstants.RIGHT);
         CDc.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
         ahpProcess.add(CDc, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 810, -1, -1));
 
@@ -5237,7 +5274,8 @@ public class Home extends javax.swing.JFrame {
         cd.add(CDd);
         CDd.setForeground(new java.awt.Color(204, 204, 204));
         CDd.setText("0");
-        CDd.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        CDd.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        CDd.setHorizontalTextPosition(javax.swing.SwingConstants.RIGHT);
         CDd.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
         ahpProcess.add(CDd, new org.netbeans.lib.awtextra.AbsoluteConstraints(780, 810, -1, -1));
 
@@ -5245,7 +5283,8 @@ public class Home extends javax.swing.JFrame {
         cf.add(ABb14);
         ABb14.setForeground(new java.awt.Color(204, 204, 204));
         ABb14.setText("1");
-        ABb14.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        ABb14.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        ABb14.setHorizontalTextPosition(javax.swing.SwingConstants.RIGHT);
         ABb14.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
         ahpProcess.add(ABb14, new org.netbeans.lib.awtextra.AbsoluteConstraints(500, 940, -1, -1));
 
@@ -5253,7 +5292,8 @@ public class Home extends javax.swing.JFrame {
         ce.add(ABa14);
         ABa14.setForeground(new java.awt.Color(204, 204, 204));
         ABa14.setText("0");
-        ABa14.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        ABa14.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        ABa14.setHorizontalTextPosition(javax.swing.SwingConstants.RIGHT);
         ABa14.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
         ahpProcess.add(ABa14, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 940, -1, -1));
 
@@ -5261,7 +5301,8 @@ public class Home extends javax.swing.JFrame {
         ce.add(ABb15);
         ABb15.setForeground(new java.awt.Color(204, 204, 204));
         ABb15.setText("1");
-        ABb15.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        ABb15.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        ABb15.setHorizontalTextPosition(javax.swing.SwingConstants.RIGHT);
         ABb15.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
         ahpProcess.add(ABb15, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 940, -1, -1));
 
@@ -5269,7 +5310,8 @@ public class Home extends javax.swing.JFrame {
         cf.add(ABa15);
         ABa15.setForeground(new java.awt.Color(204, 204, 204));
         ABa15.setText("0");
-        ABa15.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        ABa15.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        ABa15.setHorizontalTextPosition(javax.swing.SwingConstants.RIGHT);
         ABa15.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
         ahpProcess.add(ABa15, new org.netbeans.lib.awtextra.AbsoluteConstraints(780, 940, -1, -1));
 
@@ -5277,7 +5319,8 @@ public class Home extends javax.swing.JFrame {
         ch.add(ABb16);
         ABb16.setForeground(new java.awt.Color(204, 204, 204));
         ABb16.setText("1");
-        ABb16.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        ABb16.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        ABb16.setHorizontalTextPosition(javax.swing.SwingConstants.RIGHT);
         ABb16.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
         ahpProcess.add(ABb16, new org.netbeans.lib.awtextra.AbsoluteConstraints(490, 1070, -1, -1));
 
@@ -5285,7 +5328,8 @@ public class Home extends javax.swing.JFrame {
         cg.add(ABa16);
         ABa16.setForeground(new java.awt.Color(204, 204, 204));
         ABa16.setText("0");
-        ABa16.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        ABa16.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        ABa16.setHorizontalTextPosition(javax.swing.SwingConstants.RIGHT);
         ABa16.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
         ahpProcess.add(ABa16, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 1070, -1, -1));
 
@@ -5293,7 +5337,8 @@ public class Home extends javax.swing.JFrame {
         cg.add(ABb17);
         ABb17.setForeground(new java.awt.Color(204, 204, 204));
         ABb17.setText("1");
-        ABb17.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        ABb17.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        ABb17.setHorizontalTextPosition(javax.swing.SwingConstants.RIGHT);
         ABb17.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
         ahpProcess.add(ABb17, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 1070, -1, -1));
 
@@ -5301,7 +5346,8 @@ public class Home extends javax.swing.JFrame {
         ch.add(ABa17);
         ABa17.setForeground(new java.awt.Color(204, 204, 204));
         ABa17.setText("0");
-        ABa17.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        ABa17.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        ABa17.setHorizontalTextPosition(javax.swing.SwingConstants.RIGHT);
         ABa17.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
         ahpProcess.add(ABa17, new org.netbeans.lib.awtextra.AbsoluteConstraints(770, 1070, -1, -1));
 
@@ -5309,7 +5355,8 @@ public class Home extends javax.swing.JFrame {
         df.add(ABb18);
         ABb18.setForeground(new java.awt.Color(204, 204, 204));
         ABb18.setText("1");
-        ABb18.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        ABb18.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        ABb18.setHorizontalTextPosition(javax.swing.SwingConstants.RIGHT);
         ABb18.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
         ahpProcess.add(ABb18, new org.netbeans.lib.awtextra.AbsoluteConstraints(490, 1200, -1, -1));
 
@@ -5317,7 +5364,8 @@ public class Home extends javax.swing.JFrame {
         de.add(ABa18);
         ABa18.setForeground(new java.awt.Color(204, 204, 204));
         ABa18.setText("0");
-        ABa18.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        ABa18.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        ABa18.setHorizontalTextPosition(javax.swing.SwingConstants.RIGHT);
         ABa18.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
         ahpProcess.add(ABa18, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 1200, -1, -1));
 
@@ -5325,7 +5373,8 @@ public class Home extends javax.swing.JFrame {
         de.add(ABb19);
         ABb19.setForeground(new java.awt.Color(204, 204, 204));
         ABb19.setText("1");
-        ABb19.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        ABb19.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        ABb19.setHorizontalTextPosition(javax.swing.SwingConstants.RIGHT);
         ABb19.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
         ahpProcess.add(ABb19, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 1200, -1, -1));
 
@@ -5333,7 +5382,8 @@ public class Home extends javax.swing.JFrame {
         df.add(ABa19);
         ABa19.setForeground(new java.awt.Color(204, 204, 204));
         ABa19.setText("0");
-        ABa19.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        ABa19.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        ABa19.setHorizontalTextPosition(javax.swing.SwingConstants.RIGHT);
         ABa19.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
         ahpProcess.add(ABa19, new org.netbeans.lib.awtextra.AbsoluteConstraints(770, 1200, -1, -1));
 
@@ -5341,7 +5391,8 @@ public class Home extends javax.swing.JFrame {
         dh.add(ABb20);
         ABb20.setForeground(new java.awt.Color(204, 204, 204));
         ABb20.setText("1");
-        ABb20.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        ABb20.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        ABb20.setHorizontalTextPosition(javax.swing.SwingConstants.RIGHT);
         ABb20.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
         ahpProcess.add(ABb20, new org.netbeans.lib.awtextra.AbsoluteConstraints(490, 1330, -1, -1));
 
@@ -5349,7 +5400,8 @@ public class Home extends javax.swing.JFrame {
         dg.add(ABa20);
         ABa20.setForeground(new java.awt.Color(204, 204, 204));
         ABa20.setText("0");
-        ABa20.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        ABa20.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        ABa20.setHorizontalTextPosition(javax.swing.SwingConstants.RIGHT);
         ABa20.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
         ahpProcess.add(ABa20, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 1330, -1, -1));
 
@@ -5357,7 +5409,8 @@ public class Home extends javax.swing.JFrame {
         dg.add(ABb21);
         ABb21.setForeground(new java.awt.Color(204, 204, 204));
         ABb21.setText("1");
-        ABb21.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        ABb21.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        ABb21.setHorizontalTextPosition(javax.swing.SwingConstants.RIGHT);
         ABb21.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
         ahpProcess.add(ABb21, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 1330, -1, -1));
 
@@ -5365,7 +5418,8 @@ public class Home extends javax.swing.JFrame {
         dh.add(ABa21);
         ABa21.setForeground(new java.awt.Color(204, 204, 204));
         ABa21.setText("0");
-        ABa21.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        ABa21.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        ABa21.setHorizontalTextPosition(javax.swing.SwingConstants.RIGHT);
         ABa21.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
         ahpProcess.add(ABa21, new org.netbeans.lib.awtextra.AbsoluteConstraints(770, 1330, -1, -1));
 
@@ -5373,7 +5427,8 @@ public class Home extends javax.swing.JFrame {
         eg.add(ABb22);
         ABb22.setForeground(new java.awt.Color(204, 204, 204));
         ABb22.setText("1");
-        ABb22.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        ABb22.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        ABb22.setHorizontalTextPosition(javax.swing.SwingConstants.RIGHT);
         ABb22.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
         ahpProcess.add(ABb22, new org.netbeans.lib.awtextra.AbsoluteConstraints(490, 1460, -1, -1));
 
@@ -5381,7 +5436,8 @@ public class Home extends javax.swing.JFrame {
         ef.add(ABa22);
         ABa22.setForeground(new java.awt.Color(204, 204, 204));
         ABa22.setText("0");
-        ABa22.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        ABa22.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        ABa22.setHorizontalTextPosition(javax.swing.SwingConstants.RIGHT);
         ABa22.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
         ahpProcess.add(ABa22, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 1460, -1, -1));
 
@@ -5389,7 +5445,8 @@ public class Home extends javax.swing.JFrame {
         ef.add(ABb23);
         ABb23.setForeground(new java.awt.Color(204, 204, 204));
         ABb23.setText("1");
-        ABb23.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        ABb23.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        ABb23.setHorizontalTextPosition(javax.swing.SwingConstants.RIGHT);
         ABb23.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
         ahpProcess.add(ABb23, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 1460, -1, -1));
 
@@ -5397,7 +5454,8 @@ public class Home extends javax.swing.JFrame {
         eg.add(ABa23);
         ABa23.setForeground(new java.awt.Color(204, 204, 204));
         ABa23.setText("0");
-        ABa23.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        ABa23.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        ABa23.setHorizontalTextPosition(javax.swing.SwingConstants.RIGHT);
         ABa23.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
         ahpProcess.add(ABa23, new org.netbeans.lib.awtextra.AbsoluteConstraints(770, 1460, -1, -1));
 
@@ -5405,7 +5463,8 @@ public class Home extends javax.swing.JFrame {
         fg.add(ABb24);
         ABb24.setForeground(new java.awt.Color(204, 204, 204));
         ABb24.setText("1");
-        ABb24.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        ABb24.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        ABb24.setHorizontalTextPosition(javax.swing.SwingConstants.RIGHT);
         ABb24.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
         ahpProcess.add(ABb24, new org.netbeans.lib.awtextra.AbsoluteConstraints(490, 1590, -1, -1));
 
@@ -5413,7 +5472,8 @@ public class Home extends javax.swing.JFrame {
         eh.add(ABa24);
         ABa24.setForeground(new java.awt.Color(204, 204, 204));
         ABa24.setText("0");
-        ABa24.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        ABa24.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        ABa24.setHorizontalTextPosition(javax.swing.SwingConstants.RIGHT);
         ABa24.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
         ahpProcess.add(ABa24, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 1590, -1, -1));
 
@@ -5421,7 +5481,8 @@ public class Home extends javax.swing.JFrame {
         eh.add(ABb25);
         ABb25.setForeground(new java.awt.Color(204, 204, 204));
         ABb25.setText("1");
-        ABb25.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        ABb25.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        ABb25.setHorizontalTextPosition(javax.swing.SwingConstants.RIGHT);
         ABb25.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
         ahpProcess.add(ABb25, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 1590, -1, -1));
 
@@ -5429,7 +5490,8 @@ public class Home extends javax.swing.JFrame {
         fg.add(ABa25);
         ABa25.setForeground(new java.awt.Color(204, 204, 204));
         ABa25.setText("0");
-        ABa25.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        ABa25.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        ABa25.setHorizontalTextPosition(javax.swing.SwingConstants.RIGHT);
         ABa25.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
         ahpProcess.add(ABa25, new org.netbeans.lib.awtextra.AbsoluteConstraints(770, 1590, -1, -1));
 
@@ -5437,7 +5499,8 @@ public class Home extends javax.swing.JFrame {
         gh.add(ABb26);
         ABb26.setForeground(new java.awt.Color(204, 204, 204));
         ABb26.setText("1");
-        ABb26.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        ABb26.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        ABb26.setHorizontalTextPosition(javax.swing.SwingConstants.RIGHT);
         ABb26.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
         ahpProcess.add(ABb26, new org.netbeans.lib.awtextra.AbsoluteConstraints(490, 1720, -1, -1));
 
@@ -5445,7 +5508,8 @@ public class Home extends javax.swing.JFrame {
         fh.add(ABa26);
         ABa26.setForeground(new java.awt.Color(204, 204, 204));
         ABa26.setText("0");
-        ABa26.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        ABa26.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        ABa26.setHorizontalTextPosition(javax.swing.SwingConstants.RIGHT);
         ABa26.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
         ahpProcess.add(ABa26, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 1720, -1, -1));
 
@@ -5453,7 +5517,8 @@ public class Home extends javax.swing.JFrame {
         fh.add(ABb27);
         ABb27.setForeground(new java.awt.Color(204, 204, 204));
         ABb27.setText("1");
-        ABb27.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        ABb27.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        ABb27.setHorizontalTextPosition(javax.swing.SwingConstants.RIGHT);
         ABb27.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
         ahpProcess.add(ABb27, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 1720, -1, -1));
 
@@ -5461,7 +5526,8 @@ public class Home extends javax.swing.JFrame {
         gh.add(ABa27);
         ABa27.setForeground(new java.awt.Color(204, 204, 204));
         ABa27.setText("0");
-        ABa27.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        ABa27.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        ABa27.setHorizontalTextPosition(javax.swing.SwingConstants.RIGHT);
         ABa27.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
         ahpProcess.add(ABa27, new org.netbeans.lib.awtextra.AbsoluteConstraints(770, 1720, -1, -1));
 
@@ -5524,6 +5590,283 @@ public class Home extends javax.swing.JFrame {
 
         ContainerPanel.add(panel_kriteria, "card2");
 
+        panel_matriks.setBackground(new java.awt.Color(204, 204, 204));
+        panel_matriks.addComponentListener(new java.awt.event.ComponentAdapter() {
+            public void componentShown(java.awt.event.ComponentEvent evt) {
+                panel_matriksComponentShown(evt);
+            }
+        });
+
+        TableMatriks.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
+            },
+            new String [] {
+                "Title 1", "Title 2", "Title 3", "Title 4"
+            }
+        ));
+        TableMatriks.setAutoResizeMode(javax.swing.JTable.AUTO_RESIZE_OFF);
+        TableMatriks.getTableHeader().setResizingAllowed(false);
+        TableMatriks.getTableHeader().setReorderingAllowed(false);
+        jScrollPane2.setViewportView(TableMatriks);
+
+        EV.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
+        EV.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        EV.setText("Eigen Value =");
+
+        KI.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
+        KI.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        KI.setText("Konsistensi Index = ");
+
+        KR.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
+        KR.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        KR.setText("Konsistensi Ratio = ");
+
+        finish.setText("jButton1");
+        finish.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                finishActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
+        jPanel3.setLayout(jPanel3Layout);
+        jPanel3Layout.setHorizontalGroup(
+            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel3Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(EV, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(KI, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(KR, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap())
+            .addGroup(jPanel3Layout.createSequentialGroup()
+                .addGap(357, 357, 357)
+                .addComponent(finish, javax.swing.GroupLayout.PREFERRED_SIZE, 157, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(366, Short.MAX_VALUE))
+            .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(jPanel3Layout.createSequentialGroup()
+                    .addContainerGap()
+                    .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 860, Short.MAX_VALUE)
+                    .addContainerGap()))
+        );
+        jPanel3Layout.setVerticalGroup(
+            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel3Layout.createSequentialGroup()
+                .addContainerGap(351, Short.MAX_VALUE)
+                .addComponent(EV)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(KI)
+                .addGap(18, 18, 18)
+                .addComponent(KR)
+                .addGap(18, 18, 18)
+                .addComponent(finish, javax.swing.GroupLayout.PREFERRED_SIZE, 54, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(34, 34, 34))
+            .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(jPanel3Layout.createSequentialGroup()
+                    .addContainerGap()
+                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 300, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addContainerGap(241, Short.MAX_VALUE)))
+        );
+
+        jLabel6.setFont(new java.awt.Font("Times New Roman", 1, 24)); // NOI18N
+        jLabel6.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel6.setLabelFor(panel_matriks);
+        jLabel6.setText("MATRIKS");
+        jLabel6.setFocusable(false);
+
+        javax.swing.GroupLayout panel_matriksLayout = new javax.swing.GroupLayout(panel_matriks);
+        panel_matriks.setLayout(panel_matriksLayout);
+        panel_matriksLayout.setHorizontalGroup(
+            panel_matriksLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panel_matriksLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(panel_matriksLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel6)
+                    .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+        panel_matriksLayout.setVerticalGroup(
+            panel_matriksLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panel_matriksLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel6)
+                .addGap(18, 18, 18)
+                .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap())
+        );
+
+        ContainerPanel.add(panel_matriks, "card2");
+
+        panel_hasil.setBackground(new java.awt.Color(204, 204, 204));
+        panel_hasil.addComponentListener(new java.awt.event.ComponentAdapter() {
+            public void componentShown(java.awt.event.ComponentEvent evt) {
+                panel_hasilComponentShown(evt);
+            }
+        });
+
+        jLabel7.setFont(new java.awt.Font("Times New Roman", 1, 24)); // NOI18N
+        jLabel7.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel7.setLabelFor(panel_hasil);
+        jLabel7.setText("HASIL");
+        jLabel7.setFocusable(false);
+
+        jSeparator29.setForeground(new java.awt.Color(0, 0, 0));
+
+        jLabel93.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
+        jLabel93.setText("Varietas");
+
+        TableVarietas.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
+            },
+            new String [] {
+                "Title 1", "Title 2", "Title 3", "Title 4"
+            }
+        ));
+        TableVarietas.setAutoResizeMode(javax.swing.JTable.AUTO_RESIZE_OFF);
+        TableVarietas.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        TableVarietas.getTableHeader().setResizingAllowed(false);
+        TableVarietas.getTableHeader().setReorderingAllowed(false);
+        jScrollPane3.setViewportView(TableVarietas);
+
+        jLabel94.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
+        jLabel94.setText("Normalisasi");
+
+        jSeparator30.setForeground(new java.awt.Color(0, 0, 0));
+
+        TableRanking.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
+            },
+            new String [] {
+                "Title 1", "Title 2", "Title 3", "Title 4"
+            }
+        ));
+        TableRanking.setAutoResizeMode(javax.swing.JTable.AUTO_RESIZE_OFF);
+        TableRanking.getTableHeader().setResizingAllowed(false);
+        TableRanking.getTableHeader().setReorderingAllowed(false);
+        jScrollPane4.setViewportView(TableRanking);
+
+        jLabel95.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
+        jLabel95.setText("Ranking");
+
+        jSeparator31.setForeground(new java.awt.Color(0, 0, 0));
+
+        TableTernormalisasi.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
+            },
+            new String [] {
+                "Title 1", "Title 2", "Title 3", "Title 4"
+            }
+        ));
+        TableTernormalisasi.setAutoResizeMode(javax.swing.JTable.AUTO_RESIZE_OFF);
+        TableTernormalisasi.getTableHeader().setResizingAllowed(false);
+        TableTernormalisasi.getTableHeader().setReorderingAllowed(false);
+        jScrollPane5.setViewportView(TableTernormalisasi);
+
+        outputAkhir.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
+        outputAkhir.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        outputAkhir.setText("Pilihan Terbaik Adalah ");
+        outputAkhir.setVerticalAlignment(javax.swing.SwingConstants.TOP);
+        outputAkhir.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+
+        outputAkhir1.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
+        outputAkhir1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        outputAkhir1.setText("dengan Nilai Optimasi Sebesar");
+        outputAkhir1.setVerticalAlignment(javax.swing.SwingConstants.TOP);
+        outputAkhir1.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+
+        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
+        jPanel1.setLayout(jPanel1Layout);
+        jPanel1Layout.setHorizontalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jSeparator30, javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jSeparator31, javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 845, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel93)
+                            .addComponent(jLabel94)
+                            .addComponent(jLabel95)
+                            .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 841, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, 841, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addComponent(outputAkhir1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(outputAkhir, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+        );
+        jPanel1Layout.setVerticalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGap(5, 5, 5)
+                .addComponent(jLabel93, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jSeparator30, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jLabel94, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jSeparator31, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jLabel95, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(outputAkhir)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(outputAkhir1)
+                .addContainerGap(55, Short.MAX_VALUE))
+        );
+
+        jScrollPane6.setViewportView(jPanel1);
+
+        javax.swing.GroupLayout panel_hasilLayout = new javax.swing.GroupLayout(panel_hasil);
+        panel_hasil.setLayout(panel_hasilLayout);
+        panel_hasilLayout.setHorizontalGroup(
+            panel_hasilLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panel_hasilLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(panel_hasilLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jSeparator29)
+                    .addComponent(jScrollPane6, javax.swing.GroupLayout.DEFAULT_SIZE, 880, Short.MAX_VALUE)
+                    .addGroup(panel_hasilLayout.createSequentialGroup()
+                        .addComponent(jLabel7)
+                        .addGap(0, 0, Short.MAX_VALUE)))
+                .addContainerGap())
+        );
+        panel_hasilLayout.setVerticalGroup(
+            panel_hasilLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panel_hasilLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel7)
+                .addGap(18, 18, 18)
+                .addComponent(jSeparator29, javax.swing.GroupLayout.PREFERRED_SIZE, 2, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jScrollPane6, javax.swing.GroupLayout.DEFAULT_SIZE, 539, Short.MAX_VALUE)
+                .addContainerGap())
+        );
+
+        ContainerPanel.add(panel_hasil, "card2");
+
         getContentPane().add(ContainerPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 50, 900, 620));
 
         pack();
@@ -5536,7 +5879,7 @@ public class Home extends javax.swing.JFrame {
         if (bobot.isEmpty()) {
 
         } else {
-            this.radioKriteria(bobot);
+            this.radioPreferensi(bobot);
         }
         setColor(menu_kriteria);
         kriteria_aktif.setOpaque(true);
@@ -6602,6 +6945,17 @@ public class Home extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_formPropertyChange
 
+    public double getNilaiButton(Enumeration bobot,Enumeration pilihan)
+    {
+        double nilai=0;
+        if (getButtonGroup(pilihan)==1) {
+            nilai = getButtonGroup(bobot);
+        } else {
+            nilai = 1/getButtonGroup(bobot);
+        }
+        return nilai;
+    }
+    
     private void simpanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_simpanActionPerformed
         JDialog.setDefaultLookAndFeelDecorated(true);
         int response = JOptionPane.showConfirmDialog(null,
@@ -6613,35 +6967,36 @@ public class Home extends javax.swing.JFrame {
                     showMessageDialog(null, "Batal Menyimpan Bobot Kriteria");
         } else if (response == JOptionPane.YES_OPTION) {
 
+            System.out.println((int)getButtonGroup(ab.getElements()));
             ArrayList<Double> nilai = new ArrayList<>();
-            nilai.add(getButtonGroup(groupAB.getElements()));
-            nilai.add(getButtonGroup(groupAC.getElements()));
-            nilai.add(getButtonGroup(groupAD.getElements()));
-            nilai.add(getButtonGroup(groupAE.getElements()));
-            nilai.add(getButtonGroup(groupAF.getElements()));
-            nilai.add(getButtonGroup(groupAG.getElements()));
-            nilai.add(getButtonGroup(groupAH.getElements()));
-            nilai.add(getButtonGroup(groupBC.getElements()));
-            nilai.add(getButtonGroup(groupBD.getElements()));
-            nilai.add(getButtonGroup(groupBE.getElements()));
-            nilai.add(getButtonGroup(groupBF.getElements()));
-            nilai.add(getButtonGroup(groupBG.getElements()));
-            nilai.add(getButtonGroup(groupBH.getElements()));
-            nilai.add(getButtonGroup(groupCD.getElements()));
-            nilai.add(getButtonGroup(groupCE.getElements()));
-            nilai.add(getButtonGroup(groupCF.getElements()));
-            nilai.add(getButtonGroup(groupCG.getElements()));
-            nilai.add(getButtonGroup(groupCH.getElements()));
-            nilai.add(getButtonGroup(groupDE.getElements()));
-            nilai.add(getButtonGroup(groupDF.getElements()));
-            nilai.add(getButtonGroup(groupDG.getElements()));
-            nilai.add(getButtonGroup(groupDH.getElements()));
-            nilai.add(getButtonGroup(groupEF.getElements()));
-            nilai.add(getButtonGroup(groupEG.getElements()));
-            nilai.add(getButtonGroup(groupEH.getElements()));
-            nilai.add(getButtonGroup(groupFG.getElements()));
-            nilai.add(getButtonGroup(groupFH.getElements()));
-            nilai.add(getButtonGroup(groupGH.getElements()));
+            nilai.add(getNilaiButton(groupAB.getElements(),ab.getElements()));
+            nilai.add(getNilaiButton(groupAC.getElements(),ac.getElements()));
+            nilai.add(getNilaiButton(groupAD.getElements(),ad.getElements()));
+            nilai.add(getNilaiButton(groupAE.getElements(),ae.getElements()));
+            nilai.add(getNilaiButton(groupAF.getElements(),af.getElements()));
+            nilai.add(getNilaiButton(groupAG.getElements(),ag.getElements()));
+            nilai.add(getNilaiButton(groupAH.getElements(),ah.getElements()));
+            nilai.add(getNilaiButton(groupBC.getElements(),bc.getElements()));
+            nilai.add(getNilaiButton(groupBD.getElements(),bd.getElements()));
+            nilai.add(getNilaiButton(groupBE.getElements(),be.getElements()));
+            nilai.add(getNilaiButton(groupBF.getElements(),bf.getElements()));
+            nilai.add(getNilaiButton(groupBG.getElements(),bg.getElements()));
+            nilai.add(getNilaiButton(groupBH.getElements(),bh.getElements()));
+            nilai.add(getNilaiButton(groupCD.getElements(),cd.getElements()));
+            nilai.add(getNilaiButton(groupCE.getElements(),ce.getElements()));
+            nilai.add(getNilaiButton(groupCF.getElements(),cf.getElements()));
+            nilai.add(getNilaiButton(groupCG.getElements(),cg.getElements()));
+            nilai.add(getNilaiButton(groupCH.getElements(),ch.getElements()));
+            nilai.add(getNilaiButton(groupDE.getElements(),de.getElements()));
+            nilai.add(getNilaiButton(groupDF.getElements(),df.getElements()));
+            nilai.add(getNilaiButton(groupDG.getElements(),dg.getElements()));
+            nilai.add(getNilaiButton(groupDH.getElements(),dh.getElements()));
+            nilai.add(getNilaiButton(groupEF.getElements(),ef.getElements()));
+            nilai.add(getNilaiButton(groupEG.getElements(),eg.getElements()));
+            nilai.add(getNilaiButton(groupEH.getElements(),eh.getElements()));
+            nilai.add(getNilaiButton(groupFG.getElements(),fg.getElements()));
+            nilai.add(getNilaiButton(groupFH.getElements(),fh.getElements()));
+            nilai.add(getNilaiButton(groupGH.getElements(),gh.getElements()));
 
             if (cekNilai(nilai)) {
                 int indexNilai = 0;
@@ -6711,7 +7066,7 @@ public class Home extends javax.swing.JFrame {
             if (bobot.isEmpty()) {
 
             } else {
-                this.radioKriteria(bobot);
+                this.radioPreferensi(bobot);
             }
             setColor(menu_kriteria);
             kriteria_aktif.setOpaque(true);
