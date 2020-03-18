@@ -62,9 +62,9 @@ public class MetodeAhp {
                 
                 if (pilihan == 1) {
                 matriksKriteria[x][y] = bobot;
-                matriksKriteria[y][x] = 1 / bobot;
+                matriksKriteria[y][x] = Double.valueOf(df.format(1/bobot)) ;
                 } else {
-                    matriksKriteria[x][y] = 1 / bobot;
+                    matriksKriteria[x][y] = Double.valueOf(df.format(1/bobot));
                     matriksKriteria[y][x] = bobot;
                 }
                 urut++;
@@ -105,7 +105,7 @@ public class MetodeAhp {
                 double nilai = matriksTernormalisasi[x][y];
                 jmlpb[x] += nilai;
             }
-            priorityVector[x] = jmlpb[x] / jumlahKriteria;
+            priorityVector[x] = Double.valueOf(df.format(jmlpb[x] / jumlahKriteria));
 
             //TODO : simpan ke db
             kriteria.tambahpvectorKriteria(kriteriaAll.get(x).getId(), idUser,
@@ -127,11 +127,11 @@ public class MetodeAhp {
 //        System.out.println(Arrays.toString(priorityVector));
         this.priorityVector = priorityVector;
 //        System.out.println(eigenValue);
-        this.eigenValue = eigenValue;
+        this.eigenValue = Double.valueOf(df.format(eigenValue));
 //        System.out.println(consistencyIndex);
-        this.consistencyIndex = consistencyIndex;
+        this.consistencyIndex = Double.valueOf(df.format(consistencyIndex));
 //        System.out.println(consistencyRatio);
-        this.consistencyRatio = consistencyRatio;
+        this.consistencyRatio = Double.valueOf(df.format(consistencyRatio));
     }
 
 }

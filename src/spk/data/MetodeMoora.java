@@ -5,6 +5,7 @@
  */
 package spk.data;
 
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
 
@@ -13,6 +14,9 @@ import java.util.Arrays;
  * @author anas
  */
 public class MetodeMoora {
+    
+    DecimalFormat df = new DecimalFormat("#.####");
+    
     private double[][] matriksTernormalisasi;
     private double[][] matriksTernormalisasiTerbobot;
     private double[] hasilOptimasi;
@@ -58,7 +62,7 @@ public class MetodeMoora {
         //kalikan akar dengan nilai pada tabel matriks alternatif
         for (int x = 0; x < kriteriaAll.size(); x++) {
             for (int y = 0; y < varietasAll.size() ; y++) {
-                matriksTernormalisasi[x][y] = matriksAlternatif[x][y]/akarpKolom[y];
+                matriksTernormalisasi[x][y] = Double.valueOf(df.format(matriksAlternatif[x][y]/akarpKolom[y]));
             }
         }
         
@@ -73,12 +77,12 @@ public class MetodeMoora {
         for (int x = 0; x < kriteriaAll.size(); x++) {
             for (int y = 0; y < varietasAll.size() ; y++) {
                 if(tipe.equalsIgnoreCase(kriteriaAll.get(y).getTipe())){
-                    matriksTernormalisasiTerbobot[x][y] = matriksTernormalisasi[x][y]*bobot.get(y);
+                    matriksTernormalisasiTerbobot[x][y] = Double.valueOf(df.format(matriksTernormalisasi[x][y]*bobot.get(y)));;
                 }else{
-                    matriksTernormalisasiTerbobot[x][y] = matriksTernormalisasi[x][y]*bobot.get(y)*-1;
+                    matriksTernormalisasiTerbobot[x][y] = Double.valueOf(df.format(matriksTernormalisasi[x][y]*bobot.get(y)*-1));
                 }
                  //hitung penjumlah masing2 nilai perbarisan
-                hasilOptimasi[x] +=matriksTernormalisasiTerbobot[x][y];
+                hasilOptimasi[x] = Double.valueOf(df.format(hasilOptimasi[x]+matriksTernormalisasiTerbobot[x][y]));
             }
         }
         this.matriksTernormalisasiTerbobot = matriksTernormalisasiTerbobot;

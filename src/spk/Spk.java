@@ -81,7 +81,7 @@ public class Spk {
 //            kriteria.showDetail(8);
 
 //            CRUD VARIETAS
-            Varietas vari = new Varietas();
+//            Varietas vari = new Varietas();
 //            vari.tambah("baru","baru","baru.jpg");
 //            float[] nilaiKriteria = {1,2,3,4,5,6,7,8};
 //            vari.tambahNilaiKriteriaVarietas(nilaiKriteria);

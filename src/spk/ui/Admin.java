@@ -556,7 +556,7 @@ public class Admin extends javax.swing.JFrame {
         jLabel7.setText("Varietas");
         jLabel7.setFocusable(false);
         panel_varietas.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 10, -1, -1));
-        panel_varietas.add(namaVarietas, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 60, 160, -1));
+        panel_varietas.add(namaVarietas, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 60, 160, -1));
 
         jLabel16.setText("Nama");
         panel_varietas.add(jLabel16, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 60, -1, -1));
@@ -620,85 +620,85 @@ public class Admin extends javax.swing.JFrame {
         panel_varietas.add(jScrollPane3, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 460, 780, 140));
 
         KT.setModel(new javax.swing.SpinnerNumberModel(0.0f, 0.0f, null, 0.001f));
-        panel_varietas.add(KT, new org.netbeans.lib.awtextra.AbsoluteConstraints(600, 380, 140, -1));
+        panel_varietas.add(KT, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 380, 140, -1));
 
         jLabel18.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
         jLabel18.setText("Nilai Varietas");
-        panel_varietas.add(jLabel18, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 250, -1, -1));
+        panel_varietas.add(jLabel18, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 120, -1, -1));
 
         jLabel8.setText("Rerata Jumlah Tandan");
-        panel_varietas.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 290, -1, -1));
+        panel_varietas.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 160, -1, -1));
 
         jLabel19.setText("Rerata Berat Tandan");
-        panel_varietas.add(jLabel19, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 320, -1, -1));
+        panel_varietas.add(jLabel19, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 190, -1, -1));
 
         jLabel20.setText("Potensi TBS");
-        panel_varietas.add(jLabel20, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 350, -1, -1));
+        panel_varietas.add(jLabel20, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 220, -1, -1));
 
         jLabel21.setText("Rendemen");
-        panel_varietas.add(jLabel21, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 380, -1, -1));
+        panel_varietas.add(jLabel21, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 250, -1, -1));
 
         jLabel22.setText("Potensi CPO");
-        panel_varietas.add(jLabel22, new org.netbeans.lib.awtextra.AbsoluteConstraints(490, 290, -1, -1));
+        panel_varietas.add(jLabel22, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 290, -1, -1));
 
         jLabel23.setText("Tinggi");
-        panel_varietas.add(jLabel23, new org.netbeans.lib.awtextra.AbsoluteConstraints(490, 320, -1, -1));
+        panel_varietas.add(jLabel23, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 320, -1, -1));
 
         jLabel24.setText("Panjang Pelepah");
-        panel_varietas.add(jLabel24, new org.netbeans.lib.awtextra.AbsoluteConstraints(490, 350, -1, -1));
+        panel_varietas.add(jLabel24, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 350, -1, -1));
 
         jLabel25.setText("Kerapatan Tanam");
-        panel_varietas.add(jLabel25, new org.netbeans.lib.awtextra.AbsoluteConstraints(490, 380, -1, -1));
+        panel_varietas.add(jLabel25, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 380, -1, -1));
 
         RJT.setModel(new javax.swing.SpinnerNumberModel(0.0f, 0.0f, null, 0.001f));
-        panel_varietas.add(RJT, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 290, 140, -1));
+        panel_varietas.add(RJT, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 160, 140, -1));
 
         RBT.setModel(new javax.swing.SpinnerNumberModel(0.0f, 0.0f, null, 0.001f));
-        panel_varietas.add(RBT, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 320, 140, -1));
+        panel_varietas.add(RBT, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 190, 140, -1));
 
         TBS.setModel(new javax.swing.SpinnerNumberModel(0.0f, 0.0f, null, 0.001f));
-        panel_varietas.add(TBS, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 350, 140, -1));
+        panel_varietas.add(TBS, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 220, 140, -1));
 
         Rendemen.setModel(new javax.swing.SpinnerNumberModel(0.0f, 0.0f, null, 0.001f));
-        panel_varietas.add(Rendemen, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 380, 140, -1));
+        panel_varietas.add(Rendemen, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 250, 140, -1));
 
         CPO.setModel(new javax.swing.SpinnerNumberModel(0.0f, 0.0f, null, 0.001f));
-        panel_varietas.add(CPO, new org.netbeans.lib.awtextra.AbsoluteConstraints(600, 290, 140, -1));
+        panel_varietas.add(CPO, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 290, 140, -1));
 
         Tinggi.setModel(new javax.swing.SpinnerNumberModel(0.0f, 0.0f, null, 0.001f));
-        panel_varietas.add(Tinggi, new org.netbeans.lib.awtextra.AbsoluteConstraints(600, 320, 140, -1));
+        panel_varietas.add(Tinggi, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 320, 140, -1));
 
         PP.setModel(new javax.swing.SpinnerNumberModel(0.0f, 0.0f, null, 0.001f));
-        panel_varietas.add(PP, new org.netbeans.lib.awtextra.AbsoluteConstraints(600, 350, 140, -1));
+        panel_varietas.add(PP, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 350, 140, -1));
 
         jLabel26.setText("tandan/phn/thn");
-        panel_varietas.add(jLabel26, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 290, -1, -1));
+        panel_varietas.add(jLabel26, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 160, -1, -1));
 
         jLabel27.setText("kg/tandan");
-        panel_varietas.add(jLabel27, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 320, -1, -1));
+        panel_varietas.add(jLabel27, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 190, -1, -1));
 
         jLabel28.setText("ton/ha/thn");
-        panel_varietas.add(jLabel28, new org.netbeans.lib.awtextra.AbsoluteConstraints(750, 290, -1, -1));
+        panel_varietas.add(jLabel28, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 290, -1, -1));
 
         jLabel29.setText("%");
-        panel_varietas.add(jLabel29, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 380, -1, -1));
+        panel_varietas.add(jLabel29, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 250, -1, -1));
 
         jLabel30.setText("ton/ha/thn");
-        panel_varietas.add(jLabel30, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 350, -1, -1));
+        panel_varietas.add(jLabel30, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 220, -1, -1));
 
         jLabel31.setText("cm/thn");
-        panel_varietas.add(jLabel31, new org.netbeans.lib.awtextra.AbsoluteConstraints(750, 320, -1, -1));
+        panel_varietas.add(jLabel31, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 320, -1, -1));
 
         jLabel32.setText("m");
-        panel_varietas.add(jLabel32, new org.netbeans.lib.awtextra.AbsoluteConstraints(750, 350, -1, -1));
+        panel_varietas.add(jLabel32, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 350, -1, -1));
 
         jLabel33.setText("phn/ha");
-        panel_varietas.add(jLabel33, new org.netbeans.lib.awtextra.AbsoluteConstraints(750, 380, -1, -1));
-        panel_varietas.add(grupField, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 90, 160, -1));
+        panel_varietas.add(jLabel33, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 380, -1, -1));
+        panel_varietas.add(grupField, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 90, 160, -1));
 
         jLabel6.setText("Foto");
         panel_varietas.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(490, 70, -1, 10));
-        panel_varietas.add(fotoField, new org.netbeans.lib.awtextra.AbsoluteConstraints(490, 120, 310, 140));
+        panel_varietas.add(fotoField, new org.netbeans.lib.awtextra.AbsoluteConstraints(490, 120, 330, 280));
 
         chooseFile.setText("Pilih File");
         chooseFile.addActionListener(new java.awt.event.ActionListener() {
