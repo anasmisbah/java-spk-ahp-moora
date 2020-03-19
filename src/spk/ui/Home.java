@@ -1445,17 +1445,19 @@ public class Home extends javax.swing.JFrame {
         ab.add(ABa);
         ABa.setForeground(new java.awt.Color(204, 204, 204));
         ABa.setText("1");
-        ABa.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        ABa.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        ABa.setHorizontalTextPosition(javax.swing.SwingConstants.RIGHT);
         ABa.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-        ahpProcess.add(ABa, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 30, -1, -1));
+        ahpProcess.add(ABa, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 30, -1, -1));
 
         ABb.setBackground(new java.awt.Color(204, 204, 204));
         ab.add(ABb);
         ABb.setForeground(new java.awt.Color(204, 204, 204));
         ABb.setText("0");
-        ABb.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        ABb.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        ABb.setHorizontalTextPosition(javax.swing.SwingConstants.RIGHT);
         ABb.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-        ahpProcess.add(ABb, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 30, -1, -1));
+        ahpProcess.add(ABb, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 30, -1, -1));
 
         AB1.setBackground(new java.awt.Color(204, 204, 204));
         groupAB.add(AB1);
@@ -1576,7 +1578,7 @@ public class Home extends javax.swing.JFrame {
 
         jLabel12.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLabel12.setText("Rerata Jumlah Tandan");
-        ahpProcess.add(jLabel12, new org.netbeans.lib.awtextra.AbsoluteConstraints(460, 50, -1, 39));
+        ahpProcess.add(jLabel12, new org.netbeans.lib.awtextra.AbsoluteConstraints(450, 50, -1, 39));
 
         jLabel13.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLabel13.setText("Potensi TBS");
@@ -1712,7 +1714,7 @@ public class Home extends javax.swing.JFrame {
 
         jLabel16.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLabel16.setText("Rendemen");
-        ahpProcess.add(jLabel16, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 180, -1, 39));
+        ahpProcess.add(jLabel16, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 180, -1, 39));
 
         AD1.setBackground(new java.awt.Color(204, 204, 204));
         groupAD.add(AD1);
@@ -1833,7 +1835,7 @@ public class Home extends javax.swing.JFrame {
 
         jLabel18.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLabel18.setText("Rerata Jumlah Tandan");
-        ahpProcess.add(jLabel18, new org.netbeans.lib.awtextra.AbsoluteConstraints(460, 180, -1, 39));
+        ahpProcess.add(jLabel18, new org.netbeans.lib.awtextra.AbsoluteConstraints(450, 180, -1, 39));
 
         jLabel19.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLabel19.setText("Potensi CPO");
@@ -1969,7 +1971,7 @@ public class Home extends javax.swing.JFrame {
 
         jLabel22.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLabel22.setText("Tinggi");
-        ahpProcess.add(jLabel22, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 310, -1, 39));
+        ahpProcess.add(jLabel22, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 310, -1, 39));
 
         AF1.setBackground(new java.awt.Color(204, 204, 204));
         groupAF.add(AF1);
@@ -2090,7 +2092,7 @@ public class Home extends javax.swing.JFrame {
 
         jLabel24.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLabel24.setText("Rerata Jumlah Tandan");
-        ahpProcess.add(jLabel24, new org.netbeans.lib.awtextra.AbsoluteConstraints(460, 310, -1, 39));
+        ahpProcess.add(jLabel24, new org.netbeans.lib.awtextra.AbsoluteConstraints(450, 310, -1, 39));
 
         jLabel25.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLabel25.setText("Panjang Pelepah");
@@ -2226,7 +2228,7 @@ public class Home extends javax.swing.JFrame {
 
         jLabel28.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLabel28.setText("Kerapatan Tanam");
-        ahpProcess.add(jLabel28, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 440, -1, 39));
+        ahpProcess.add(jLabel28, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 440, -1, 39));
 
         AH1.setBackground(new java.awt.Color(204, 204, 204));
         groupAH.add(AH1);
@@ -2351,7 +2353,7 @@ public class Home extends javax.swing.JFrame {
 
         jLabel31.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLabel31.setText("Potensi TBS");
-        ahpProcess.add(jLabel31, new org.netbeans.lib.awtextra.AbsoluteConstraints(780, 440, -1, 39));
+        ahpProcess.add(jLabel31, new org.netbeans.lib.awtextra.AbsoluteConstraints(770, 440, -1, 39));
 
         jSeparator7.setBackground(new java.awt.Color(0, 0, 0));
         jSeparator7.setOrientation(javax.swing.SwingConstants.VERTICAL);
@@ -2483,7 +2485,7 @@ public class Home extends javax.swing.JFrame {
 
         jLabel34.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLabel34.setText("Rendemen");
-        ahpProcess.add(jLabel34, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 570, -1, 39));
+        ahpProcess.add(jLabel34, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 570, -1, 39));
 
         BD1.setBackground(new java.awt.Color(204, 204, 204));
         groupBD.add(BD1);
@@ -2608,7 +2610,7 @@ public class Home extends javax.swing.JFrame {
 
         jLabel37.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLabel37.setText("Potensi CPO");
-        ahpProcess.add(jLabel37, new org.netbeans.lib.awtextra.AbsoluteConstraints(760, 570, -1, 39));
+        ahpProcess.add(jLabel37, new org.netbeans.lib.awtextra.AbsoluteConstraints(770, 570, -1, 39));
 
         jSeparator9.setBackground(new java.awt.Color(0, 0, 0));
         jSeparator9.setOrientation(javax.swing.SwingConstants.VERTICAL);
@@ -2736,7 +2738,7 @@ public class Home extends javax.swing.JFrame {
 
         jLabel39.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLabel39.setText("Tinggi");
-        ahpProcess.add(jLabel39, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 700, -1, 39));
+        ahpProcess.add(jLabel39, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 700, -1, 39));
 
         jSeparator11.setBackground(new java.awt.Color(0, 0, 0));
         ahpProcess.add(jSeparator11, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 790, 880, 10));
@@ -3113,7 +3115,7 @@ public class Home extends javax.swing.JFrame {
 
         jLabel45.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLabel45.setText("Kerapatan Tanam");
-        ahpProcess.add(jLabel45, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 830, -1, 39));
+        ahpProcess.add(jLabel45, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 830, -1, 39));
 
         CD1.setBackground(new java.awt.Color(204, 204, 204));
         groupCD.add(CD1);
@@ -3238,7 +3240,7 @@ public class Home extends javax.swing.JFrame {
 
         jLabel47.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLabel47.setText("Potensi TBS");
-        ahpProcess.add(jLabel47, new org.netbeans.lib.awtextra.AbsoluteConstraints(450, 830, -1, 39));
+        ahpProcess.add(jLabel47, new org.netbeans.lib.awtextra.AbsoluteConstraints(470, 830, -1, 39));
 
         jSeparator14.setBackground(new java.awt.Color(0, 0, 0));
         jSeparator14.setOrientation(javax.swing.SwingConstants.VERTICAL);
@@ -3246,7 +3248,7 @@ public class Home extends javax.swing.JFrame {
 
         jLabel50.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLabel50.setText("Rendemen");
-        ahpProcess.add(jLabel50, new org.netbeans.lib.awtextra.AbsoluteConstraints(760, 830, -1, 39));
+        ahpProcess.add(jLabel50, new org.netbeans.lib.awtextra.AbsoluteConstraints(780, 830, -1, 39));
 
         CE1.setBackground(new java.awt.Color(204, 204, 204));
         groupCE.add(CE1);
@@ -3487,11 +3489,11 @@ public class Home extends javax.swing.JFrame {
 
         jLabel51.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLabel51.setText("Potensi CPO");
-        ahpProcess.add(jLabel51, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 960, -1, 39));
+        ahpProcess.add(jLabel51, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 960, -1, 39));
 
         jLabel52.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLabel52.setText("Potensi TBS");
-        ahpProcess.add(jLabel52, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 960, -1, 39));
+        ahpProcess.add(jLabel52, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 960, -1, 39));
 
         jSeparator16.setBackground(new java.awt.Color(0, 0, 0));
         jSeparator16.setOrientation(javax.swing.SwingConstants.VERTICAL);
@@ -3616,11 +3618,11 @@ public class Home extends javax.swing.JFrame {
 
         jLabel55.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLabel55.setText("Potensi TBS");
-        ahpProcess.add(jLabel55, new org.netbeans.lib.awtextra.AbsoluteConstraints(450, 960, -1, 39));
+        ahpProcess.add(jLabel55, new org.netbeans.lib.awtextra.AbsoluteConstraints(470, 960, -1, 39));
 
         jLabel56.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLabel56.setText("Tinggi");
-        ahpProcess.add(jLabel56, new org.netbeans.lib.awtextra.AbsoluteConstraints(780, 960, -1, 39));
+        ahpProcess.add(jLabel56, new org.netbeans.lib.awtextra.AbsoluteConstraints(790, 960, -1, 39));
 
         jSeparator17.setBackground(new java.awt.Color(0, 0, 0));
         ahpProcess.add(jSeparator17, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 1180, 880, 10));
@@ -3744,11 +3746,11 @@ public class Home extends javax.swing.JFrame {
 
         jLabel57.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLabel57.setText("Panjang Pelepah");
-        ahpProcess.add(jLabel57, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 1090, -1, 39));
+        ahpProcess.add(jLabel57, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 1090, -1, 39));
 
         jLabel59.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLabel59.setText("Potensi TBS");
-        ahpProcess.add(jLabel59, new org.netbeans.lib.awtextra.AbsoluteConstraints(450, 1090, -1, 39));
+        ahpProcess.add(jLabel59, new org.netbeans.lib.awtextra.AbsoluteConstraints(470, 1090, -1, 39));
 
         jSeparator18.setBackground(new java.awt.Color(0, 0, 0));
         jSeparator18.setOrientation(javax.swing.SwingConstants.VERTICAL);
@@ -3873,11 +3875,11 @@ public class Home extends javax.swing.JFrame {
 
         jLabel61.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLabel61.setText("Potensi TBS");
-        ahpProcess.add(jLabel61, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 1090, -1, 39));
+        ahpProcess.add(jLabel61, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 1090, -1, 39));
 
         jLabel62.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLabel62.setText("Kerapatan Tanam");
-        ahpProcess.add(jLabel62, new org.netbeans.lib.awtextra.AbsoluteConstraints(740, 1090, -1, 39));
+        ahpProcess.add(jLabel62, new org.netbeans.lib.awtextra.AbsoluteConstraints(750, 1090, -1, 39));
 
         DF1.setBackground(new java.awt.Color(204, 204, 204));
         groupDF.add(DF1);
@@ -4002,11 +4004,11 @@ public class Home extends javax.swing.JFrame {
 
         jLabel64.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLabel64.setText("Potensi CPO");
-        ahpProcess.add(jLabel64, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 1220, -1, 39));
+        ahpProcess.add(jLabel64, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 1220, -1, 39));
 
         jLabel65.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLabel65.setText("Tinggi");
-        ahpProcess.add(jLabel65, new org.netbeans.lib.awtextra.AbsoluteConstraints(750, 1220, -1, 39));
+        ahpProcess.add(jLabel65, new org.netbeans.lib.awtextra.AbsoluteConstraints(790, 1220, -1, 39));
 
         jSeparator20.setBackground(new java.awt.Color(0, 0, 0));
         ahpProcess.add(jSeparator20, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 1310, 880, 10));
@@ -4130,11 +4132,11 @@ public class Home extends javax.swing.JFrame {
 
         jLabel66.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLabel66.setText("Rendemen");
-        ahpProcess.add(jLabel66, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 1220, -1, 39));
+        ahpProcess.add(jLabel66, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 1220, -1, 39));
 
         jLabel67.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLabel67.setText("Rendemen");
-        ahpProcess.add(jLabel67, new org.netbeans.lib.awtextra.AbsoluteConstraints(450, 1220, -1, 39));
+        ahpProcess.add(jLabel67, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 1220, -1, 39));
 
         DH1.setBackground(new java.awt.Color(204, 204, 204));
         groupDH.add(DH1);
@@ -4255,15 +4257,15 @@ public class Home extends javax.swing.JFrame {
 
         jLabel69.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLabel69.setText("Rendemen");
-        ahpProcess.add(jLabel69, new org.netbeans.lib.awtextra.AbsoluteConstraints(450, 1350, -1, 39));
+        ahpProcess.add(jLabel69, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 1350, -1, 39));
 
         jLabel71.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLabel71.setText("Rendemen");
-        ahpProcess.add(jLabel71, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 1350, -1, 39));
+        ahpProcess.add(jLabel71, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 1350, -1, 39));
 
         jLabel72.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLabel72.setText("Kerapatan Tanam");
-        ahpProcess.add(jLabel72, new org.netbeans.lib.awtextra.AbsoluteConstraints(740, 1350, -1, 39));
+        ahpProcess.add(jLabel72, new org.netbeans.lib.awtextra.AbsoluteConstraints(750, 1350, -1, 39));
 
         jSeparator21.setBackground(new java.awt.Color(0, 0, 0));
         ahpProcess.add(jSeparator21, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 1440, 880, 10));
@@ -4387,7 +4389,7 @@ public class Home extends javax.swing.JFrame {
 
         jLabel73.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLabel73.setText("Panjang Pelepah");
-        ahpProcess.add(jLabel73, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 1350, -1, 39));
+        ahpProcess.add(jLabel73, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 1350, -1, 39));
 
         jSeparator22.setBackground(new java.awt.Color(0, 0, 0));
         jSeparator22.setOrientation(javax.swing.SwingConstants.VERTICAL);
@@ -4512,18 +4514,18 @@ public class Home extends javax.swing.JFrame {
 
         jLabel75.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLabel75.setText("Potensi CPO");
-        ahpProcess.add(jLabel75, new org.netbeans.lib.awtextra.AbsoluteConstraints(450, 1480, -1, 39));
+        ahpProcess.add(jLabel75, new org.netbeans.lib.awtextra.AbsoluteConstraints(470, 1480, -1, 39));
 
         jLabel76.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLabel76.setText("Tinggi");
-        ahpProcess.add(jLabel76, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 1480, -1, 39));
+        ahpProcess.add(jLabel76, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 1480, -1, 39));
 
         jSeparator23.setBackground(new java.awt.Color(0, 0, 0));
         ahpProcess.add(jSeparator23, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 1570, 880, 10));
 
         jLabel79.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLabel79.setText("Potensi CPO");
-        ahpProcess.add(jLabel79, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 1480, -1, 39));
+        ahpProcess.add(jLabel79, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 1480, -1, 39));
 
         jSeparator24.setBackground(new java.awt.Color(0, 0, 0));
         jSeparator24.setOrientation(javax.swing.SwingConstants.VERTICAL);
@@ -4648,7 +4650,7 @@ public class Home extends javax.swing.JFrame {
 
         jLabel80.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLabel80.setText("Panjang Pelepah");
-        ahpProcess.add(jLabel80, new org.netbeans.lib.awtextra.AbsoluteConstraints(740, 1480, -1, 39));
+        ahpProcess.add(jLabel80, new org.netbeans.lib.awtextra.AbsoluteConstraints(750, 1480, -1, 39));
 
         jLabel81.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLabel81.setText("Panjang Pelepah");
@@ -4656,15 +4658,15 @@ public class Home extends javax.swing.JFrame {
 
         jLabel82.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLabel82.setText("Kerapatan Tanam");
-        ahpProcess.add(jLabel82, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 1610, -1, 39));
+        ahpProcess.add(jLabel82, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 1610, -1, 39));
 
         jLabel83.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLabel83.setText("Tinggi");
-        ahpProcess.add(jLabel83, new org.netbeans.lib.awtextra.AbsoluteConstraints(450, 1610, -1, 39));
+        ahpProcess.add(jLabel83, new org.netbeans.lib.awtextra.AbsoluteConstraints(490, 1610, -1, 39));
 
         jLabel86.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLabel86.setText("Potensi CPO");
-        ahpProcess.add(jLabel86, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 1610, -1, 39));
+        ahpProcess.add(jLabel86, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 1610, -1, 39));
 
         jSeparator25.setBackground(new java.awt.Color(0, 0, 0));
         jSeparator25.setOrientation(javax.swing.SwingConstants.VERTICAL);
@@ -5026,22 +5028,22 @@ public class Home extends javax.swing.JFrame {
 
         jLabel88.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLabel88.setText("Panjang Pelepah");
-        ahpProcess.add(jLabel88, new org.netbeans.lib.awtextra.AbsoluteConstraints(450, 1740, -1, 39));
+        ahpProcess.add(jLabel88, new org.netbeans.lib.awtextra.AbsoluteConstraints(460, 1740, -1, 39));
 
         jLabel89.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLabel89.setText("Tinggi");
-        ahpProcess.add(jLabel89, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 1740, -1, 39));
+        ahpProcess.add(jLabel89, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 1740, -1, 39));
 
         jSeparator27.setBackground(new java.awt.Color(0, 0, 0));
         ahpProcess.add(jSeparator27, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 1830, 880, 10));
 
         jLabel90.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLabel90.setText("Kerapatan Tanam");
-        ahpProcess.add(jLabel90, new org.netbeans.lib.awtextra.AbsoluteConstraints(740, 1740, -1, 39));
+        ahpProcess.add(jLabel90, new org.netbeans.lib.awtextra.AbsoluteConstraints(750, 1740, -1, 39));
 
         jLabel91.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLabel91.setText("Kerapatan Tanam");
-        ahpProcess.add(jLabel91, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 1740, -1, 39));
+        ahpProcess.add(jLabel91, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 1740, -1, 39));
 
         jSeparator28.setBackground(new java.awt.Color(0, 0, 0));
         jSeparator28.setOrientation(javax.swing.SwingConstants.VERTICAL);
@@ -5051,17 +5053,19 @@ public class Home extends javax.swing.JFrame {
         ac.add(ACa);
         ACa.setForeground(new java.awt.Color(204, 204, 204));
         ACa.setText("1");
-        ACa.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        ACa.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        ACa.setHorizontalTextPosition(javax.swing.SwingConstants.RIGHT);
         ACa.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-        ahpProcess.add(ACa, new org.netbeans.lib.awtextra.AbsoluteConstraints(510, 30, -1, -1));
+        ahpProcess.add(ACa, new org.netbeans.lib.awtextra.AbsoluteConstraints(500, 30, -1, -1));
 
         ACc.setBackground(new java.awt.Color(204, 204, 204));
         ac.add(ACc);
         ACc.setForeground(new java.awt.Color(204, 204, 204));
         ACc.setText("0");
-        ACc.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        ACc.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        ACc.setHorizontalTextPosition(javax.swing.SwingConstants.RIGHT);
         ACc.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-        ahpProcess.add(ACc, new org.netbeans.lib.awtextra.AbsoluteConstraints(790, 30, -1, -1));
+        ahpProcess.add(ACc, new org.netbeans.lib.awtextra.AbsoluteConstraints(800, 30, -1, -1));
 
         ADa.setBackground(new java.awt.Color(204, 204, 204));
         ad.add(ADa);
@@ -5070,7 +5074,7 @@ public class Home extends javax.swing.JFrame {
         ADa.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         ADa.setHorizontalTextPosition(javax.swing.SwingConstants.RIGHT);
         ADa.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-        ahpProcess.add(ADa, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 160, -1, -1));
+        ahpProcess.add(ADa, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 160, -1, -1));
 
         ADd.setBackground(new java.awt.Color(204, 204, 204));
         ad.add(ADd);
@@ -5079,7 +5083,7 @@ public class Home extends javax.swing.JFrame {
         ADd.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         ADd.setHorizontalTextPosition(javax.swing.SwingConstants.RIGHT);
         ADd.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-        ahpProcess.add(ADd, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 160, -1, -1));
+        ahpProcess.add(ADd, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 160, -1, -1));
 
         AEa.setBackground(new java.awt.Color(204, 204, 204));
         ae.add(AEa);
@@ -5088,7 +5092,7 @@ public class Home extends javax.swing.JFrame {
         AEa.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         AEa.setHorizontalTextPosition(javax.swing.SwingConstants.RIGHT);
         AEa.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-        ahpProcess.add(AEa, new org.netbeans.lib.awtextra.AbsoluteConstraints(510, 160, -1, -1));
+        ahpProcess.add(AEa, new org.netbeans.lib.awtextra.AbsoluteConstraints(500, 160, -1, -1));
 
         AEe.setBackground(new java.awt.Color(204, 204, 204));
         ae.add(AEe);
@@ -5097,7 +5101,7 @@ public class Home extends javax.swing.JFrame {
         AEe.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         AEe.setHorizontalTextPosition(javax.swing.SwingConstants.RIGHT);
         AEe.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-        ahpProcess.add(AEe, new org.netbeans.lib.awtextra.AbsoluteConstraints(790, 160, -1, -1));
+        ahpProcess.add(AEe, new org.netbeans.lib.awtextra.AbsoluteConstraints(800, 160, -1, -1));
 
         AFa.setBackground(new java.awt.Color(204, 204, 204));
         af.add(AFa);
@@ -5106,7 +5110,7 @@ public class Home extends javax.swing.JFrame {
         AFa.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         AFa.setHorizontalTextPosition(javax.swing.SwingConstants.RIGHT);
         AFa.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-        ahpProcess.add(AFa, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 290, -1, -1));
+        ahpProcess.add(AFa, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 290, -1, -1));
 
         AFf.setBackground(new java.awt.Color(204, 204, 204));
         af.add(AFf);
@@ -5115,7 +5119,7 @@ public class Home extends javax.swing.JFrame {
         AFf.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         AFf.setHorizontalTextPosition(javax.swing.SwingConstants.RIGHT);
         AFf.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-        ahpProcess.add(AFf, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 290, -1, -1));
+        ahpProcess.add(AFf, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 290, -1, -1));
 
         AGa.setBackground(new java.awt.Color(204, 204, 204));
         ag.add(AGa);
@@ -5124,7 +5128,7 @@ public class Home extends javax.swing.JFrame {
         AGa.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         AGa.setHorizontalTextPosition(javax.swing.SwingConstants.RIGHT);
         AGa.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-        ahpProcess.add(AGa, new org.netbeans.lib.awtextra.AbsoluteConstraints(510, 290, -1, -1));
+        ahpProcess.add(AGa, new org.netbeans.lib.awtextra.AbsoluteConstraints(500, 290, -1, -1));
 
         AGg.setBackground(new java.awt.Color(204, 204, 204));
         ag.add(AGg);
@@ -5133,7 +5137,7 @@ public class Home extends javax.swing.JFrame {
         AGg.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         AGg.setHorizontalTextPosition(javax.swing.SwingConstants.RIGHT);
         AGg.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-        ahpProcess.add(AGg, new org.netbeans.lib.awtextra.AbsoluteConstraints(790, 290, -1, -1));
+        ahpProcess.add(AGg, new org.netbeans.lib.awtextra.AbsoluteConstraints(800, 290, -1, -1));
 
         AHa.setBackground(new java.awt.Color(204, 204, 204));
         ah.add(AHa);
@@ -5151,7 +5155,7 @@ public class Home extends javax.swing.JFrame {
         AHh.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         AHh.setHorizontalTextPosition(javax.swing.SwingConstants.RIGHT);
         AHh.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-        ahpProcess.add(AHh, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 420, -1, -1));
+        ahpProcess.add(AHh, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 420, -1, -1));
 
         BCb.setBackground(new java.awt.Color(204, 204, 204));
         bc.add(BCb);
@@ -5169,7 +5173,7 @@ public class Home extends javax.swing.JFrame {
         BCc.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         BCc.setHorizontalTextPosition(javax.swing.SwingConstants.RIGHT);
         BCc.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-        ahpProcess.add(BCc, new org.netbeans.lib.awtextra.AbsoluteConstraints(780, 420, -1, -1));
+        ahpProcess.add(BCc, new org.netbeans.lib.awtextra.AbsoluteConstraints(800, 420, -1, -1));
 
         BDb.setBackground(new java.awt.Color(204, 204, 204));
         bd.add(BDb);
@@ -5187,7 +5191,7 @@ public class Home extends javax.swing.JFrame {
         BDd.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         BDd.setHorizontalTextPosition(javax.swing.SwingConstants.RIGHT);
         BDd.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-        ahpProcess.add(BDd, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 550, -1, -1));
+        ahpProcess.add(BDd, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 550, -1, -1));
 
         BEb.setBackground(new java.awt.Color(204, 204, 204));
         be.add(BEb);
@@ -5205,7 +5209,7 @@ public class Home extends javax.swing.JFrame {
         BEe.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         BEe.setHorizontalTextPosition(javax.swing.SwingConstants.RIGHT);
         BEe.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-        ahpProcess.add(BEe, new org.netbeans.lib.awtextra.AbsoluteConstraints(780, 550, -1, -1));
+        ahpProcess.add(BEe, new org.netbeans.lib.awtextra.AbsoluteConstraints(800, 550, -1, -1));
 
         BFb.setBackground(new java.awt.Color(204, 204, 204));
         bf.add(BFb);
@@ -5232,7 +5236,7 @@ public class Home extends javax.swing.JFrame {
         BGb.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         BGb.setHorizontalTextPosition(javax.swing.SwingConstants.RIGHT);
         BGb.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-        ahpProcess.add(BGb, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 680, -1, -1));
+        ahpProcess.add(BGb, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 680, -1, -1));
 
         BGg.setBackground(new java.awt.Color(204, 204, 204));
         bg.add(BGg);
@@ -5241,7 +5245,7 @@ public class Home extends javax.swing.JFrame {
         BGg.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         BGg.setHorizontalTextPosition(javax.swing.SwingConstants.RIGHT);
         BGg.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-        ahpProcess.add(BGg, new org.netbeans.lib.awtextra.AbsoluteConstraints(780, 680, -1, -1));
+        ahpProcess.add(BGg, new org.netbeans.lib.awtextra.AbsoluteConstraints(800, 680, -1, -1));
 
         BHb.setBackground(new java.awt.Color(204, 204, 204));
         cd.add(BHb);
@@ -5259,7 +5263,7 @@ public class Home extends javax.swing.JFrame {
         BHh.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         BHh.setHorizontalTextPosition(javax.swing.SwingConstants.RIGHT);
         BHh.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-        ahpProcess.add(BHh, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 810, -1, -1));
+        ahpProcess.add(BHh, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 810, -1, -1));
 
         CDc.setBackground(new java.awt.Color(204, 204, 204));
         bh.add(CDc);
@@ -5277,7 +5281,7 @@ public class Home extends javax.swing.JFrame {
         CDd.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         CDd.setHorizontalTextPosition(javax.swing.SwingConstants.RIGHT);
         CDd.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-        ahpProcess.add(CDd, new org.netbeans.lib.awtextra.AbsoluteConstraints(780, 810, -1, -1));
+        ahpProcess.add(CDd, new org.netbeans.lib.awtextra.AbsoluteConstraints(800, 810, -1, -1));
 
         ABb14.setBackground(new java.awt.Color(204, 204, 204));
         cf.add(ABb14);
@@ -5295,7 +5299,7 @@ public class Home extends javax.swing.JFrame {
         ABa14.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         ABa14.setHorizontalTextPosition(javax.swing.SwingConstants.RIGHT);
         ABa14.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-        ahpProcess.add(ABa14, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 940, -1, -1));
+        ahpProcess.add(ABa14, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 940, -1, -1));
 
         ABb15.setBackground(new java.awt.Color(204, 204, 204));
         ce.add(ABb15);
@@ -5313,7 +5317,7 @@ public class Home extends javax.swing.JFrame {
         ABa15.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         ABa15.setHorizontalTextPosition(javax.swing.SwingConstants.RIGHT);
         ABa15.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-        ahpProcess.add(ABa15, new org.netbeans.lib.awtextra.AbsoluteConstraints(780, 940, -1, -1));
+        ahpProcess.add(ABa15, new org.netbeans.lib.awtextra.AbsoluteConstraints(800, 940, -1, -1));
 
         ABb16.setBackground(new java.awt.Color(204, 204, 204));
         ch.add(ABb16);
@@ -5322,7 +5326,7 @@ public class Home extends javax.swing.JFrame {
         ABb16.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         ABb16.setHorizontalTextPosition(javax.swing.SwingConstants.RIGHT);
         ABb16.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-        ahpProcess.add(ABb16, new org.netbeans.lib.awtextra.AbsoluteConstraints(490, 1070, -1, -1));
+        ahpProcess.add(ABb16, new org.netbeans.lib.awtextra.AbsoluteConstraints(500, 1070, -1, -1));
 
         ABa16.setBackground(new java.awt.Color(204, 204, 204));
         cg.add(ABa16);
@@ -5331,7 +5335,7 @@ public class Home extends javax.swing.JFrame {
         ABa16.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         ABa16.setHorizontalTextPosition(javax.swing.SwingConstants.RIGHT);
         ABa16.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-        ahpProcess.add(ABa16, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 1070, -1, -1));
+        ahpProcess.add(ABa16, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 1070, -1, -1));
 
         ABb17.setBackground(new java.awt.Color(204, 204, 204));
         cg.add(ABb17);
@@ -5340,7 +5344,7 @@ public class Home extends javax.swing.JFrame {
         ABb17.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         ABb17.setHorizontalTextPosition(javax.swing.SwingConstants.RIGHT);
         ABb17.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-        ahpProcess.add(ABb17, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 1070, -1, -1));
+        ahpProcess.add(ABb17, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 1070, -1, -1));
 
         ABa17.setBackground(new java.awt.Color(204, 204, 204));
         ch.add(ABa17);
@@ -5349,7 +5353,7 @@ public class Home extends javax.swing.JFrame {
         ABa17.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         ABa17.setHorizontalTextPosition(javax.swing.SwingConstants.RIGHT);
         ABa17.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-        ahpProcess.add(ABa17, new org.netbeans.lib.awtextra.AbsoluteConstraints(770, 1070, -1, -1));
+        ahpProcess.add(ABa17, new org.netbeans.lib.awtextra.AbsoluteConstraints(800, 1070, -1, -1));
 
         ABb18.setBackground(new java.awt.Color(204, 204, 204));
         df.add(ABb18);
@@ -5358,7 +5362,7 @@ public class Home extends javax.swing.JFrame {
         ABb18.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         ABb18.setHorizontalTextPosition(javax.swing.SwingConstants.RIGHT);
         ABb18.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-        ahpProcess.add(ABb18, new org.netbeans.lib.awtextra.AbsoluteConstraints(490, 1200, -1, -1));
+        ahpProcess.add(ABb18, new org.netbeans.lib.awtextra.AbsoluteConstraints(500, 1200, -1, -1));
 
         ABa18.setBackground(new java.awt.Color(204, 204, 204));
         de.add(ABa18);
@@ -5367,7 +5371,7 @@ public class Home extends javax.swing.JFrame {
         ABa18.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         ABa18.setHorizontalTextPosition(javax.swing.SwingConstants.RIGHT);
         ABa18.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-        ahpProcess.add(ABa18, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 1200, -1, -1));
+        ahpProcess.add(ABa18, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 1200, -1, -1));
 
         ABb19.setBackground(new java.awt.Color(204, 204, 204));
         de.add(ABb19);
@@ -5376,7 +5380,7 @@ public class Home extends javax.swing.JFrame {
         ABb19.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         ABb19.setHorizontalTextPosition(javax.swing.SwingConstants.RIGHT);
         ABb19.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-        ahpProcess.add(ABb19, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 1200, -1, -1));
+        ahpProcess.add(ABb19, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 1200, -1, -1));
 
         ABa19.setBackground(new java.awt.Color(204, 204, 204));
         df.add(ABa19);
@@ -5385,7 +5389,7 @@ public class Home extends javax.swing.JFrame {
         ABa19.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         ABa19.setHorizontalTextPosition(javax.swing.SwingConstants.RIGHT);
         ABa19.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-        ahpProcess.add(ABa19, new org.netbeans.lib.awtextra.AbsoluteConstraints(770, 1200, -1, -1));
+        ahpProcess.add(ABa19, new org.netbeans.lib.awtextra.AbsoluteConstraints(800, 1200, -1, -1));
 
         ABb20.setBackground(new java.awt.Color(204, 204, 204));
         dh.add(ABb20);
@@ -5394,7 +5398,7 @@ public class Home extends javax.swing.JFrame {
         ABb20.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         ABb20.setHorizontalTextPosition(javax.swing.SwingConstants.RIGHT);
         ABb20.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-        ahpProcess.add(ABb20, new org.netbeans.lib.awtextra.AbsoluteConstraints(490, 1330, -1, -1));
+        ahpProcess.add(ABb20, new org.netbeans.lib.awtextra.AbsoluteConstraints(500, 1330, -1, -1));
 
         ABa20.setBackground(new java.awt.Color(204, 204, 204));
         dg.add(ABa20);
@@ -5403,7 +5407,7 @@ public class Home extends javax.swing.JFrame {
         ABa20.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         ABa20.setHorizontalTextPosition(javax.swing.SwingConstants.RIGHT);
         ABa20.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-        ahpProcess.add(ABa20, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 1330, -1, -1));
+        ahpProcess.add(ABa20, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 1330, -1, -1));
 
         ABb21.setBackground(new java.awt.Color(204, 204, 204));
         dg.add(ABb21);
@@ -5412,7 +5416,7 @@ public class Home extends javax.swing.JFrame {
         ABb21.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         ABb21.setHorizontalTextPosition(javax.swing.SwingConstants.RIGHT);
         ABb21.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-        ahpProcess.add(ABb21, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 1330, -1, -1));
+        ahpProcess.add(ABb21, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 1330, -1, -1));
 
         ABa21.setBackground(new java.awt.Color(204, 204, 204));
         dh.add(ABa21);
@@ -5421,7 +5425,7 @@ public class Home extends javax.swing.JFrame {
         ABa21.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         ABa21.setHorizontalTextPosition(javax.swing.SwingConstants.RIGHT);
         ABa21.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-        ahpProcess.add(ABa21, new org.netbeans.lib.awtextra.AbsoluteConstraints(770, 1330, -1, -1));
+        ahpProcess.add(ABa21, new org.netbeans.lib.awtextra.AbsoluteConstraints(800, 1330, -1, -1));
 
         ABb22.setBackground(new java.awt.Color(204, 204, 204));
         eg.add(ABb22);
@@ -5430,7 +5434,7 @@ public class Home extends javax.swing.JFrame {
         ABb22.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         ABb22.setHorizontalTextPosition(javax.swing.SwingConstants.RIGHT);
         ABb22.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-        ahpProcess.add(ABb22, new org.netbeans.lib.awtextra.AbsoluteConstraints(490, 1460, -1, -1));
+        ahpProcess.add(ABb22, new org.netbeans.lib.awtextra.AbsoluteConstraints(500, 1460, -1, -1));
 
         ABa22.setBackground(new java.awt.Color(204, 204, 204));
         ef.add(ABa22);
@@ -5439,7 +5443,7 @@ public class Home extends javax.swing.JFrame {
         ABa22.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         ABa22.setHorizontalTextPosition(javax.swing.SwingConstants.RIGHT);
         ABa22.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-        ahpProcess.add(ABa22, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 1460, -1, -1));
+        ahpProcess.add(ABa22, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 1460, -1, -1));
 
         ABb23.setBackground(new java.awt.Color(204, 204, 204));
         ef.add(ABb23);
@@ -5448,7 +5452,7 @@ public class Home extends javax.swing.JFrame {
         ABb23.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         ABb23.setHorizontalTextPosition(javax.swing.SwingConstants.RIGHT);
         ABb23.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-        ahpProcess.add(ABb23, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 1460, -1, -1));
+        ahpProcess.add(ABb23, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 1460, -1, -1));
 
         ABa23.setBackground(new java.awt.Color(204, 204, 204));
         eg.add(ABa23);
@@ -5457,7 +5461,7 @@ public class Home extends javax.swing.JFrame {
         ABa23.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         ABa23.setHorizontalTextPosition(javax.swing.SwingConstants.RIGHT);
         ABa23.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-        ahpProcess.add(ABa23, new org.netbeans.lib.awtextra.AbsoluteConstraints(770, 1460, -1, -1));
+        ahpProcess.add(ABa23, new org.netbeans.lib.awtextra.AbsoluteConstraints(800, 1460, -1, -1));
 
         ABb24.setBackground(new java.awt.Color(204, 204, 204));
         fg.add(ABb24);
@@ -5466,7 +5470,7 @@ public class Home extends javax.swing.JFrame {
         ABb24.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         ABb24.setHorizontalTextPosition(javax.swing.SwingConstants.RIGHT);
         ABb24.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-        ahpProcess.add(ABb24, new org.netbeans.lib.awtextra.AbsoluteConstraints(490, 1590, -1, -1));
+        ahpProcess.add(ABb24, new org.netbeans.lib.awtextra.AbsoluteConstraints(500, 1590, -1, -1));
 
         ABa24.setBackground(new java.awt.Color(204, 204, 204));
         eh.add(ABa24);
@@ -5475,7 +5479,7 @@ public class Home extends javax.swing.JFrame {
         ABa24.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         ABa24.setHorizontalTextPosition(javax.swing.SwingConstants.RIGHT);
         ABa24.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-        ahpProcess.add(ABa24, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 1590, -1, -1));
+        ahpProcess.add(ABa24, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 1590, -1, -1));
 
         ABb25.setBackground(new java.awt.Color(204, 204, 204));
         eh.add(ABb25);
@@ -5484,7 +5488,7 @@ public class Home extends javax.swing.JFrame {
         ABb25.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         ABb25.setHorizontalTextPosition(javax.swing.SwingConstants.RIGHT);
         ABb25.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-        ahpProcess.add(ABb25, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 1590, -1, -1));
+        ahpProcess.add(ABb25, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 1590, -1, -1));
 
         ABa25.setBackground(new java.awt.Color(204, 204, 204));
         fg.add(ABa25);
@@ -5493,7 +5497,7 @@ public class Home extends javax.swing.JFrame {
         ABa25.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         ABa25.setHorizontalTextPosition(javax.swing.SwingConstants.RIGHT);
         ABa25.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-        ahpProcess.add(ABa25, new org.netbeans.lib.awtextra.AbsoluteConstraints(770, 1590, -1, -1));
+        ahpProcess.add(ABa25, new org.netbeans.lib.awtextra.AbsoluteConstraints(800, 1590, -1, -1));
 
         ABb26.setBackground(new java.awt.Color(204, 204, 204));
         gh.add(ABb26);
@@ -5502,7 +5506,7 @@ public class Home extends javax.swing.JFrame {
         ABb26.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         ABb26.setHorizontalTextPosition(javax.swing.SwingConstants.RIGHT);
         ABb26.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-        ahpProcess.add(ABb26, new org.netbeans.lib.awtextra.AbsoluteConstraints(490, 1720, -1, -1));
+        ahpProcess.add(ABb26, new org.netbeans.lib.awtextra.AbsoluteConstraints(500, 1720, -1, -1));
 
         ABa26.setBackground(new java.awt.Color(204, 204, 204));
         fh.add(ABa26);
@@ -5511,7 +5515,7 @@ public class Home extends javax.swing.JFrame {
         ABa26.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         ABa26.setHorizontalTextPosition(javax.swing.SwingConstants.RIGHT);
         ABa26.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-        ahpProcess.add(ABa26, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 1720, -1, -1));
+        ahpProcess.add(ABa26, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 1720, -1, -1));
 
         ABb27.setBackground(new java.awt.Color(204, 204, 204));
         fh.add(ABb27);
@@ -5520,7 +5524,7 @@ public class Home extends javax.swing.JFrame {
         ABb27.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         ABb27.setHorizontalTextPosition(javax.swing.SwingConstants.RIGHT);
         ABb27.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-        ahpProcess.add(ABb27, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 1720, -1, -1));
+        ahpProcess.add(ABb27, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 1720, -1, -1));
 
         ABa27.setBackground(new java.awt.Color(204, 204, 204));
         gh.add(ABa27);
@@ -5529,7 +5533,7 @@ public class Home extends javax.swing.JFrame {
         ABa27.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         ABa27.setHorizontalTextPosition(javax.swing.SwingConstants.RIGHT);
         ABa27.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-        ahpProcess.add(ABa27, new org.netbeans.lib.awtextra.AbsoluteConstraints(770, 1720, -1, -1));
+        ahpProcess.add(ABa27, new org.netbeans.lib.awtextra.AbsoluteConstraints(800, 1720, -1, -1));
 
         jScrollPane1.setViewportView(ahpProcess);
 
